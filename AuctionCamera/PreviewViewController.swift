@@ -28,7 +28,8 @@ class PreviewViewController: UIViewController {
     
     
     @IBAction func saveButton_TouchUpInside(_ sender: UIButton) {
-        
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        dismiss(animated: true, completion: nil)
     }
     
     /*
