@@ -12,6 +12,7 @@
 		2D5139BD222AE5DB00AB5647 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139BB222AE5DB00AB5647 /* Main.storyboard */; };
 		2D5139BF222AE5DD00AB5647 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139BE222AE5DD00AB5647 /* Assets.xcassets */; };
 		2D5139C2222AE5DD00AB5647 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */; };
+		2D5139CA222AF27C00AB5647 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		2D5139BE222AE5DD00AB5647 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D5139C1222AE5DD00AB5647 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D5139C3222AE5DD00AB5647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				2D5139B7222AE5DA00AB5647 /* AppDelegate.swift */,
 				2D5139B9222AE5DB00AB5647 /* ViewController.swift */,
+				2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */,
 				2D5139BB222AE5DB00AB5647 /* Main.storyboard */,
 				2D5139BE222AE5DD00AB5647 /* Assets.xcassets */,
 				2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */,
@@ -136,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D5139BA222AE5DB00AB5647 /* ViewController.swift in Sources */,
+				2D5139CA222AF27C00AB5647 /* PreviewViewController.swift in Sources */,
 				2D5139B8222AE5DB00AB5647 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
