@@ -31,6 +31,9 @@ class ViewController: UIViewController {
         setupInputOutput()
         setupPreviewLayer()
         startRunningCapturSession()
+        
+        
+        
     }
 
     func setupCaptureSession(){

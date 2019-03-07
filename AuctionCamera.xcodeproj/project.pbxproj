@@ -13,6 +13,9 @@
 		2D5139BF222AE5DD00AB5647 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139BE222AE5DD00AB5647 /* Assets.xcassets */; };
 		2D5139C2222AE5DD00AB5647 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */; };
 		2D5139CA222AF27C00AB5647 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */; };
+		6067E0CB22311619003FB4EF /* icons8-unchecked-checkbox-filled-500 (1).png in Resources */ = {isa = PBXBuildFile; fileRef = 6067E0CA22311619003FB4EF /* icons8-unchecked-checkbox-filled-500 (1).png */; };
+		6067E0CD22311BA2003FB4EF /* ViewControllerScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6067E0CC22311BA2003FB4EF /* ViewControllerScanner.swift */; };
+		6067E0CF22312188003FB4EF /* ViewControllerVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6067E0CE22312188003FB4EF /* ViewControllerVehicle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		2D5139C1222AE5DD00AB5647 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D5139C3222AE5DD00AB5647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		6067E0CA22311619003FB4EF /* icons8-unchecked-checkbox-filled-500 (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-unchecked-checkbox-filled-500 (1).png"; path = "../../../Downloads/icons8-unchecked-checkbox-filled-500 (1).png"; sourceTree = "<group>"; };
+		6067E0CC22311BA2003FB4EF /* ViewControllerScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerScanner.swift; sourceTree = "<group>"; };
+		6067E0CE22312188003FB4EF /* ViewControllerVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerVehicle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +62,11 @@
 		2D5139B6222AE5DA00AB5647 /* AuctionCamera */ = {
 			isa = PBXGroup;
 			children = (
+				6067E0CA22311619003FB4EF /* icons8-unchecked-checkbox-filled-500 (1).png */,
 				2D5139B7222AE5DA00AB5647 /* AppDelegate.swift */,
 				2D5139B9222AE5DB00AB5647 /* ViewController.swift */,
+				6067E0CC22311BA2003FB4EF /* ViewControllerScanner.swift */,
+				6067E0CE22312188003FB4EF /* ViewControllerVehicle.swift */,
 				2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */,
 				2D5139BB222AE5DB00AB5647 /* Main.storyboard */,
 				2D5139BE222AE5DD00AB5647 /* Assets.xcassets */,
@@ -128,6 +137,7 @@
 				2D5139C2222AE5DD00AB5647 /* LaunchScreen.storyboard in Resources */,
 				2D5139BF222AE5DD00AB5647 /* Assets.xcassets in Resources */,
 				2D5139BD222AE5DB00AB5647 /* Main.storyboard in Resources */,
+				6067E0CB22311619003FB4EF /* icons8-unchecked-checkbox-filled-500 (1).png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +151,8 @@
 				2D5139BA222AE5DB00AB5647 /* ViewController.swift in Sources */,
 				2D5139CA222AF27C00AB5647 /* PreviewViewController.swift in Sources */,
 				2D5139B8222AE5DB00AB5647 /* AppDelegate.swift in Sources */,
+				6067E0CD22311BA2003FB4EF /* ViewControllerScanner.swift in Sources */,
+				6067E0CF22312188003FB4EF /* ViewControllerVehicle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

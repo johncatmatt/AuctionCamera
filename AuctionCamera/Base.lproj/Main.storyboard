@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ssv-3u-Yq9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,6 +10,158 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Photo List-->
+        <scene sceneID="1Hx-Ea-CQw">
+            <objects>
+                <tableViewController id="A82-MX-gZg" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hDn-ns-0Dx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4yg-4O-MAc">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4yg-4O-MAc" id="C7K-qE-WOA">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="A82-MX-gZg" id="kuJ-tB-5l6"/>
+                            <outlet property="delegate" destination="A82-MX-gZg" id="hd2-ao-FMh"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Photo List" id="KyH-Bf-e56">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="F38-zi-MWr">
+                            <connections>
+                                <segue destination="NrW-S1-dZn" kind="show" id="53S-e5-Yy2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M3G-0i-863" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1023" y="-437"/>
+        </scene>
+        <!--View Controller Vehicle-->
+        <scene sceneID="zF8-R7-pCY">
+            <objects>
+                <viewController id="NrW-S1-dZn" customClass="ViewControllerVehicle" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Nha-0n-tJy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncc-UE-biP">
+                                <rect key="frame" x="111" y="185" width="170" height="136"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="136" id="4eo-iU-gDC"/>
+                                </constraints>
+                                <state key="normal" title="Bar Code Scanner" image="icons8-unchecked-checkbox-filled-500 (1).png"/>
+                                <connections>
+                                    <segue destination="Q9b-sw-Q6g" kind="show" identifier="ScanSegue" id="IFS-eG-HPR"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter VIN or press Scan button" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6go-j7-sKp">
+                                <rect key="frame" x="53" y="103" width="286" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIN:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roY-Wp-U5m">
+                                <rect key="frame" x="45" y="71" width="38" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxl-af-Mq4">
+                                <rect key="frame" x="111" y="353" width="170" height="133"/>
+                                <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="133" id="Pey-78-rqm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Take Photos">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="butPhotoPress:" destination="NrW-S1-dZn" eventType="touchUpInside" id="zDN-V3-Rbw"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="kvw-X3-gSK"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="roY-Wp-U5m" firstAttribute="top" secondItem="rIr-BU-TLW" secondAttribute="top" constant="7" id="0wf-dJ-2c6"/>
+                            <constraint firstItem="roY-Wp-U5m" firstAttribute="leading" secondItem="rIr-BU-TLW" secondAttribute="leading" constant="45" id="116-nT-JbF"/>
+                            <constraint firstItem="fxl-af-Mq4" firstAttribute="top" secondItem="Ncc-UE-biP" secondAttribute="bottom" constant="32" id="BGo-DQ-7BJ"/>
+                            <constraint firstItem="rIr-BU-TLW" firstAttribute="trailing" secondItem="roY-Wp-U5m" secondAttribute="trailing" constant="292" id="HVo-tb-YYm"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="leading" secondItem="rIr-BU-TLW" secondAttribute="leading" constant="111" id="ZCg-pC-Zke"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="trailing" secondItem="fxl-af-Mq4" secondAttribute="trailing" id="d31-KM-OAj"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="top" secondItem="6go-j7-sKp" secondAttribute="bottom" constant="52" id="d6q-vV-dBj"/>
+                            <constraint firstItem="rIr-BU-TLW" firstAttribute="trailing" secondItem="6go-j7-sKp" secondAttribute="trailing" constant="36" id="nSN-ve-ZDA"/>
+                            <constraint firstItem="6go-j7-sKp" firstAttribute="top" secondItem="roY-Wp-U5m" secondAttribute="bottom" constant="8" id="nWt-X5-513"/>
+                            <constraint firstItem="rIr-BU-TLW" firstAttribute="trailing" secondItem="Ncc-UE-biP" secondAttribute="trailing" constant="94" id="oYh-1a-iSw"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="leading" secondItem="fxl-af-Mq4" secondAttribute="leading" id="xRP-zO-qU0"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="centerX" secondItem="6go-j7-sKp" secondAttribute="centerX" id="y38-U8-MJu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="rIr-BU-TLW"/>
+                    </view>
+                    <connections>
+                        <outlet property="butPhoto" destination="fxl-af-Mq4" id="dHA-p6-sNC"/>
+                        <outlet property="txtVIN" destination="6go-j7-sKp" id="laB-0g-e0o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zfu-UM-QL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-306.39999999999998" y="-436.73163418290858"/>
+        </scene>
+        <!--View Controller Scanner-->
+        <scene sceneID="QZO-E5-9cG">
+            <objects>
+                <viewController id="Q9b-sw-Q6g" customClass="ViewControllerScanner" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eoF-TA-qeE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icons8-unchecked-checkbox-filled-500 (1).png" translatesAutoresizingMaskIntoConstraints="NO" id="9fW-PU-rtH">
+                                <rect key="frame" x="16" y="161" width="345" height="345"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="DVH-eW-VrP"/>
+                    </view>
+                    <connections>
+                        <outlet property="square" destination="9fW-PU-rtH" id="p8H-pQ-j5Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GR8-iQ-Tng" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="469.60000000000002" y="-694.00299850074964"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GnI-Qe-Oau">
+            <objects>
+                <navigationController id="ssv-3u-Yq9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4pf-nb-zaa">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="A82-MX-gZg" kind="relationship" relationship="rootViewController" id="Yfc-Ou-A83"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5NQ-zM-0Rc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1022" y="-1119"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -48,7 +200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="89" y="53"/>
+            <point key="canvasLocation" x="470" y="-15"/>
         </scene>
         <!--Preview View Controller-->
         <scene sceneID="Dog-Wf-CpP">
@@ -87,6 +239,7 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="bkp-yS-mpZ" secondAttribute="bottom" constant="15" id="EJZ-2G-Tet"/>
                                     <constraint firstItem="EJv-Xf-Bq3" firstAttribute="top" secondItem="TKk-Hq-UAy" secondAttribute="top" constant="15" id="GNg-uq-WAj"/>
+                                    <constraint firstItem="bkp-yS-mpZ" firstAttribute="leading" secondItem="EJv-Xf-Bq3" secondAttribute="trailing" constant="277" id="LqP-CF-kMG"/>
                                     <constraint firstItem="bkp-yS-mpZ" firstAttribute="top" secondItem="TKk-Hq-UAy" secondAttribute="top" constant="15" id="Qru-RN-Jsm"/>
                                     <constraint firstItem="EJv-Xf-Bq3" firstAttribute="leading" secondItem="TKk-Hq-UAy" secondAttribute="leading" constant="8" id="VD5-5r-iKn"/>
                                     <constraint firstAttribute="height" constant="60" id="nyC-Dt-CxC"/>
@@ -113,7 +266,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blX-MC-r6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="954" y="53"/>
+            <point key="canvasLocation" x="1212" y="-15"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-unchecked-checkbox-filled-500 (1).png" width="500" height="500"/>
+    </resources>
 </document>
