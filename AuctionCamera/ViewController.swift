@@ -98,7 +98,7 @@ class ViewController: UIViewController {
 extension ViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
-           // print(imageData)
+     //  print(imageData)
             image = UIImage(data: imageData)
             performSegue(withIdentifier: "showPhoto_Segue", sender: nil)
             
