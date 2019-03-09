@@ -42,7 +42,125 @@ class ViewController: UIViewController {
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
     
-    
+    func ExportImage(){
+        
+        
+        
+        //setup URL
+        let vin = "hfhhfhfhfhfhfhfh";
+        
+        
+        
+        let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=0";
+        
+        //  let todoEndpoint: String = "https://secureservice.autouse.com/dlrweb/WebService1.asmx/HelloWorld?dlrno=00216";
+        
+        guard let url = URL(string: todoEndpoint) else {
+            
+            print("Error: cannot create URL")
+            
+            return
+            
+        }
+        
+        
+        
+        var urlRequest = URLRequest(url: url)
+        
+        
+        
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
+        
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
+        
+        
+        
+        //start the url session
+        
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: urlRequest){ data, response, error in
+            //check for errors
+            
+            guard error == nil else {
+                
+                print("Error calling GET: \(error!)")
+                
+                return
+                
+            }
+            guard let data = data else { print("DATA error"); return }
+            
+            
+            
+            do {
+                
+                //decodes the json from the data
+                
+                
+                //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
+                
+                let d = try JSONDecoder().decode(jsonData.self,from: data)
+                
+                
+                DispatchQueue.main.async {
+                    
+                    let x =  d.imageid;
+                    let y = d.error;
+                    
+                    
+                    //self.lineAmount = d.lineAmount
+                    
+                    //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
+                    
+                    
+                    
+                    let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
+                    
+                    msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+                        
+                        
+                        
+                        msgAlert.dismiss(animated: true, completion: nil)
+                        
+                        
+                        
+                    }))
+                    
+                    
+                    
+                    self.present(msgAlert, animated: true, completion: nil)
+                    
+                    
+                    
+                }
+                
+                
+                
+                
+                
+            } catch let jsonErr{
+                
+                print("JSON Error: ", jsonErr)
+                
+            }
+            
+            
+            
+        }
+        
+        task.resume()
+        
+    }
+    struct jsonData: Decodable {
+        
+        var imageid : NSInteger
+        
+        var error : String
+        
+      //  var lineAmount : String
+        
+    }
     func setupDevice(){
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         let devices = deviceDiscoverySession.devices
