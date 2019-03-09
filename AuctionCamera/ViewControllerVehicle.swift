@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol  SendDataFromDelegateVIN {
+    func sendData(data : String)
+}
+
 class ViewControllerVehicle: UIViewController
 ,SendDataFromDelegate, UITextFieldDelegate{
 
@@ -25,6 +29,7 @@ class ViewControllerVehicle: UIViewController
     @IBAction func butPhotoPress(_ sender: UIButton) {
         
          if txtVIN.text?.isEmpty ?? true {
+          
         let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
      //   alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
@@ -33,6 +38,8 @@ class ViewControllerVehicle: UIViewController
         //        self.navigationController?.popViewController(animated: true)
         //        self.dismiss(animated: true, completion: nil)
         present(alert, animated: true, completion: nil)
+         } else {
+         UserDefaults.standard.set(txtVIN.text, forKey: "vin") //setObject
         }
         
     }
@@ -60,5 +67,7 @@ class ViewControllerVehicle: UIViewController
     
     func sendData(data: String) {
         self.txtVIN.text = data
+        UserDefaults.standard.set(data, forKey: "vin") //setObject
+        
     }
 }

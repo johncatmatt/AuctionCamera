@@ -41,6 +41,7 @@ class ViewControllerTableView: UITableViewController, UISearchBarDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         UserDefaults.standard.removeObject(forKey: "vin")
      //   // SetupRides()
      //   GetFeed()
      //   setupSearchBar()
