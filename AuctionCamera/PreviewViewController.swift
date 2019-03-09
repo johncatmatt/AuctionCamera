@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PreviewViewController: UIViewController {
+class PreviewViewController: UIViewController{
 
     
     @IBOutlet weak var photo: UIImageView!
