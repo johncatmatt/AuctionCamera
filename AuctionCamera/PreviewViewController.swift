@@ -89,7 +89,7 @@ class PreviewViewController: UIViewController
      // let jpg = image1.base64
       //  let imageBase64String = UIImagePNGRepresentation(myimageview.image!)?.base64EncodedString()
 
-        let jpg = image1.pngData()?.base64EncodedString()
+     //   let jpg = image1.pngData()?.base64EncodedString()
         //Saved Image
       //  UserDefaults.standard.set(imageData, forKey: "savedImage")
         //Decode
@@ -118,8 +118,10 @@ class PreviewViewController: UIViewController
     //    let resultString = imageStr as String
    //    let base64Encoded = Data(resultString.utf8).base64EncodedString()
         
-        postRequest(myData: jpg!)
-        dismiss(animated: true, completion: nil)
+       // postRequest(myData: jpg!)
+      
+        testpic()
+     // dismiss(animated: true, completion: nil)
         
         
         
@@ -246,6 +248,9 @@ class PreviewViewController: UIViewController
         task.resume()
         
     }
+    
+    /*(
+    
     struct jsonData: Decodable {
         
         var imageid : NSInteger
@@ -315,11 +320,11 @@ class PreviewViewController: UIViewController
     }
     }).resume()
     }
+   */
     
     
     
-    
-    
+    /*
     func postRequest(myData: String)
     {
         let vin = labelVIN.text!
@@ -434,62 +439,278 @@ class PreviewViewController: UIViewController
         
         task.resume()
     }
-
-}
-
-
-
-
-
-/*
-extension UIImage {
-    func resizeWith(percentage: CGFloat) -> UIImage? {
-        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = self
-        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        imageView.layer.render(in: context)
-        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
-        UIGraphicsEndImageContext()
-        return result
-    }
-}
-
- 
-extension UIImage {
-    
-    func toBase64() -> String? {
-     var image1: UIImage
-       
-       //  let imageData : NSData = UIImageJPEGRepresentation(self, 1.0)! as NSData
-        // let imageData : Data = image.jpegData(compressionQuality: 1.0)!
-        
-        let imageData: NSData = image1.jpegData(compressionQuality: 1.0)! as NSData
-        
-        return  imageData.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
-    }
-}
  */
-/*
-extension String {
+//............0
     
-    func fromBase64() -> String? {
-        guard let data = Data(base64Encoded: self, options: Data.Base64DecodingOptions(rawValue: 0)) else {
-            return nil
-        }
+     
+     func testpic(){
+     
+  //   let image = image1 //UIImage(named: "icons8-Tornado Filled-29 (1).png")
+     let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
+        //let image    = UIImage(contentsOfFile: imageURL.path)
+    //    let jpg = image1.jpegData(compressionQuality: 0.25)?.base64EncodedString(
+      //  options: NSData.Base64EncodingOptions.lineLength64Characters)
         
-        return String(data: data as Data, encoding: String.Encoding.utf8)
-    }
+        let imageData = image?.jpegData(compressionQuality: 0.1)
+        let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters) // encode the image
+     
+     ExportImage1(myData: base64String)            // Do whatever you want with the image
+     
+     }
+     
+     
+     func ExportImage1(myData:String?){
+     
+     let vin = labelVIN.text!
+     
+     //setup URL
+     
+     
+     //let myStr =  String(decoding: myData, as: UTF8.self)
+     // let base64 = myStr.base64EncodedData(options: .lineLength64Characters)
+     
+     //     let decodedData = NSData(base64Encoded: myData.base64EncodedData(options: NSData.Base64EncodingOptions).init(rawValue: 0))
+     //  let test = myData.base64EncodedString(options: <#T##NSData.Base64EncodingOptions#>)
+     //  let decodedString = myData.base64EncodedString(options: .lineLength64Characters);
+     //    print(decodedString!) // my plain data
+     
+     let myDataEncoded = myData?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+     
+      
+        
+        
+     let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=\(myDataEncoded ?? " ")";
+     //     todoEndpoint += decodedString as String
+     
+    //   print(todoEndpoint)
+     guard let url = URL(string: todoEndpoint) else {
+     
+     print("Error: cannot create URL")
+     
+     return
+     
+     }
+     
+     
+     
+     var urlRequest = URLRequest(url: url)
+     
+     
+     
+     urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
+     
+     urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
+     
+     
+     
+     //start the url session
+     
+     let session = URLSession.shared
+     
+     let task = session.dataTask(with: urlRequest){ data, response, error in
+     //check for errors
+     
+     guard error == nil else {
+     
+     print("Error calling GET: \(error!)")
+     
+     return
+     
+     }
+     guard let data = data else { print("DATA error"); return }
+     
+     
+     
+     do {
+     
+     //decodes the json from the data
+     
+     
+     //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
+     
+     let d = try JSONDecoder().decode(jsonData.self,from: data)
+     
+     
+     DispatchQueue.main.async {
+     
+     let x =  d.imageid;
+     let y = d.error;
+     
+     
+     //self.lineAmount = d.lineAmount
+     
+     //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
+     
+     
+     
+     let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
+     
+     msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+     
+     
+     
+     msgAlert.dismiss(animated: true, completion: nil)
+     
+     
+     
+     }))
+     
+     
+     
+     self.present(msgAlert, animated: true, completion: nil)
+     
+     
+     
+     }
+     
+     
+     
+     
+     
+     } catch let jsonErr{
+     
+     print("JSON Error: ", jsonErr)
+     
+     }
+     
+     
+     
+     }
+     
+     task.resume()
+     
+     }
+     func ExportImage(){
+     
+     
+     
+     //setup URL
+     let vin = "hfhhfhfhfhfhfhfh";
+     
+     
+     
+     let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=0";
+     
+     //  let todoEndpoint: String = "https://secureservice.autouse.com/dlrweb/WebService1.asmx/HelloWorld?dlrno=00216";
+     
+     guard let url = URL(string: todoEndpoint) else {
+     
+     print("Error: cannot create URL")
+     
+     return
+     
+     }
+     
+     
+     
+     var urlRequest = URLRequest(url: url)
+     
+     
+     
+     urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
+     
+     urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
+     
+     
+     
+     //start the url session
+     
+     let session = URLSession.shared
+     
+     let task = session.dataTask(with: urlRequest){ data, response, error in
+     //check for errors
+     
+     guard error == nil else {
+     
+     print("Error calling GET: \(error!)")
+     
+     return
+     
+     }
+     guard let data = data else { print("DATA error"); return }
+     
+     
+     
+     do {
+     
+     //decodes the json from the data
+     
+     
+     //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
+     
+     let d = try JSONDecoder().decode(jsonData.self,from: data)
+     
+     
+     DispatchQueue.main.async {
+     
+     let x =  d.imageid;
+     let y = d.error;
+     
+     
+     //self.lineAmount = d.lineAmount
+     
+     //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
+     
+     
+     
+     let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
+     
+     msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+     
+     
+     
+     msgAlert.dismiss(animated: true, completion: nil)
+     
+     
+     
+     }))
+     
+     
+     
+     self.present(msgAlert, animated: true, completion: nil)
+     
+     
+     
+     }
+     
+     
+     
+     
+     
+     } catch let jsonErr{
+     
+     print("JSON Error: ", jsonErr)
+     
+     }
+     
+     
+     
+     }
+     
+     task.resume()
+     
+     }
+     struct jsonData: Decodable {
+     
+     var imageid : NSInteger
+     
+     var error : String
+     
+     //  var lineAmount : String
+     
+     }
     
-    func toBase64() -> String? {
-        guard let data = self.data(using: String.Encoding.utf8) else {
-            return nil
-        }
-        
-        return data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-    }
-*/
+    
+    
+    
+    
+    
+}
+
+
+
+
+
 
 extension UIImage {
     
