@@ -30,11 +30,11 @@ class ViewController: UIViewController {
         
         setupCaptureSession()
         setupDevice()
-   //     setupInputOutput()
+        setupInputOutput()
         setupPreviewLayer()
         startRunningCapturSession()
         
-        testpic()
+    //    testpic()
         
         
     }
@@ -42,6 +42,8 @@ class ViewController: UIViewController {
     func setupCaptureSession(){
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
+    
+   /*
     
     func testpic(){
       
@@ -295,6 +297,7 @@ class ViewController: UIViewController {
       //  var lineAmount : String
         
     }
+ */
     func setupDevice(){
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         let devices = deviceDiscoverySession.devices

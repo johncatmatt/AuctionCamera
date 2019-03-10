@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class PreviewViewController: UIViewController
 {
 
@@ -20,11 +21,11 @@ class PreviewViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // photo.image = self.image1
+        photo.image = self.image1
    
        
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
-        
+        print(labelVIN.text!)
         
         // Do any additional setup after loading the view.
     }
@@ -63,7 +64,7 @@ class PreviewViewController: UIViewController
         
         
       
-        
+  /*
         let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
         let nsUserDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
         let paths               = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
@@ -72,24 +73,52 @@ class PreviewViewController: UIViewController
             let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("Picture9.png")
             let image    = UIImage(contentsOfFile: imageURL.path)
             
-            let imageData = image?.jpegData(compressionQuality: 25)
+           // let imageResized = image?.jpegData(compressionQuality: 25)
             
-            let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters) // encode the image
+         //   let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters) // encode the image
+   
+            let imageResized = image!.resizeWith(percentage: 0.1)
+            let base64 = imageResized?.toBase64()
             
-            ExportImage(myData: base64String!)            // Do whatever you want with the image
+            
+            ExportImage(myData: base64)            // Do whatever you want with the image
         }
-        
+   */
       
         
-        
-        
+     // let jpg = image1.base64
+      //  let imageBase64String = UIImagePNGRepresentation(myimageview.image!)?.base64EncodedString()
+
+        let jpg = image1.pngData()?.base64EncodedString()
         //Saved Image
       //  UserDefaults.standard.set(imageData, forKey: "savedImage")
         //Decode
      //   let myData = UserDefaults.standard.object(forKey: "savedImage") as! NSData
        // let s = String(decoding: myData, as: UTF8.self)
    //     ExportImage(myData: base64String!)
+       
+     //   let imageResized = image1!.resizeWith(percentage: 0.1)
+     //   let base64 = imageResized?.toBase64()
+//       let imageData:NSData = image1!.jpegData(compressionQuality: 0.25)! as NSData
+       // let imageData:NSData = image1.pngData()! as NSData
+   
         
+   //     let imageStr = imageData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+     //  let imageResized = imageData.resizeWith(percentage: 0.1)
+     //   let base64 = imageData.toBase64()
+     //   let datastring = NSString(data: (imageData as NSData) as Data, encoding: String.Encoding.utf8.rawValue)
+        
+//let datastring = NSString(data: imageData as Data, encoding: String.Encoding.utf8.rawValue)!
+        
+     //   let plainData = (datastring as! NSString).dataUsingEncoding(NSUTF8StringEncoding)
+     //   let base64String = plainData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.fromRaw(0)!)
+     //   println(base64String) // bXkgcGxhbmkgdGV4dA==
+
+        
+    //    let resultString = imageStr as String
+   //    let base64Encoded = Data(resultString.utf8).base64EncodedString()
+        
+        postRequest(myData: jpg!)
         dismiss(animated: true, completion: nil)
         
         
@@ -118,6 +147,7 @@ class PreviewViewController: UIViewController
         let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=\(myData!)";
    //     todoEndpoint += decodedString as String
         
+       
         
         guard let url = URL(string: todoEndpoint) else {
             
@@ -285,24 +315,29 @@ class PreviewViewController: UIViewController
     }
     }).resume()
     }
-    /*
+    
+    
+    
+    
+    
     func postRequest(myData: String)
     {
         let vin = labelVIN.text!
         
         let url = URL(string : "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")!
-
-        var request = NSMutableURLRequest(URL: NSURL(string: url))
-        request.HTTPMethod = "POST"
+       // let url:URL = URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")!
+       // var request = NSMutableURLRequest(URL: NSURL(string: url))
+        let request = NSMutableURLRequest(url: NSURL(string: "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")! as URL)
+    
+        request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        var imageData = image1([1,2,254,255])
-        var base64String = image1.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.fromRaw(0)!) // encode the image
+   //     var imageData = image1([1,2,254,255])
+     //   var base64String = image1.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.fromRaw(0)!) // encode the image
         
-        
-        
-        https://stackoverflow.com/questions/49716897/how-to-send-image-in-bytearray-with-parameters-in-json-format-ios-swift4#
+
+        // jjs    UIApplication.shared.open(url, options: [:], completionHandler: nil)
         
         let config = URLSessionConfiguration.default
         
@@ -316,12 +351,16 @@ class PreviewViewController: UIViewController
         // your post request data
         let postDict : [String: Any] = ["vin": vin,
                                         "image": myData]
+
+        
         
         guard let postData = try? JSONSerialization.data(withJSONObject: postDict, options: []) else {
             return
         }
         
         urlRequest.httpBody = postData
+        
+        print(urlRequest)
         
         let task = session.dataTask(with: urlRequest){ data, response, error in
             //check for errors
@@ -349,8 +388,8 @@ class PreviewViewController: UIViewController
                 
                 DispatchQueue.main.async {
                     
-                    let x =  d.imageid;
-                    let y = d.error;
+               //     let x =  d.imageid;
+                //    let y = d.error;
                     
                     
                     //self.lineAmount = d.lineAmount
@@ -395,5 +434,77 @@ class PreviewViewController: UIViewController
         
         task.resume()
     }
-*/
+
 }
+
+
+
+
+
+/*
+extension UIImage {
+    func resizeWith(percentage: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+    }
+}
+
+ 
+extension UIImage {
+    
+    func toBase64() -> String? {
+     var image1: UIImage
+       
+       //  let imageData : NSData = UIImageJPEGRepresentation(self, 1.0)! as NSData
+        // let imageData : Data = image.jpegData(compressionQuality: 1.0)!
+        
+        let imageData: NSData = image1.jpegData(compressionQuality: 1.0)! as NSData
+        
+        return  imageData.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+    }
+}
+ */
+/*
+extension String {
+    
+    func fromBase64() -> String? {
+        guard let data = Data(base64Encoded: self, options: Data.Base64DecodingOptions(rawValue: 0)) else {
+            return nil
+        }
+        
+        return String(data: data as Data, encoding: String.Encoding.utf8)
+    }
+    
+    func toBase64() -> String? {
+        guard let data = self.data(using: String.Encoding.utf8) else {
+            return nil
+        }
+        
+        return data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+    }
+*/
+
+extension UIImage {
+    
+    /// EZSE: Returns base64 string
+    public var base64: String {
+        return self.jpegData(compressionQuality: 0.25)!.base64EncodedString()
+    }
+}
+    
+
+    
+
+
+
+
+ 
+ 
+
