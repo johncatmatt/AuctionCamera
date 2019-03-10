@@ -13,6 +13,7 @@
 		2D5139BF222AE5DD00AB5647 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139BE222AE5DD00AB5647 /* Assets.xcassets */; };
 		2D5139C2222AE5DD00AB5647 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */; };
 		2D5139CA222AF27C00AB5647 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */; };
+		6043A6342234B1D2000B0B59 /* icons8-unchecked-checkbox-filled-500 (2).png in Resources */ = {isa = PBXBuildFile; fileRef = 6043A6332234B1D2000B0B59 /* icons8-unchecked-checkbox-filled-500 (2).png */; };
 		6067E0CD22311BA2003FB4EF /* ViewControllerScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6067E0CC22311BA2003FB4EF /* ViewControllerScanner.swift */; };
 		6067E0CF22312188003FB4EF /* ViewControllerVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6067E0CE22312188003FB4EF /* ViewControllerVehicle.swift */; };
 		60AFD2992232789B00568A31 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 60AFD2972232789B00568A31 /* Model.xcdatamodeld */; };
@@ -32,6 +33,7 @@
 		2D5139C1222AE5DD00AB5647 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D5139C3222AE5DD00AB5647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		6043A6332234B1D2000B0B59 /* icons8-unchecked-checkbox-filled-500 (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-unchecked-checkbox-filled-500 (2).png"; path = "../../../Downloads/icons8-unchecked-checkbox-filled-500 (2).png"; sourceTree = "<group>"; };
 		6067E0CC22311BA2003FB4EF /* ViewControllerScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerScanner.swift; sourceTree = "<group>"; };
 		6067E0CE22312188003FB4EF /* ViewControllerVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerVehicle.swift; sourceTree = "<group>"; };
 		60AFD2982232789B00568A31 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */,
 				2D5139BB222AE5DB00AB5647 /* Main.storyboard */,
 				2D5139BE222AE5DD00AB5647 /* Assets.xcassets */,
+				6043A6332234B1D2000B0B59 /* icons8-unchecked-checkbox-filled-500 (2).png */,
 				2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */,
 				60AFD2A42233B2F700568A31 /* icons8-refresh-barcode-80.png */,
 				2D5139C3222AE5DD00AB5647 /* Info.plist */,
@@ -155,6 +158,7 @@
 				60AFD2A92233B76C00568A31 /* icons8-screenshot-96 (2).png in Resources */,
 				2D5139BD222AE5DB00AB5647 /* Main.storyboard in Resources */,
 				60AFD2AD2233C1A900568A31 /* icons8-ios-application-placeholder-500.png in Resources */,
+				6043A6342234B1D2000B0B59 /* icons8-unchecked-checkbox-filled-500 (2).png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

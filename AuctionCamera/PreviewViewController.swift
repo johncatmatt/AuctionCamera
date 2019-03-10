@@ -20,7 +20,7 @@ class PreviewViewController: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photo.image = self.image1
+       // photo.image = self.image1
    
        
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
@@ -62,19 +62,38 @@ class PreviewViewController: UIViewController
        // let imageData:NSData = image1!.jpegData(compressionQuality: 0.25)! as NSData
         
         
-        var imageData = image1.jpegData(compressionQuality: 25)
-    
-        var base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters) // encode the image
+      
         
-
+        let nsDocumentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        let nsUserDomainMask    = FileManager.SearchPathDomainMask.userDomainMask
+        let paths               = NSSearchPathForDirectoriesInDomains(nsDocumentDirectory, nsUserDomainMask, true)
+        if let dirPath          = paths.first
+        {
+            let imageURL = URL(fileURLWithPath: dirPath).appendingPathComponent("Picture9.png")
+            let image    = UIImage(contentsOfFile: imageURL.path)
+            
+            let imageData = image?.jpegData(compressionQuality: 25)
+            
+            let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters) // encode the image
+            
+            ExportImage(myData: base64String!)            // Do whatever you want with the image
+        }
+        
+      
+        
+        
+        
         //Saved Image
-        UserDefaults.standard.set(imageData, forKey: "savedImage")
+      //  UserDefaults.standard.set(imageData, forKey: "savedImage")
         //Decode
-        let myData = UserDefaults.standard.object(forKey: "savedImage") as! NSData
+     //   let myData = UserDefaults.standard.object(forKey: "savedImage") as! NSData
        // let s = String(decoding: myData, as: UTF8.self)
-        postRequest(myData: base64String!)
+   //     ExportImage(myData: base64String!)
         
         dismiss(animated: true, completion: nil)
+        
+        
+        
         
     }
     
@@ -266,7 +285,7 @@ class PreviewViewController: UIViewController
     }
     }).resume()
     }
-    
+    /*
     func postRequest(myData: String)
     {
         let vin = labelVIN.text!
@@ -376,5 +395,5 @@ class PreviewViewController: UIViewController
         
         task.resume()
     }
-
+*/
 }
