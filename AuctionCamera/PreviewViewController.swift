@@ -254,26 +254,26 @@ class PreviewViewController: UIViewController
         
         //  var lineAmount : String
     }
-    func test(image:NSData){
+    func test(myData:String?){
     // the ima(ge in UIImage type
    // guard let image = myData else { return  }
      let vin = labelVIN.text!
-    let filename = "avatar.png"
+   // let filename = "avatar.png"
     
     // generate boundary string using a unique per-app string
     let boundary = UUID().uuidString
     
-    let fieldName = "vin"
+  //  let fieldName = "vin"
   //  let fieldValue = "fileupload"
     
-    let fieldName2 = "image"
+  //  let fieldName2 = "image"
   //  let fieldValue2 = "caa3dce4fcb36cfdf9258ad9c"
     
     let config = URLSessionConfiguration.default
     let session = URLSession(configuration: config)
     
     // Set the URLRequest to POST and to the specified URL
-    var urlRequest = URLRequest(url: URL(string: "https://auction.catmatt.com/Auction/Auction.asmx")!)
+    var urlRequest = URLRequest(url: URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")!)
     urlRequest.httpMethod = "POST"
     
     // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
