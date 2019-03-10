@@ -211,7 +211,7 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto_Segue" {
             let previewVC = segue.destination as! PreviewViewController
-            previewVC.image = self.image
+            previewVC.image1 = self.image
             
         }
     }
