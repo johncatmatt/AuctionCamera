@@ -120,136 +120,65 @@ class PreviewViewController: UIViewController
         
        // postRequest(myData: jpg!)
       
-        testpic()
+      //  testpic()
      // dismiss(animated: true, completion: nil)
+      //  let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
         
-        
+        uploadImage(paramName: labelVIN.text!, fileName: "image.png", image: image1!)
         
         
     }
     
 
     
-    func ExportImage(myData:String?){
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        let url = URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/SendPicture")
         
-        let vin = labelVIN.text!
-
-        //setup URL
-        
-        
-      //let myStr =  String(decoding: myData, as: UTF8.self)
-       // let base64 = myStr.base64EncodedData(options: .lineLength64Characters)
-        
-   //     let decodedData = NSData(base64Encoded: myData.base64EncodedData(options: NSData.Base64EncodingOptions).init(rawValue: 0))
-      //  let test = myData.base64EncodedString(options: <#T##NSData.Base64EncodingOptions#>)
-      //  let decodedString = myData.base64EncodedString(options: .lineLength64Characters);
-    //    print(decodedString!) // my plain data
-        
-        
-        let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=\(myData!)";
-   //     todoEndpoint += decodedString as String
-        
-       
-        
-        guard let url = URL(string: todoEndpoint) else {
-            
-            print("Error: cannot create URL")
-            
-            return
-            
-        }
-        
-        
-        
-        var urlRequest = URLRequest(url: url)
-        
-        
-        
-        urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
-        
-        urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
-        
-        
-        
-        //start the url session
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
         
         let session = URLSession.shared
         
-        let task = session.dataTask(with: urlRequest){ data, response, error in
-            //check for errors
-            
-            guard error == nil else {
-                
-                print("Error calling GET: \(error!)")
-                
-                return
-                
-            }
-            guard let data = data else { print("DATA error"); return }
-            
-            
-            
-            do {
-                
-                //decodes the json from the data
-                
-                
-                //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
-                
-                let d = try JSONDecoder().decode(jsonData.self,from: data)
-                
-                
-                DispatchQueue.main.async {
-                    
-                    let x =  d.imageid;
-                    let y = d.error;
-                    
-                    
-                    //self.lineAmount = d.lineAmount
-                    
-                    //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
-                    
-                    
-                    
-                    let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
-                    
-                    msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-                        
-                        
-                        
-                        msgAlert.dismiss(animated: true, completion: nil)
-                        
-                        
-                        
-                    }))
-                    
-                    
-                    
-                    self.present(msgAlert, animated: true, completion: nil)
-                    
-                    
-                    
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+        
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var data = Data()
+        
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        
+        
+        let img = image.pngData()
+        
+        let base64String = img?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+        // let myDataEncoded = base64String?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+        data.append(base64String!)
+        
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                if let json = jsonData as? [String: Any] {
+                    print(json)
                 }
-                
-                
-                
-                
-                
-            } catch let jsonErr{
-                
-                print("JSON Error: ", jsonErr)
-                
             }
-            
-            
-            
-        }
-        
-        task.resume()
-        
+        }).resume()
     }
     
-    /*(
+    
+    struct pic: Codable {
+        let vin: String
+    }
     
     struct jsonData: Decodable {
         
@@ -258,451 +187,9 @@ class PreviewViewController: UIViewController
         var error : String
         
         //  var lineAmount : String
-    }
-    func test(myData:String?){
-    // the ima(ge in UIImage type
-   // guard let image = myData else { return  }
-     let vin = labelVIN.text!
-   // let filename = "avatar.png"
-    
-    // generate boundary string using a unique per-app string
-    let boundary = UUID().uuidString
-    
-  //  let fieldName = "vin"
-  //  let fieldValue = "fileupload"
-    
-  //  let fieldName2 = "image"
-  //  let fieldValue2 = "caa3dce4fcb36cfdf9258ad9c"
-    
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config)
-    
-    // Set the URLRequest to POST and to the specified URL
-    var urlRequest = URLRequest(url: URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")!)
-    urlRequest.httpMethod = "POST"
-    
-    // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
-    // And the boundary is also set here
-    urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-    
-    var data = Data()
-    
-    // Add the reqtype field and its value to the raw http request data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-    data.append("Content-Disposition: form-data; name=vin\r\n\r\n".data(using: .utf8)!)
-    data.append("\(vin)".data(using: .utf8)!)
-    
-  //  // Add the userhash field and its value to the raw http reqyest data
-  data.append("Content-Disposition: form-data; name=image\r\n\r\n".data(using: .utf8)!)
-//
-    // Add the image data to the raw http request data
-    data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
-   // data.append("Content-Disposition: form-data; name=\"fileToUpload\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
-    data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
-        data.append(image1.pngData()!)   // End the raw http request data, note that there is 2 extra dash ("-") at )the end, this is to indicate the end of the data
-    // According to the HTTP 1.1 specification https://tools.ietf.org/html/rfc7230
-    data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
-    
-    // Send a POST request to the URL, with the data we created earlier
-    session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
-    
-    if(error != nil){
-    print("\(error!.localizedDescription)")
-    }
-    
-    guard let responseData = responseData else {
-    print("no response data")
-    return
-    }
-    
-    if let responseString = String(data: responseData, encoding: .utf8) {
-    print("uploaded to: \(responseString)")
-    }
-    }).resume()
-    }
-   */
-    
-    
-    
-    /*
-    func postRequest(myData: String)
-    {
-        let vin = labelVIN.text!
         
-        let url = URL(string : "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")!
-       // let url:URL = URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")!
-       // var request = NSMutableURLRequest(URL: NSURL(string: url))
-        let request = NSMutableURLRequest(url: NSURL(string: "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture")! as URL)
-    
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-   //     var imageData = image1([1,2,254,255])
-     //   var base64String = image1.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.fromRaw(0)!) // encode the image
-        
+    }
 
-        // jjs    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        
-        let config = URLSessionConfiguration.default
-        
-        let session = URLSession(configuration: config)
- 
-        
-        //vin=\(vin)&image=\(decodedString)"
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        
-        // your post request data
-        let postDict : [String: Any] = ["vin": vin,
-                                        "image": myData]
-
-        
-        
-        guard let postData = try? JSONSerialization.data(withJSONObject: postDict, options: []) else {
-            return
-        }
-        
-        urlRequest.httpBody = postData
-        
-        print(urlRequest)
-        
-        let task = session.dataTask(with: urlRequest){ data, response, error in
-            //check for errors
-            
-            guard error == nil else {
-                
-                print("Error calling GET: \(error!)")
-                
-                return
-                
-            }
-            guard let data = data else { print("DATA error"); return }
-            
-            
-            
-            do {
-                
-                //decodes the json from the data
-                
-                
-                //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
-                
-                let d = try JSONDecoder().decode(jsonData.self,from: data)
-                
-                
-                DispatchQueue.main.async {
-                    
-               //     let x =  d.imageid;
-                //    let y = d.error;
-                    
-                    
-                    //self.lineAmount = d.lineAmount
-                    
-                    //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
-                    
-                    
-                    
-                    let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
-                    
-                    msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-                        
-                        
-                        
-                        msgAlert.dismiss(animated: true, completion: nil)
-                        
-                        
-                        
-                    }))
-                    
-                    
-                    
-                    self.present(msgAlert, animated: true, completion: nil)
-                    
-                    
-                    
-                }
-                
-                
-                
-                
-                
-            } catch let jsonErr{
-                
-                print("JSON Error: ", jsonErr)
-                
-            }
-            
-            
-            
-        }
-        
-        task.resume()
-    }
- */
-//............0
-    
-     
-     func testpic(){
-     
-  //   let image = image1 //UIImage(named: "icons8-Tornado Filled-29 (1).png")
-     let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
-        //let image    = UIImage(contentsOfFile: imageURL.path)
-    //    let jpg = image1.jpegData(compressionQuality: 0.25)?.base64EncodedString(
-      //  options: NSData.Base64EncodingOptions.lineLength64Characters)
-        
-        let imageData = image?.jpegData(compressionQuality: 0.1)
-        let base64String = imageData?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters) // encode the image
-     
-     ExportImage1(myData: base64String)            // Do whatever you want with the image
-     
-     }
-     
-     
-     func ExportImage1(myData:String?){
-     
-     let vin = labelVIN.text!
-     
-     //setup URL
-     
-     
-     //let myStr =  String(decoding: myData, as: UTF8.self)
-     // let base64 = myStr.base64EncodedData(options: .lineLength64Characters)
-     
-     //     let decodedData = NSData(base64Encoded: myData.base64EncodedData(options: NSData.Base64EncodingOptions).init(rawValue: 0))
-     //  let test = myData.base64EncodedString(options: <#T##NSData.Base64EncodingOptions#>)
-     //  let decodedString = myData.base64EncodedString(options: .lineLength64Characters);
-     //    print(decodedString!) // my plain data
-     
-     let myDataEncoded = myData?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-     
-      
-        
-        
-     let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=\(myDataEncoded ?? " ")";
-     //     todoEndpoint += decodedString as String
-     
-    //   print(todoEndpoint)
-     guard let url = URL(string: todoEndpoint) else {
-     
-     print("Error: cannot create URL")
-     
-     return
-     
-     }
-     
-     
-     
-     var urlRequest = URLRequest(url: url)
-     
-     
-     
-     urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
-     
-     urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
-     
-     
-     
-     //start the url session
-     
-     let session = URLSession.shared
-     
-     let task = session.dataTask(with: urlRequest){ data, response, error in
-     //check for errors
-     
-     guard error == nil else {
-     
-     print("Error calling GET: \(error!)")
-     
-     return
-     
-     }
-     guard let data = data else { print("DATA error"); return }
-     
-     
-     
-     do {
-     
-     //decodes the json from the data
-     
-     
-     //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
-     
-     let d = try JSONDecoder().decode(jsonData.self,from: data)
-     
-     
-     DispatchQueue.main.async {
-     
-     let x =  d.imageid;
-     let y = d.error;
-     
-     
-     //self.lineAmount = d.lineAmount
-     
-     //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
-     
-     
-     
-     let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
-     
-     msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-     
-     
-     
-     msgAlert.dismiss(animated: true, completion: nil)
-     
-     
-     
-     }))
-     
-     
-     
-     self.present(msgAlert, animated: true, completion: nil)
-     
-     
-     
-     }
-     
-     
-     
-     
-     
-     } catch let jsonErr{
-     
-     print("JSON Error: ", jsonErr)
-     
-     }
-     
-     
-     
-     }
-     
-     task.resume()
-     
-     }
-     func ExportImage(){
-     
-     
-     
-     //setup URL
-     let vin = "hfhhfhfhfhfhfhfh";
-     
-     
-     
-     let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=0";
-     
-     //  let todoEndpoint: String = "https://secureservice.autouse.com/dlrweb/WebService1.asmx/HelloWorld?dlrno=00216";
-     
-     guard let url = URL(string: todoEndpoint) else {
-     
-     print("Error: cannot create URL")
-     
-     return
-     
-     }
-     
-     
-     
-     var urlRequest = URLRequest(url: url)
-     
-     
-     
-     urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
-     
-     urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
-     
-     
-     
-     //start the url session
-     
-     let session = URLSession.shared
-     
-     let task = session.dataTask(with: urlRequest){ data, response, error in
-     //check for errors
-     
-     guard error == nil else {
-     
-     print("Error calling GET: \(error!)")
-     
-     return
-     
-     }
-     guard let data = data else { print("DATA error"); return }
-     
-     
-     
-     do {
-     
-     //decodes the json from the data
-     
-     
-     //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
-     
-     let d = try JSONDecoder().decode(jsonData.self,from: data)
-     
-     
-     DispatchQueue.main.async {
-     
-     let x =  d.imageid;
-     let y = d.error;
-     
-     
-     //self.lineAmount = d.lineAmount
-     
-     //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
-     
-     
-     
-     let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
-     
-     msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-     
-     
-     
-     msgAlert.dismiss(animated: true, completion: nil)
-     
-     
-     
-     }))
-     
-     
-     
-     self.present(msgAlert, animated: true, completion: nil)
-     
-     
-     
-     }
-     
-     
-     
-     
-     
-     } catch let jsonErr{
-     
-     print("JSON Error: ", jsonErr)
-     
-     }
-     
-     
-     
-     }
-     
-     task.resume()
-     
-     }
-     struct jsonData: Decodable {
-     
-     var imageid : NSInteger
-     
-     var error : String
-     
-     //  var lineAmount : String
-     
-     }
-    
-    
-    
-    
     
     
 }

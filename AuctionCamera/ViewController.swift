@@ -31,14 +31,14 @@ class ViewController: UIViewController {
         
         setupCaptureSession()
         setupDevice()
-     //   setupInputOutput()
+        setupInputOutput()
         setupPreviewLayer()
         startRunningCapturSession()
 
-         let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
+   //      let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
         
-        uploadImage(paramName: "hhhhhhhh112121212", fileName: "image.png", image: image!)
-        
+    //    uploadImage(paramName: "hhhhhhhh112121212", fileName: "image.png", image: image!)
+   //
         
        // uploadImageOne()
     }
