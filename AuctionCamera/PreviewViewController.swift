@@ -155,7 +155,8 @@ class PreviewViewController: UIViewController
         data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
         
         
-        let img = image.pngData()
+      //  let img = image.pngData()
+        let img = image.jpegData(compressionQuality: 0.20)
         
         let base64String = img?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
         // let myDataEncoded = base64String?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
