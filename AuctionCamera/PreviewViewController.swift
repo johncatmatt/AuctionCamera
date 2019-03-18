@@ -124,7 +124,7 @@ class PreviewViewController: UIViewController
      // dismiss(animated: true, completion: nil)
       //  let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
         
-        uploadImage(paramName: labelVIN.text!, fileName: "image.png", image: image1!)
+        uploadImage(paramName: labelVIN.text!, fileName: "image.jpeg", image: image1!)
         
         
     }
@@ -152,7 +152,7 @@ class PreviewViewController: UIViewController
         // Add the image data to the raw http request data
         data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
         data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
         
         
       //  let img = image.pngData()
