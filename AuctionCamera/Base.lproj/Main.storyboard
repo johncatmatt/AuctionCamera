@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ssv-3u-Yq9">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,11 +14,11 @@
             <objects>
                 <tableViewController id="A82-MX-gZg" customClass="ViewControllerTableView" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hDn-ns-0Dx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <searchBar key="tableFooterView" contentMode="redraw" id="YiD-vA-3ZK">
-                            <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -27,10 +27,10 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4yg-4O-MAc" customClass="TableCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4yg-4O-MAc" id="C7K-qE-WOA">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="nameLbl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYT-ib-Q9h">
@@ -92,7 +92,7 @@
             <objects>
                 <viewController id="NrW-S1-dZn" customClass="ViewControllerVehicle" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nha-0n-tJy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIN:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roY-Wp-U5m">
@@ -116,7 +116,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YKt-mv-G6y">
-                                <rect key="frame" x="79.5" y="136" width="216" height="108"/>
+                                <rect key="frame" x="52" y="136" width="216" height="108"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncc-UE-biP">
                                         <rect key="frame" x="8" y="8" width="81" height="80"/>
@@ -177,11 +177,11 @@
             <objects>
                 <viewController id="Q9b-sw-Q6g" customClass="ViewControllerScanner" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eoF-TA-qeE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-ios-application-placeholder-501" translatesAutoresizingMaskIntoConstraints="NO" id="9fW-PU-rtH">
-                                <rect key="frame" x="10" y="161" width="355" height="345"/>
+                                <rect key="frame" x="10" y="161" width="300" height="158"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -206,7 +206,7 @@
             <objects>
                 <navigationController id="ssv-3u-Yq9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4pf-nb-zaa">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -222,11 +222,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lDi-rB-uAg">
-                                <rect key="frame" x="157.5" y="587" width="60" height="60"/>
+                                <rect key="frame" x="130" y="400" width="60" height="60"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Kjz-mB-fqX"/>
@@ -262,18 +262,28 @@
             <objects>
                 <viewController id="Qnn-gn-u1B" customClass="PreviewViewController" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DoU-4h-Wec">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bmb-M5-A5p">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bmb-M5-A5p">
+                                <rect key="frame" x="0.0" y="20" width="320" height="313"/>
                             </imageView>
                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKk-Hq-UAy">
-                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="389" width="320" height="91"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJv-Xf-Bq3">
-                                        <rect key="frame" x="35" y="15" width="48" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkp-yS-mpZ">
+                                        <rect key="frame" x="244" y="27.5" width="63" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Upload">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveButton_TouchUpInside:" destination="Qnn-gn-u1B" eventType="touchUpInside" id="LEd-y9-JoU"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJv-Xf-Bq3">
+                                        <rect key="frame" x="16" y="28" width="61" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -281,50 +291,61 @@
                                             <action selector="cancelButton_TouchUpInside:" destination="Qnn-gn-u1B" eventType="touchUpInside" id="qin-k3-Jcz"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkp-yS-mpZ">
-                                        <rect key="frame" x="310" y="15" width="34" height="30"/>
-                                        <state key="normal" title="Save">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="saveButton_TouchUpInside:" destination="Qnn-gn-u1B" eventType="touchUpInside" id="LEd-y9-JoU"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S4N-6G-FvG">
-                                        <rect key="frame" x="166" y="19" width="42" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S4N-6G-FvG">
+                                        <rect key="frame" x="136" y="28" width="40" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="lVM-iu-mQL"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6UG-xr-Dx7">
+                                        <rect key="frame" x="17" y="20" width="285" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="progressTintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="trackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="EJv-Xf-Bq3" secondAttribute="bottom" constant="15" id="CHh-fp-jD8"/>
-                                    <constraint firstItem="bkp-yS-mpZ" firstAttribute="top" secondItem="TKk-Hq-UAy" secondAttribute="top" constant="15" id="H1g-qx-ZYq"/>
-                                    <constraint firstItem="EJv-Xf-Bq3" firstAttribute="top" secondItem="TKk-Hq-UAy" secondAttribute="top" constant="15" id="fL7-D0-F5A"/>
-                                    <constraint firstItem="EJv-Xf-Bq3" firstAttribute="leading" secondItem="TKk-Hq-UAy" secondAttribute="leading" constant="35" id="wIa-Fc-g5S"/>
-                                    <constraint firstAttribute="trailing" secondItem="bkp-yS-mpZ" secondAttribute="trailing" constant="31" id="yra-GU-5kc"/>
-                                    <constraint firstAttribute="bottom" secondItem="bkp-yS-mpZ" secondAttribute="bottom" constant="15" id="zg2-Nh-QGb"/>
+                                    <constraint firstItem="S4N-6G-FvG" firstAttribute="top" secondItem="EJv-Xf-Bq3" secondAttribute="top" id="9T0-LO-69s"/>
+                                    <constraint firstItem="S4N-6G-FvG" firstAttribute="bottom" secondItem="EJv-Xf-Bq3" secondAttribute="bottom" id="ED3-Je-ffR"/>
+                                    <constraint firstAttribute="height" constant="91" id="RSb-ef-EHv"/>
+                                    <constraint firstItem="bkp-yS-mpZ" firstAttribute="baseline" secondItem="EJv-Xf-Bq3" secondAttribute="firstBaseline" id="XpN-O9-Lxo"/>
+                                    <constraint firstItem="EJv-Xf-Bq3" firstAttribute="centerY" secondItem="TKk-Hq-UAy" secondAttribute="centerY" id="aOi-wJ-MlN"/>
+                                    <constraint firstItem="EJv-Xf-Bq3" firstAttribute="baseline" secondItem="bkp-yS-mpZ" secondAttribute="firstBaseline" id="jSD-NQ-sF4"/>
+                                    <constraint firstItem="bkp-yS-mpZ" firstAttribute="leading" secondItem="S4N-6G-FvG" secondAttribute="trailing" constant="68" id="njh-Xa-2vX"/>
+                                    <constraint firstItem="S4N-6G-FvG" firstAttribute="leading" secondItem="EJv-Xf-Bq3" secondAttribute="trailing" constant="59" id="rGd-u3-OdC"/>
+                                    <constraint firstItem="EJv-Xf-Bq3" firstAttribute="top" secondItem="TKk-Hq-UAy" secondAttribute="top" constant="28" id="uQD-6E-cDO"/>
+                                    <constraint firstItem="S4N-6G-FvG" firstAttribute="leading" secondItem="TKk-Hq-UAy" secondAttribute="leading" constant="136" id="vDV-mP-jnw"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="TKk-Hq-UAy" firstAttribute="trailing" secondItem="afX-iI-qc9" secondAttribute="trailing" id="Dvh-pk-QpY"/>
-                            <constraint firstItem="TKk-Hq-UAy" firstAttribute="bottom" secondItem="afX-iI-qc9" secondAttribute="bottom" id="Iti-d6-Btv"/>
-                            <constraint firstItem="TKk-Hq-UAy" firstAttribute="leading" secondItem="afX-iI-qc9" secondAttribute="leading" id="Ygf-qs-KIr"/>
+                            <constraint firstAttribute="trailing" secondItem="TKk-Hq-UAy" secondAttribute="trailing" id="1MS-vh-GHT"/>
+                            <constraint firstItem="Bmb-M5-A5p" firstAttribute="top" secondItem="afX-iI-qc9" secondAttribute="top" id="N2O-jG-sAK"/>
+                            <constraint firstItem="Bmb-M5-A5p" firstAttribute="trailing" secondItem="TKk-Hq-UAy" secondAttribute="trailing" id="Oda-sI-P60"/>
+                            <constraint firstItem="TKk-Hq-UAy" firstAttribute="top" secondItem="DoU-4h-Wec" secondAttribute="top" constant="389" id="Phq-ca-V7R"/>
+                            <constraint firstItem="TKk-Hq-UAy" firstAttribute="top" secondItem="Bmb-M5-A5p" secondAttribute="bottom" constant="56" id="kcv-Jm-bDD"/>
+                            <constraint firstItem="TKk-Hq-UAy" firstAttribute="leading" secondItem="DoU-4h-Wec" secondAttribute="leading" id="pjk-cc-YHg"/>
+                            <constraint firstItem="Bmb-M5-A5p" firstAttribute="leading" secondItem="afX-iI-qc9" secondAttribute="leading" id="psC-n6-w53"/>
+                            <constraint firstItem="TKk-Hq-UAy" firstAttribute="bottom" secondItem="afX-iI-qc9" secondAttribute="bottom" id="qLf-VH-BaP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="afX-iI-qc9"/>
                     </view>
                     <connections>
+                        <outlet property="imageViewProgressOutlet" destination="TKk-Hq-UAy" id="8XO-Gj-AJO"/>
                         <outlet property="labelVIN" destination="S4N-6G-FvG" id="1Zj-Hn-4Q2"/>
                         <outlet property="photo" destination="Bmb-M5-A5p" id="6ZH-kt-KVG"/>
+                        <outlet property="progressView" destination="6UG-xr-Dx7" id="J6J-uU-dm3"/>
+                        <outlet property="saveButton" destination="bkp-yS-mpZ" id="wJT-ns-HrT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blX-MC-r6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1212" y="-15.742128935532236"/>
+            <point key="canvasLocation" x="1209.375" y="-17.5"/>
         </scene>
     </scenes>
     <resources>

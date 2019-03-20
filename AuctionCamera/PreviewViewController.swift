@@ -9,13 +9,23 @@
 import UIKit
 
 
-class PreviewViewController: UIViewController
-{
-
+class PreviewViewController: UIViewController  {
+  
     
+ 
+    
+
+
+    let MAXTIME : Float = 4.0
+    var currentTime : Float = 0.0
+    
+    @IBOutlet var progressView: UIProgressView!
+    
+    @IBOutlet var imageViewProgressOutlet: UIView!
     @IBOutlet weak var photo: UIImageView!
     var image1: UIImage!
     
+    @IBOutlet var saveButton: UIButton!
     @IBOutlet var labelVIN: UILabel!
     
     
@@ -124,15 +134,23 @@ class PreviewViewController: UIViewController
      // dismiss(animated: true, completion: nil)
       //  let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
         
-        uploadImage(paramName: labelVIN.text!, fileName: "image.png", image: image1!)
-        
-        
+      //  uploadImage(paramName: labelVIN.text!, fileName: "image.png", image: image1!)
+         uploadImage(paramName: labelVIN.text!, fileName: "image.jpeg", image: image1!)
     }
     
 
     
-    func uploadImage(paramName: String, fileName: String, image: UIImage) {
-        let url = URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/SendPicture")
+    func uploadImage(paramName: String, fileName: String,
+           image: UIImage) {
+        
+        saveButton.isEnabled = false
+       
+        progressView.setProgress(currentTime, animated: true)
+            perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
+        
+        
+       let url = URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/SendPicture")
+      //     let url = URL(string: "https://mobile.aane.com/auction/auction.asmx/SendPicture")
         
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString
@@ -152,11 +170,11 @@ class PreviewViewController: UIViewController
         // Add the image data to the raw http request data
         data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
         data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
-        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
-        
+     //   data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+data.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
         
       //  let img = image.pngData()
-        let img = image.jpegData(compressionQuality: 0.20)
+        let img = image.jpegData(compressionQuality: 0.10)
         
         let base64String = img?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
         // let myDataEncoded = base64String?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -171,9 +189,11 @@ class PreviewViewController: UIViewController
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print(json)
-                }
+                        }
             }
         }).resume()
+        self.saveButton.isEnabled = true
+        
     }
     
     
@@ -191,6 +211,22 @@ class PreviewViewController: UIViewController
         
     }
 
+    @objc func updateProgress() {
+    currentTime = currentTime + 1.0
+        progressView.progress = currentTime/MAXTIME
+        labelVIN.text = "\(currentTime)"
+        
+        if currentTime < MAXTIME {
+              perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
+            
+        } else {
+            print("stop")
+            currentTime = 0.0
+        }
+        
+    }
+    
+    
     
     
 }
@@ -204,7 +240,7 @@ extension UIImage {
     
     /// EZSE: Returns base64 string
     public var base64: String {
-        return self.jpegData(compressionQuality: 0.25)!.base64EncodedString()
+        return self.jpegData(compressionQuality: 0.20)!.base64EncodedString()
     }
 }
     
