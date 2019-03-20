@@ -150,7 +150,7 @@ class PreviewViewController: UIViewController  {
             perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
         
         
-       let url = URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/SendPicture")
+       let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
       //     let url = URL(string: "https://mobile.aane.com/auction/auction.asmx/SendPicture")
         
         // generate boundary string using a unique per-app string
