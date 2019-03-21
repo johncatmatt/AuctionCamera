@@ -16,7 +16,7 @@ class PreviewViewController: UIViewController  {
     
 
 
-    let MAXTIME : Float = 4.0
+    let MAXTIME : Float = 5.0
     var currentTime : Float = 0.0
     
     @IBOutlet var progressView: UIProgressView!
