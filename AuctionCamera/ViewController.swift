@@ -31,13 +31,13 @@ class ViewController: UIViewController {
         
         setupCaptureSession()
         setupDevice()
-        setupInputOutput()
+      //  setupInputOutput()
         setupPreviewLayer()
         startRunningCapturSession()
 
-    //    let image = UIImage(named: "download.jpeg")
+        let image = UIImage(named: "download.jpeg")
         
-    //    uploadImage(paramName: "hhhhhhhh112121212", fileName: "image.jpeg", image: image!)
+       uploadImage(paramName: "1GDJK74K29F134095", fileName: "image.jpeg", image: image!)
    //
         
        // uploadImageOne()
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
     
     
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
-        let url = URL(string: "https://auction.catmatt.com/Auction/Auction.asmx/SendPicture")
+        let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
         
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString
