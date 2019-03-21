@@ -9,15 +9,27 @@
 import UIKit
 
 
-class PreviewViewController: UIViewController  {
+class PreviewViewController: UIViewController
+    , URLSessionDelegate, URLSessionDataDelegate   // ,URLSessionDownloadDelegate
+{
+  
+ //   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+ //       var uploadProgress:Float = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
+
+ //   }
   
     
- 
+
+    @IBOutlet var downloadProgressLabel: UILabel!
     
-
-
-    let MAXTIME : Float = 5.0
+    let MAXTIME : Float = 10.0
     var currentTime : Float = 0.0
+    
+  //  var expectedContentLength = 0
+  //  var buffer:NSMutableData = NSMutableData()
+   // var session:URLSession?
+  //  var dataTask:URLSessionDataTask?
+    
     
     @IBOutlet var progressView: UIProgressView!
     
@@ -28,14 +40,23 @@ class PreviewViewController: UIViewController  {
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var labelVIN: UILabel!
     
+       let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         photo.image = self.image1
    
-       
+       progressView.transform = progressView.transform.scaledBy(x: 1, y: 4)
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
         print(labelVIN.text!)
+        
+        progressView.progress = 0.0
+     //   let configuration = URLSessionConfiguration.default
+     //   let manqueue = OperationQueue.main
+    //    session = URLSession(configuration: configuration, delegate:self, delegateQueue: manqueue)
+     //   dataTask = session?.dataTaskWithRequest(NSURLRequest(URL: erfl))
+     //   dataTask?.resume()
+        
         
         // Do any additional setup after loading the view.
     }
@@ -133,7 +154,7 @@ class PreviewViewController: UIViewController  {
       //  testpic()
      // dismiss(animated: true, completion: nil)
       //  let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
-        
+          self.currentTime = 0
         uploadImage(paramName: labelVIN.text!, fileName: "image.jpeg", image: image1!)
         
         
@@ -146,17 +167,19 @@ class PreviewViewController: UIViewController  {
         
         saveButton.isEnabled = false
        
-        progressView.setProgress(currentTime, animated: true)
-            perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
+       progressView.setProgress(currentTime, animated: true)
+          perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
         
         
-       let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
+      // let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
       //     let url = URL(string: "https://mobile.aane.com/auction/auction.asmx/SendPicture")
         
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString
         
+       // let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: OperationQueue.main)
         let session = URLSession.shared
+        //changed to above 2019/03/21 let session = URLSession.shared
         
         // Set the URLRequest to POST and to the specified URL
         var urlRequest = URLRequest(url: url!)
@@ -184,15 +207,30 @@ class PreviewViewController: UIViewController  {
         
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
+       
+        
         // Send a POST request to the URL, with the data we created earlier
+   
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+    //         self.fetchFile(url: self.url! )
+
             if error == nil {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print(json)
-                        }
+                      self.currentTime = 10
+                    
+                    let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
+          
+                
+                
             }
         }).resume()
+      
         self.saveButton.isEnabled = true
         
     }
@@ -227,6 +265,8 @@ class PreviewViewController: UIViewController  {
         
     }
     
+  
+    
     
     
     
@@ -245,12 +285,3 @@ extension UIImage {
     }
 }
     
-
-    
-
-
-
-
- 
- 
-

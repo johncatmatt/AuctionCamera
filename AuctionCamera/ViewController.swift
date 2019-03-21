@@ -31,13 +31,13 @@ class ViewController: UIViewController {
         
         setupCaptureSession()
         setupDevice()
-      //  setupInputOutput()
+       setupInputOutput() //dw
         setupPreviewLayer()
         startRunningCapturSession()
 
-        let image = UIImage(named: "download.jpeg")
+   //dw     let image = UIImage(named: "download.jpeg")
         
-       uploadImage(paramName: "1GDJK74K29F134095", fileName: "image.jpeg", image: image!)
+   //dw    uploadImage(paramName: "1GDJK74K29F134095", fileName: "image.jpeg", image: image!)
    //
         
        // uploadImageOne()
@@ -141,6 +141,10 @@ class ViewController: UIViewController {
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         cameraPreviewLayer?.frame = self.view.frame
+        
+//cameraPreviewLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height * 0.7)
+        //CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height * 0.7)
+
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
     }
     
