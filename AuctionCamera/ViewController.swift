@@ -44,6 +44,9 @@ class ViewController: UIViewController {
     }
 
     func setupCaptureSession(){
+        
+        
+        
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
     
@@ -109,6 +112,10 @@ class ViewController: UIViewController {
     
    
     func setupDevice(){
+        
+      
+        
+        
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         let devices = deviceDiscoverySession.devices
         
@@ -118,6 +125,9 @@ class ViewController: UIViewController {
             }else if device.position == AVCaptureDevice.Position.front {
                 frontCamera = device
             }
+            
+            
+            
         }
          currentCamera = backCamera
     }
@@ -129,7 +139,9 @@ class ViewController: UIViewController {
             photoOutput = AVCapturePhotoOutput()
             photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
-    
+            
+   
+            
         } catch{
             print(error)
         }
@@ -155,6 +167,11 @@ class ViewController: UIViewController {
     
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
            let settings = AVCapturePhotoSettings()
+        
+
+      
+        
+        
             photoOutput?.capturePhoto(with: settings, delegate: self)
        // performSegue(withIdentifier: "showPhoto_Segue", sender: nil)
     }
@@ -170,6 +187,10 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: AVCapturePhotoCaptureDelegate {
+    
+    
+    
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
      //  print(imageData)

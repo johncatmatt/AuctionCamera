@@ -64,8 +64,11 @@
                                     <constraint firstAttribute="height" constant="108" id="xVD-sN-bW4"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Photos must be taken in Landscape " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87x-B2-dZM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos must be taken in Landscape " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87x-B2-dZM">
                                 <rect key="frame" x="16" y="263" width="288" height="94"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="94" id="qme-AW-5ks"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -74,14 +77,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6go-j7-sKp" firstAttribute="leading" secondItem="roY-Wp-U5m" secondAttribute="leading" id="6yE-SI-4kx"/>
+                            <constraint firstItem="87x-B2-dZM" firstAttribute="top" secondItem="YKt-mv-G6y" secondAttribute="bottom" constant="21" id="7eg-Ou-s1J"/>
                             <constraint firstItem="roY-Wp-U5m" firstAttribute="leading" secondItem="Nha-0n-tJy" secondAttribute="leadingMargin" id="8P6-hE-bKd"/>
-                            <constraint firstItem="roY-Wp-U5m" firstAttribute="leading" secondItem="87x-B2-dZM" secondAttribute="leading" id="FFE-lD-jQ1"/>
+                            <constraint firstItem="87x-B2-dZM" firstAttribute="trailing" secondItem="6go-j7-sKp" secondAttribute="trailing" id="BaD-q2-fXN"/>
                             <constraint firstItem="6go-j7-sKp" firstAttribute="centerX" secondItem="YKt-mv-G6y" secondAttribute="centerX" id="Lty-i6-hgm"/>
                             <constraint firstItem="YKt-mv-G6y" firstAttribute="top" secondItem="6go-j7-sKp" secondAttribute="bottom" constant="6" id="S7n-fk-Hcg"/>
                             <constraint firstItem="YKt-mv-G6y" firstAttribute="centerX" secondItem="Nha-0n-tJy" secondAttribute="centerX" id="cPI-v8-een"/>
-                            <constraint firstItem="6go-j7-sKp" firstAttribute="trailing" secondItem="87x-B2-dZM" secondAttribute="trailing" id="cbc-jd-ger"/>
                             <constraint firstItem="roY-Wp-U5m" firstAttribute="top" secondItem="rIr-BU-TLW" secondAttribute="top" constant="7" id="esy-Ra-Czj"/>
                             <constraint firstItem="6go-j7-sKp" firstAttribute="top" secondItem="roY-Wp-U5m" secondAttribute="bottom" constant="5" id="pVE-u2-KDL"/>
+                            <constraint firstItem="87x-B2-dZM" firstAttribute="leading" secondItem="6go-j7-sKp" secondAttribute="leading" id="yiS-G8-5h4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rIr-BU-TLW"/>
                     </view>
