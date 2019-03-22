@@ -22,7 +22,7 @@ class PreviewViewController: UIViewController
 
     @IBOutlet var downloadProgressLabel: UILabel!
     
-    let MAXTIME : Float = 10.0
+    let MAXTIME : Float = 3.0
     var currentTime : Float = 0.0
     
   //  var expectedContentLength = 0
@@ -48,6 +48,7 @@ class PreviewViewController: UIViewController
    
        progressView.transform = progressView.transform.scaledBy(x: 1, y: 4)
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
+        labelVIN.isHidden = true
         print(labelVIN.text!)
         
         progressView.progress = 0.0
@@ -59,6 +60,12 @@ class PreviewViewController: UIViewController
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
     }
     
     
@@ -218,11 +225,22 @@ class PreviewViewController: UIViewController
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print(json)
-                      self.currentTime = 10
-                    
-                    let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                      self.currentTime = self.MAXTIME
+                let jsonStr = "\(json)"
+                    let range: Range<String.Index> = jsonStr.range(of: "Success")!
+                    let index: Int = jsonStr.distance(from: jsonStr.startIndex, to: range.lowerBound)
+                    if index == 0 {
+                        let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }
+                    //else {
+                        
+                    //     self.dismiss(animated: true, completion: nil)
+                   // }
+        
+             
                     
                 }
           
@@ -266,7 +284,7 @@ class PreviewViewController: UIViewController
     }
     
   
-    
+
     
     
     

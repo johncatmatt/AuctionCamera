@@ -20,6 +20,9 @@ class ViewController: UIViewController {
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     
+    var portriatCamera: AVCaptureDevice?
+    var landscapeCamera: AVCaptureDevice?
+    
     var photoOutput: AVCapturePhotoOutput?
     
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -33,6 +36,7 @@ class ViewController: UIViewController {
         setupDevice()
        setupInputOutput() //dw
         setupPreviewLayer()
+        
         startRunningCapturSession()
 
    //dw     let image = UIImage(named: "download.jpeg")
@@ -43,6 +47,12 @@ class ViewController: UIViewController {
        // uploadImageOne()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+      
+    }
+    
     func setupCaptureSession(){
         
         
@@ -126,10 +136,12 @@ class ViewController: UIViewController {
                 frontCamera = device
             }
             
-            
-            
+          
         }
          currentCamera = backCamera
+        
+       
+        
     }
     
     func setupInputOutput(){
@@ -152,12 +164,16 @@ class ViewController: UIViewController {
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+     //   cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+        
         cameraPreviewLayer?.frame = self.view.frame
         
 //cameraPreviewLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height * 0.7)
         //CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height * 0.7)
 
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
+        
+        
     }
     
     func startRunningCapturSession(){
@@ -199,6 +215,27 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
             
         }
     }
+    
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard
+            let conn = self.cameraPreviewLayer?.connection,
+            conn.isVideoOrientationSupported
+            else { return }
+        let deviceOrientation = UIDevice.current.orientation
+        switch deviceOrientation {
+        case .portrait: conn.videoOrientation = .portrait
+        case .landscapeRight: conn.videoOrientation = .landscapeLeft
+        case .landscapeLeft: conn.videoOrientation = .landscapeRight
+        case .portraitUpsideDown: conn.videoOrientation = .portraitUpsideDown
+        default: conn.videoOrientation = .portrait
+        }
+    }
+
+    
+    
 }
 extension Data{
     mutating func append(_ string: String, using encoding: String.Encoding = .utf8) {

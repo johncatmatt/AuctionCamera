@@ -15,14 +15,27 @@ protocol  SendDataFromDelegateVIN {
 class ViewControllerVehicle: UIViewController
 ,SendDataFromDelegate, UITextFieldDelegate{
 
+    @IBOutlet var butClear: UIButton!
     @IBOutlet var butPhoto: UIButton!
     @IBOutlet var txtVIN: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         txtVIN.delegate = self
         // Do any additional setup after loading the view.
+       
         
+       
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if txtVIN.text?.isEmpty ?? true {
+            butClear.isHidden = true
+            
+        } else {
+            butClear.isHidden = false
+            
+        }
     }
   
     
@@ -64,6 +77,12 @@ class ViewControllerVehicle: UIViewController
         }
     }
     
+    @IBAction func burClear_touchupInside(_ sender: Any) {
+        txtVIN.text = ""
+         butClear.isHidden = true
+        
+        
+    }
     
     func sendData(data: String) {
         self.txtVIN.text = data
