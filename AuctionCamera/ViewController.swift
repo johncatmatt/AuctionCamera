@@ -15,6 +15,7 @@ import AVFoundation
 class ViewController: UIViewController {
 
     
+    @IBOutlet weak var switchMasterPhoto: UISwitch!
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
@@ -27,11 +28,12 @@ class ViewController: UIViewController {
     
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
+    @IBOutlet weak var cemeraButton: UIButton!
     var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        cemeraButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         setupCaptureSession()
         setupDevice()
        setupInputOutput() //dw
@@ -39,6 +41,10 @@ class ViewController: UIViewController {
         
         startRunningCapturSession()
 
+ 
+
+        
+        
    //dw     let image = UIImage(named: "download.jpeg")
         
    //dw    uploadImage(paramName: "1GDJK74K29F134095", fileName: "image.jpeg", image: image!)
@@ -50,7 +56,9 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-      
+         switchMasterPhoto.isOn = false
+        
+        
     }
     
     func setupCaptureSession(){
@@ -59,7 +67,10 @@ class ViewController: UIViewController {
         
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
-    
+    func switchValueDidChange(sender:UISwitch!){
+        
+        print("Switch Value : \(sender.isOn))")
+    }
     
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
         let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
@@ -196,10 +207,30 @@ class ViewController: UIViewController {
         if segue.identifier == "showPhoto_Segue" {
             let previewVC = segue.destination as! PreviewViewController
             previewVC.image1 = self.image
+           previewVC.switchMasterPhoto = self.switchMasterPhoto
+
+         
             
         }
     }
 
+    
+    
+    @IBAction func switchMasterPhoto_touchupInside(_ sender: Any) {
+               UserDefaults.standard.set(switchMasterPhoto.isOn, forKey: "masterPic")
+        print(UserDefaults.standard.string(forKey: "masterPic") as Any)
+        let onOff = (UserDefaults.standard.string(forKey: "masterPic") )!
+        
+        if onOff == "1" as String {
+            cemeraButton.setTitle("Master", for: .normal)
+            
+        } else {
+                    cemeraButton.setTitle("Photo", for: .normal)
+        }
+        
+    }
+    
+    
 }
 
 extension ViewController: AVCapturePhotoCaptureDelegate {

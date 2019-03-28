@@ -105,10 +105,10 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
                 }
                 else if object.type == AVMetadataObject.ObjectType.code39
                 {
-                    let alert = UIAlertController(title: "code39 Code", message: object.stringValue, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "code39 VIN Scan", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
-                    alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
+                    alert.addAction(UIAlertAction(title: "Accept", style: .destructive, handler: {
                         _ in  if self.delegate != nil {
                             self.delegate?.sendData(data:object.stringValue!)
                             self.navigationController?.popViewController(animated: true)
@@ -161,10 +161,10 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
                 }
                 else if object.type == AVMetadataObject.ObjectType.ean8
                 {
-                    let alert = UIAlertController(title: "ean8 Code", message: object.stringValue, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "ean8 Code VIN", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
-                    alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
+                    alert.addAction(UIAlertAction(title: "Accept", style: .destructive, handler: {
                         _ in  if self.delegate != nil {
                             self.delegate?.sendData(data:object.stringValue!)
                             self.navigationController?.popViewController(animated: true)

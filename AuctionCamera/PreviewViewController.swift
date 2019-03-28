@@ -22,7 +22,7 @@ class PreviewViewController: UIViewController
 
     @IBOutlet var downloadProgressLabel: UILabel!
     
-    let MAXTIME : Float = 3.0
+    let MAXTIME : Float = 5.0
     var currentTime : Float = 0.0
     
   //  var expectedContentLength = 0
@@ -36,7 +36,8 @@ class PreviewViewController: UIViewController
     @IBOutlet var imageViewProgressOutlet: UIView!
     @IBOutlet weak var photo: UIImageView!
     var image1: UIImage!
-    
+     @IBOutlet weak var switchMasterPhoto: UISwitch!
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var labelVIN: UILabel!
     
@@ -47,11 +48,22 @@ class PreviewViewController: UIViewController
         photo.image = self.image1
    
        progressView.transform = progressView.transform.scaledBy(x: 1, y: 4)
+        
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
         labelVIN.isHidden = true
+        let boolAsString = String(switchMasterPhoto!.isOn)        
+        labelVIN.text = (labelVIN.text ?? "") + boolAsString
+        
         print(labelVIN.text!)
         
         progressView.progress = 0.0
+        cancelButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        
+        saveButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        
+        print(switchMasterPhoto.isOn)
+        
+        
      //   let configuration = URLSessionConfiguration.default
      //   let manqueue = OperationQueue.main
     //    session = URLSession(configuration: configuration, delegate:self, delegateQueue: manqueue)
@@ -205,7 +217,7 @@ class PreviewViewController: UIViewController
         
         
       //  let img = image.pngData()
-        let img = image.jpegData(compressionQuality: 0.10)
+        let img = image.jpegData(compressionQuality: 0.04)
         
         let base64String = img?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
         // let myDataEncoded = base64String?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

@@ -170,6 +170,9 @@
                                     <constraint firstAttribute="height" constant="60" id="Kjz-mB-fqX"/>
                                     <constraint firstAttribute="width" constant="60" id="rUY-CN-eJp"/>
                                 </constraints>
+                                <state key="normal" title="Photo">
+                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="30"/>
@@ -179,15 +182,25 @@
                                     <action selector="cameraButton_TouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tzs-cN-iD5"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MRQ-6H-J9i">
+                                <rect key="frame" x="255" y="415" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchMasterPhoto_touchupInside:" destination="BYZ-38-t0r" eventType="valueChanged" id="iDK-a0-oqC"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="lDi-rB-uAg" secondAttribute="bottom" constant="20" id="MU4-t4-gT0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MRQ-6H-J9i" secondAttribute="trailing" constant="16" id="WiP-Nd-Boz"/>
                             <constraint firstItem="lDi-rB-uAg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YKe-7d-CDu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="MRQ-6H-J9i" secondAttribute="bottom" constant="34" id="gkr-lr-f1M"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="cemeraButton" destination="lDi-rB-uAg" id="epE-N0-CZC"/>
+                        <outlet property="switchMasterPhoto" destination="MRQ-6H-J9i" id="uth-Yq-sJd"/>
                         <segue destination="Qnn-gn-u1B" kind="presentation" identifier="showPhoto_Segue" id="JYT-L6-U4B"/>
                     </connections>
                 </viewController>
@@ -295,6 +308,7 @@
                         <viewLayoutGuide key="safeArea" id="afX-iI-qc9"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="EJv-Xf-Bq3" id="Oyu-sA-Rgw"/>
                         <outlet property="imageViewProgressOutlet" destination="TKk-Hq-UAy" id="8XO-Gj-AJO"/>
                         <outlet property="labelVIN" destination="S4N-6G-FvG" id="1Zj-Hn-4Q2"/>
                         <outlet property="photo" destination="Bmb-M5-A5p" id="6ZH-kt-KVG"/>
