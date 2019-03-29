@@ -174,6 +174,10 @@ class PreviewViewController: UIViewController
      // dismiss(animated: true, completion: nil)
       //  let image = UIImage(named: "icons8-Tornado Filled-29 (1).png")
           self.currentTime = 0
+      //    saveButton.isEnabled = true
+
+   //   self.view.isUserInteractionEnabled = false
+
         uploadImage(paramName: labelVIN.text!, fileName: "image.jpeg", image: image1!)
         
         
@@ -203,6 +207,8 @@ class PreviewViewController: UIViewController
         // Set the URLRequest to POST and to the specified URL
         var urlRequest = URLRequest(url: url!)
         urlRequest.httpMethod = "POST"
+  
+        print("paramname: \(paramName)")
         
         // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
         // And the boundary is also set here
@@ -283,7 +289,7 @@ class PreviewViewController: UIViewController
     @objc func updateProgress() {
     currentTime = currentTime + 1.0
         progressView.progress = currentTime/MAXTIME
-        labelVIN.text = "\(currentTime)"
+     //   labelVIN.text = "\(currentTime)"
         
         if currentTime < MAXTIME {
               perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
@@ -291,6 +297,10 @@ class PreviewViewController: UIViewController
         } else {
             print("stop")
             currentTime = 0.0
+            
+        //  self.view.isUserInteractionEnabled = true
+            
+            
         }
         
     }
