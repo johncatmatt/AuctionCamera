@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AuctionCamera/ViewController.swift"
+            timestampString = "576788412.310962"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AuctionCamera/TableCell.swift"
+            timestampString = "573862504.261036"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "TableCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AuctionCamera.TableCell.__allocating_init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; AuctionCamera.TableCell"
+                  moduleName = "AuctionCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
+                  timestampString = "576788416.645174"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AuctionCamera.TableCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; AuctionCamera.TableCell"
+                  moduleName = "AuctionCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
+                  timestampString = "576788416.648123"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AuctionCamera.TableCell.__allocating_init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;AuctionCamera.TableCell&gt;"
+                  moduleName = "AuctionCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
+                  timestampString = "576788416.651009"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AuctionCamera.TableCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;AuctionCamera.TableCell&gt;"
+                  moduleName = "AuctionCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
+                  timestampString = "576788416.653928"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AuctionCamera.TableCell.__deallocating_deinit"
+                  moduleName = "AuctionCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
+                  timestampString = "576788416.6564831"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

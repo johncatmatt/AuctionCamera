@@ -8,160 +8,140 @@
 
 import UIKit
 import AVFoundation
+//import Alamofire
 
 
 
 class ViewController: UIViewController {
 
     
+    @IBOutlet weak var switchMasterPhoto: UISwitch!
     var captureSession = AVCaptureSession()
     var backCamera: AVCaptureDevice?
     var frontCamera: AVCaptureDevice?
     var currentCamera: AVCaptureDevice?
     
+    var portriatCamera: AVCaptureDevice?
+    var landscapeCamera: AVCaptureDevice?
+    
     var photoOutput: AVCapturePhotoOutput?
     
     var cameraPreviewLayer: AVCaptureVideoPreviewLayer?
     
+    @IBOutlet weak var cemeraButton: UIButton!
     var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        cemeraButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         setupCaptureSession()
         setupDevice()
-        setupInputOutput()
+       setupInputOutput() //dw
         setupPreviewLayer()
+        
         startRunningCapturSession()
+        let vin = UserDefaults.standard.string(forKey: "vin")!
         
+        let upperTitle = NSMutableAttributedString(string: "\(vin)", attributes: [NSAttributedString.Key.font: UIFont(name: "Arial", size: 17)!])
         
+        let label1 = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height:66))
+        label1.numberOfLines = 0
+        label1.textAlignment = .center
+        label1.attributedText = upperTitle  //assign it to attributedText instead of text
+        self.navigationItem.titleView = label1
         
+   //dw     let image = UIImage(named: "download.jpeg")
+        
+   //dw    uploadImage(paramName: "1GDJK74K29F134095", fileName: "image.jpeg", image: image!)
+   //
+        
+       // uploadImageOne()
     }
 
-    func setupCaptureSession(){
-        captureSession.sessionPreset = AVCaptureSession.Preset.photo
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+         switchMasterPhoto.isOn = false
+        
+        
     }
     
-    func ExportImage(){
+    func setupCaptureSession(){
         
         
         
-        //setup URL
-        let vin = "hfhhfhfhfhfhfhfh";
+        captureSession.sessionPreset = AVCaptureSession.Preset.photo
+    }
+    func switchValueDidChange(sender:UISwitch!){
         
+        print("Switch Value : \(sender.isOn))")
+    }
+    
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
         
-        
-        let todoEndpoint: String = "https://auction.catmatt.com/Auction/Auction.asmx/StorePicture?vin=\(vin)&image=0";
-        
-        //  let todoEndpoint: String = "https://secureservice.autouse.com/dlrweb/WebService1.asmx/HelloWorld?dlrno=00216";
-        
-        guard let url = URL(string: todoEndpoint) else {
-            
-            print("Error: cannot create URL")
-            
-            return
-            
-        }
-        
-        
-        
-        var urlRequest = URLRequest(url: url)
-        
-        
-        
-        urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
-        
-        urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
-        
-        
-        
-        //start the url session
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
         
         let session = URLSession.shared
         
-        let task = session.dataTask(with: urlRequest){ data, response, error in
-            //check for errors
-            
-            guard error == nil else {
-                
-                print("Error calling GET: \(error!)")
-                
-                return
-                
-            }
-            guard let data = data else { print("DATA error"); return }
-            
-            
-            
-            do {
-                
-                //decodes the json from the data
-                
-                
-                //       let testString = try JSONSerialization.jsonObject(with: data, options: .allowFragments);
-                
-                let d = try JSONDecoder().decode(jsonData.self,from: data)
-                
-                
-                DispatchQueue.main.async {
-                    
-                    let x =  d.imageid;
-                    let y = d.error;
-                    
-                    
-                    //self.lineAmount = d.lineAmount
-                    
-                    //     self.lblLineAmmount.text = self.lblLineAmmount.text! + //d.lineAmount
-                    
-                    
-                    
-                    let msgAlert = UIAlertController(title: "Data Recieved!", message: "The following data was recieved by the app: \(d)", preferredStyle: UIAlertController.Style.alert)
-                    
-                    msgAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
-                        
-                        
-                        
-                        msgAlert.dismiss(animated: true, completion: nil)
-                        
-                        
-                        
-                    }))
-                    
-                    
-                    
-                    self.present(msgAlert, animated: true, completion: nil)
-                    
-                    
-                    
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = "POST"
+        
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        
+        var data = Data()
+        
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        
+        
+        let img = image.pngData()
+        
+        let base64String = img?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
+       // let myDataEncoded = base64String?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+        data.append(base64String!)
+        
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                if let json = jsonData as? [String: Any] {
+                    print(json)
                 }
-                
-                
-                
-                
-                
-            } catch let jsonErr{
-                
-                print("JSON Error: ", jsonErr)
-                
             }
-            
-            
-            
-        }
-        
-        task.resume()
-        
+        }).resume()
     }
-    struct jsonData: Decodable {
-        
-        var imageid : NSInteger
-        
-        var error : String
-        
-      //  var lineAmount : String
-        
+    
+
+    struct pic: Codable {
+        let vin: String
     }
+    
+     struct jsonData: Decodable {
+     
+     var imageid : NSInteger
+     
+     var error : String
+     
+     //  var lineAmount : String
+     
+     }
+    
+   
     func setupDevice(){
+        
+      
+        
+        
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         let devices = deviceDiscoverySession.devices
         
@@ -171,8 +151,13 @@ class ViewController: UIViewController {
             }else if device.position == AVCaptureDevice.Position.front {
                 frontCamera = device
             }
+            
+          
         }
          currentCamera = backCamera
+        
+       
+        
     }
     
     func setupInputOutput(){
@@ -182,7 +167,9 @@ class ViewController: UIViewController {
             photoOutput = AVCapturePhotoOutput()
             photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
-    
+            
+   
+            
         } catch{
             print(error)
         }
@@ -193,8 +180,16 @@ class ViewController: UIViewController {
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+     //   cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+        
         cameraPreviewLayer?.frame = self.view.frame
+        
+//cameraPreviewLayer?.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height * 0.7)
+        //CGRectMake(0 , 0, self.view.frame.width, self.view.frame.height * 0.7)
+
         self.view.layer.insertSublayer(cameraPreviewLayer!, at: 0)
+        
+        
     }
     
     func startRunningCapturSession(){
@@ -204,6 +199,11 @@ class ViewController: UIViewController {
     
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
            let settings = AVCapturePhotoSettings()
+        
+
+      
+        
+        
             photoOutput?.capturePhoto(with: settings, delegate: self)
        // performSegue(withIdentifier: "showPhoto_Segue", sender: nil)
     }
@@ -211,14 +211,38 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto_Segue" {
             let previewVC = segue.destination as! PreviewViewController
-            previewVC.image = self.image
+            previewVC.image1 = self.image
+           previewVC.switchMasterPhoto = self.switchMasterPhoto
+
+         
             
         }
     }
 
+    
+    
+    @IBAction func switchMasterPhoto_touchupInside(_ sender: Any) {
+               UserDefaults.standard.set(switchMasterPhoto.isOn, forKey: "masterPic")
+        print(UserDefaults.standard.string(forKey: "masterPic") as Any)
+        let onOff = (UserDefaults.standard.string(forKey: "masterPic") )!
+        
+        if onOff == "1" as String {
+            cemeraButton.setTitle("Master", for: .normal)
+            
+        } else {
+                    cemeraButton.setTitle("Photo", for: .normal)
+        }
+        
+    }
+    
+    
 }
 
 extension ViewController: AVCapturePhotoCaptureDelegate {
+    
+    
+    
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
      //  print(imageData)
@@ -227,5 +251,32 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
             
         }
     }
-}
+    
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard
+            let conn = self.cameraPreviewLayer?.connection,
+            conn.isVideoOrientationSupported
+            else { return }
+        let deviceOrientation = UIDevice.current.orientation
+        switch deviceOrientation {
+        case .portrait: conn.videoOrientation = .portrait
+        case .landscapeRight: conn.videoOrientation = .landscapeLeft
+        case .landscapeLeft: conn.videoOrientation = .landscapeRight
+        case .portraitUpsideDown: conn.videoOrientation = .portraitUpsideDown
+        default: conn.videoOrientation = .portrait
+        }
+    }
 
+    
+    
+}
+extension Data{
+    mutating func append(_ string: String, using encoding: String.Encoding = .utf8) {
+        if let data = string.data(using: encoding) {
+            append(data)
+        }
+    }
+}
