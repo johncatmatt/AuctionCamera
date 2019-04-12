@@ -18,8 +18,11 @@ class PreviewViewController: UIViewController
 
  //   }
   
-    
+     let child = SpinnerViewController()
 
+  //  @IBOutlet weak var spinner: UIActivityIndicatorView!
+    //   @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     @IBOutlet var downloadProgressLabel: UILabel!
     
     let MAXTIME : Float = 5.0
@@ -31,7 +34,7 @@ class PreviewViewController: UIViewController
   //  var dataTask:URLSessionDataTask?
     
     
-    @IBOutlet var progressView: UIProgressView!
+   @IBOutlet var progressView: UIProgressView!
     
     @IBOutlet var imageViewProgressOutlet: UIView!
     @IBOutlet weak var photo: UIImageView!
@@ -46,17 +49,22 @@ class PreviewViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         photo.image = self.image1
-   
-       progressView.transform = progressView.transform.scaledBy(x: 1, y: 4)
+      //  spinner.isHidden =  true
+     //   progressView.transform = progressView.transform.scaledBy(x: 1, y: 4)
+        
+        
         
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
         labelVIN.isHidden = true
-        let boolAsString = String(switchMasterPhoto!.isOn)        
+        
+        let boolAsString = String(switchMasterPhoto!.isOn)
         labelVIN.text = (labelVIN.text ?? "") + boolAsString
+      
+        
         
         print(labelVIN.text!)
         
-        progressView.progress = 0.0
+  //      progressView.progress = 0.0
         cancelButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
         saveButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
@@ -70,6 +78,8 @@ class PreviewViewController: UIViewController
      //   dataTask = session?.dataTaskWithRequest(NSURLRequest(URL: erfl))
      //   dataTask?.resume()
         
+        
+
         
         // Do any additional setup after loading the view.
     }
@@ -178,6 +188,10 @@ class PreviewViewController: UIViewController
 
    //   self.view.isUserInteractionEnabled = false
 
+   //     spinner.startAnimating()
+    //    spinner.isHidden = false
+        
+createSpinnerView()
         uploadImage(paramName: labelVIN.text!, fileName: "image.jpeg", image: image1!)
         
         
@@ -187,11 +201,12 @@ class PreviewViewController: UIViewController
     
     func uploadImage(paramName: String, fileName: String,
            image: UIImage) {
+
         
         saveButton.isEnabled = false
        
-       progressView.setProgress(currentTime, animated: true)
-          perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
+   //    progressView.setProgress(currentTime, animated: true)
+    //      perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
         
         
       // let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
@@ -248,15 +263,35 @@ class PreviewViewController: UIViewController
                     let range: Range<String.Index> = jsonStr.range(of: "Success")!
                     let index: Int = jsonStr.distance(from: jsonStr.startIndex, to: range.lowerBound)
                     if index == 0 {
-                        let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Upload Status ERROR", message: "\(json)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                         
                     }
-                    //else {
+                    else
+                       // if index == 30
+                        {
+                      print(index)
+                         //self.dismiss(animated: true, completion: nil)
+               /*         let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                 */
+                    /*
+                        let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->() in })
+
+                        self.present(alert, animated: true, completion: {() -> Void in
+                            alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                            
+                        })
+                    */
+                                 PreviewViewController.showAlertMessage(message:"\(json)", viewController: self)
+                            
+                             self.CloseSpinnerView()
+                            
                         
-                    //     self.dismiss(animated: true, completion: nil)
-                   // }
+                    }
         
              
                     
@@ -266,7 +301,10 @@ class PreviewViewController: UIViewController
                 
             }
         }).resume()
-      
+     
+        CloseSpinnerView()
+        
+        
         self.saveButton.isEnabled = true
         
     }
@@ -285,7 +323,7 @@ class PreviewViewController: UIViewController
         //  var lineAmount : String
         
     }
-
+/*
     @objc func updateProgress() {
     currentTime = currentTime + 1.0
         progressView.progress = currentTime/MAXTIME
@@ -304,11 +342,88 @@ class PreviewViewController: UIViewController
         }
         
     }
+    */
     
   
+    func replace(myString: String)  {
+    
+        let oldString = "Hello, playground"
+        let newString: String = myString.prefix(4) + "0" + oldString.dropFirst(5)
+        labelVIN.text = newString
+        
+    }
+  
+    class func showAlertMessage(message:String, viewController: UIViewController) {
+        DispatchQueue.main.async {
+        /*
+            let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+            
+            alertMessage.addAction(cancelAction)
+            
+            viewController.present(alertMessage, animated: true, completion: nil)
+        */
+ let alert = UIAlertController(title: "Upload Status", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->() in })
+            
+            viewController.present(alert, animated: true, completion: {() -> Void in
+                alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+          
+                
+            })
+            
+            
+          }
+        
+            
+        
+    }
+  
+    func createSpinnerView() {
+      //  let child = SpinnerViewController()
+          /*
+        // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+        // wait two seconds to simulate some work happening
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            // then remove the spinner view controller
+            child.willMove(toParent: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParent()
+        }
+       */
+      
+                // add the spinner view controller
+                addChild(child)
+                child.view.frame = view.frame
+                view.addSubview(child.view)
+                child.didMove(toParent: self)
+            }
+            
+    func CloseSpinnerView() {
+      //  let child = SpinnerViewController()
+        /*
+         // add the spinner view controller
+         addChild(child)
+         child.view.frame = view.frame
+         view.addSubview(child.view)
+         child.didMove(toParent: self)
+         */
+        // wait two seconds to simulate some work happening
+         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+         // then remove the spinner view controller
+            self.child.willMove(toParent: nil)
+            self.child.view.removeFromSuperview()
+            self.child.removeFromParent()
+         }
+ 
+        
 
-    
-    
+        }
     
 }
 

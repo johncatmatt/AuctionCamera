@@ -144,7 +144,7 @@
             <objects>
                 <navigationController id="ssv-3u-Yq9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4pf-nb-zaa">
-                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -262,11 +262,6 @@
                                             <action selector="cancelButton_TouchUpInside:" destination="Qnn-gn-u1B" eventType="touchUpInside" id="qin-k3-Jcz"/>
                                         </connections>
                                     </button>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6UG-xr-Dx7">
-                                        <rect key="frame" x="101" y="44" width="123" height="3"/>
-                                        <color key="progressTintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="trackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </progressView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -274,13 +269,9 @@
                                     <constraint firstAttribute="height" constant="90" id="KsA-N0-pC3"/>
                                     <constraint firstAttribute="bottom" secondItem="bkp-yS-mpZ" secondAttribute="bottom" constant="7" id="Nis-EH-Gt4"/>
                                     <constraint firstAttribute="trailing" secondItem="bkp-yS-mpZ" secondAttribute="trailing" constant="20" id="Opj-bj-Hw4"/>
-                                    <constraint firstAttribute="trailing" secondItem="6UG-xr-Dx7" secondAttribute="trailing" constant="96" id="S3p-Nl-A0i"/>
                                     <constraint firstItem="EJv-Xf-Bq3" firstAttribute="top" secondItem="TKk-Hq-UAy" secondAttribute="top" constant="13" id="T5l-ez-Pkl"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="WAz-9R-rhD"/>
-                                    <constraint firstItem="6UG-xr-Dx7" firstAttribute="leading" secondItem="TKk-Hq-UAy" secondAttribute="leading" constant="101" id="X8k-6j-edB"/>
                                     <constraint firstAttribute="bottom" secondItem="EJv-Xf-Bq3" secondAttribute="bottom" constant="7" id="nJW-Ra-50W"/>
-                                    <constraint firstAttribute="bottom" secondItem="6UG-xr-Dx7" secondAttribute="bottom" constant="43" id="nz2-D0-8c3"/>
-                                    <constraint firstItem="6UG-xr-Dx7" firstAttribute="top" secondItem="TKk-Hq-UAy" secondAttribute="top" constant="44" id="qUf-Cf-aK5"/>
                                     <constraint firstItem="EJv-Xf-Bq3" firstAttribute="leading" secondItem="TKk-Hq-UAy" secondAttribute="leading" constant="23" id="x3y-3J-nce"/>
                                 </constraints>
                             </view>
@@ -312,7 +303,6 @@
                         <outlet property="imageViewProgressOutlet" destination="TKk-Hq-UAy" id="8XO-Gj-AJO"/>
                         <outlet property="labelVIN" destination="S4N-6G-FvG" id="1Zj-Hn-4Q2"/>
                         <outlet property="photo" destination="Bmb-M5-A5p" id="6ZH-kt-KVG"/>
-                        <outlet property="progressView" destination="6UG-xr-Dx7" id="J6J-uU-dm3"/>
                         <outlet property="saveButton" destination="bkp-yS-mpZ" id="wJT-ns-HrT"/>
                     </connections>
                 </viewController>

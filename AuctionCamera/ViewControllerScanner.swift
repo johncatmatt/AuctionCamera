@@ -105,6 +105,7 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
                 }
                 else if object.type == AVMetadataObject.ObjectType.code39
                 {
+                   /*
                     let alert = UIAlertController(title: "code39 VIN Scan", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
@@ -115,7 +116,12 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
                             self.dismiss(animated: true, completion: nil)
                         }}))
                     present(alert, animated: true, completion: nil)
-                    
+                */
+             
+                //    ViewControllerScanner.showAlertMessage(message: object.stringValue!, viewController: self)
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
                 }
                 else if object.type == AVMetadataObject.ObjectType.code93
                 {
@@ -186,6 +192,42 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
         print(object)
         
         
+    }
+    
+    class func showAlertMessage(message:String, viewController: UIViewController) {
+        DispatchQueue.main.async {
+            /*
+             let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
+             
+             let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
+             
+             alertMessage.addAction(cancelAction)
+             
+             viewController.present(alertMessage, animated: true, completion: nil)
+             */
+       //     let alert = UIAlertController(title: "Upload Status", message: message, preferredStyle: .alert)
+       //     alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->() in })
+            
+            let alert = UIAlertController(title: "code39 VIN Scan", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
+     /*
+            alert.addAction(UIAlertAction(title: "Accept", style: .destructive, handler:{
+                _ in  if self.delegate != nil {
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }))
+            
+       */
+            
+            viewController.present(alert, animated: true, completion: {() -> Void in
+                alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                
+            })
+            
+            
+        }
     }
     
     

@@ -40,10 +40,15 @@ class ViewController: UIViewController {
         setupPreviewLayer()
         
         startRunningCapturSession()
-
- 
-
+        let vin = UserDefaults.standard.string(forKey: "vin")!
         
+        let upperTitle = NSMutableAttributedString(string: "\(vin)", attributes: [NSAttributedString.Key.font: UIFont(name: "Arial", size: 17)!])
+        
+        let label1 = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height:66))
+        label1.numberOfLines = 0
+        label1.textAlignment = .center
+        label1.attributedText = upperTitle  //assign it to attributedText instead of text
+        self.navigationItem.titleView = label1
         
    //dw     let image = UIImage(named: "download.jpeg")
         
