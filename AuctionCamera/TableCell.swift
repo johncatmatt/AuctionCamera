@@ -10,10 +10,16 @@ import UIKit
 
 class TableCell: UITableViewCell {
     
-    @IBOutlet var myButton: UIButton!
-    @IBOutlet var labelStatus: UILabel!
+   // @IBOutlet var myButton: UIButton!
+   // @IBOutlet var labelStatus: UILabel!
     //  @IBOutlet var myImage: UIImageView!
-    @IBOutlet var nameLbl: UILabel!
+    //@IBOutlet var nameLbl: UILabel!
+    @IBOutlet weak var lblJoin: UILabel!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var btnButton: UIButton!
     
+    //NEW Cell Class in "ViewControllerTableView" named "VINCell"
+    //  Handels functionality of the cells with the vin number
+    // -Matthew
     
 }

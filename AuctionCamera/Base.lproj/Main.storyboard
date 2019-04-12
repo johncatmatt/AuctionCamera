@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableFooterView" contentMode="redraw" id="YiD-vA-3ZK">
-                            <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="YiD-vA-3ZK">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -27,8 +27,8 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4yg-4O-MAc" customClass="TableCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellID" id="4yg-4O-MAc" customClass="VINCell" customModule="AuctionCamera" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4yg-4O-MAc" id="C7K-qE-WOA">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -55,6 +55,11 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="btnButton" destination="pkT-jH-TaK" id="Oi4-Pl-Dqf"/>
+                                    <outlet property="lblJoin" destination="6jV-AY-I1P" id="gXy-pK-VvF"/>
+                                    <outlet property="lblVIN" destination="DYT-ib-Q9h" id="0mp-IE-aY8"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

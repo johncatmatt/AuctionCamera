@@ -8,12 +8,25 @@
 
 import UIKit
 
+class VINCell: UITableViewCell {
+    @IBOutlet weak var lblVIN: UILabel!
+    @IBOutlet weak var lblJoin: UILabel!
+    @IBOutlet weak var btnButton: UIButton!
+}
+
 class ViewControllerTableView: UITableViewController, UISearchBarDelegate{
 
     
     @IBOutlet var searchBar: UISearchBar!
     
     @IBOutlet var mytable: UITableView!
+    
+    
+    struct CarData {
+        var vin: String
+    }
+    
+    var Cars = [ CarData(vin: "Test Vehicle 1"), CarData(vin: "Test Vehicle 2"), CarData(vin: "Test Vehicle 3") ]
     
    // var rideArray = [Rides]()
    // var currentRideArray = [Rides]() //update table
@@ -23,32 +36,45 @@ class ViewControllerTableView: UITableViewController, UISearchBarDelegate{
         let Table: [table]
     }
     struct table: Decodable {
-        let rideid : Int
+        let vin : Int
+        
+        /*let rideid : Int
         let name : String
         var category : String
-        /*
+        
          let Departs : String
          let From : String
          let Destination : String
          let Participants : String
          */
     }
-    //2D array used to populate the Table View with
-    var twoDimensionalArray = [
-        [""]
-    ]
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
          UserDefaults.standard.removeObject(forKey: "vin")
-     //   // SetupRides()
-     //   GetFeed()
-     //   setupSearchBar()
-     //  // alterLayout()
-        
-        
         
     }
+
+   
+     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! VINCell
+        
+       cell.lblVIN.text = Cars[indexPath.row].vin
+        
+        
+        return cell
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Cars.count
+    }
+  
     
 }
+
+
