@@ -43,9 +43,11 @@ class PreviewViewController: UIViewController
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var labelVIN: UILabel!
+    @IBOutlet weak var labelVIN6: UILabel!
     
        let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
     
+    typealias BatchPhotoDownloadingCompletionClosure = (_ error: NSError?) -> Void
     override func viewDidLoad() {
         super.viewDidLoad()
         photo.image = self.image1
@@ -56,6 +58,12 @@ class PreviewViewController: UIViewController
         
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
         labelVIN.isHidden = true
+        let str = UserDefaults.standard.string(forKey: "vin")!
+        let index = str.index(str.endIndex, offsetBy: -6)
+        let mySubstring = str.suffix(from: index)
+        
+        labelVIN6.text = String(mySubstring)
+         labelVIN6.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
         let boolAsString = String(switchMasterPhoto!.isOn)
         labelVIN.text = (labelVIN.text ?? "") + boolAsString
@@ -190,11 +198,51 @@ class PreviewViewController: UIViewController
 
    //     spinner.startAnimating()
     //    spinner.isHidden = false
+         // add the spinner view controller
+
+
+      //  addChild(child)
+      //  self.child.view.frame = view.frame
+      //  view.addSubview(self.child.view)
+      //  self.child.didMove(toParent: self)
         
-createSpinnerView()
-        uploadImage(paramName: labelVIN.text!, fileName: "image.jpeg", image: image1!)
+        DispatchQueue.global().sync {
+            // yada yada something
+     
+            addChild(self.child)
+            self.child.view.frame = view.frame
+            view.addSubview(self.child.view)
+            self.child.didMove(toParent: self);
+            
+            //     self.createSpinnerView()
+            self.uploadImage(paramName: self.labelVIN.text!, fileName: "image.jpeg", image: self.image1!)
+            //DispatchQueue.main.async {
+   DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                
+                // update UI
+           
+            
+    
+            // this will happen only after 'update UI' has finished executing
+               
+                
+                    self.child.willMove(toParent: nil)
+                    self.child.view.removeFromSuperview()
+                    self.child.removeFromParent()
+            
+            }
+        }
+
+
         
         
+        
+        
+        
+        
+        
+        
+        //}
     }
     
 
@@ -288,7 +336,7 @@ createSpinnerView()
                     */
                                  PreviewViewController.showAlertMessage(message:"\(json)", viewController: self)
                             
-                             self.CloseSpinnerView()
+                         //    self.CloseSpinnerView()
                             
                         
                     }
@@ -302,7 +350,7 @@ createSpinnerView()
             }
         }).resume()
      
-        CloseSpinnerView()
+      //  CloseSpinnerView()
         
         
         self.saveButton.isEnabled = true
@@ -397,12 +445,14 @@ createSpinnerView()
         }
        */
       
-                // add the spinner view controller
+/*                // add the spinner view controller
                 addChild(child)
                 child.view.frame = view.frame
                 view.addSubview(child.view)
                 child.didMove(toParent: self)
-            }
+        
+  */
+    }
             
     func CloseSpinnerView() {
       //  let child = SpinnerViewController()
@@ -413,6 +463,7 @@ createSpinnerView()
          view.addSubview(child.view)
          child.didMove(toParent: self)
          */
+    /*
         // wait two seconds to simulate some work happening
          DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
          // then remove the spinner view controller
@@ -420,10 +471,16 @@ createSpinnerView()
             self.child.view.removeFromSuperview()
             self.child.removeFromParent()
          }
- 
+ */
         
 
         }
+
+    
+  
+    
+    
+    
     
 }
 

@@ -62,7 +62,7 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
          switchMasterPhoto.isOn = false
-        
+        cemeraButton.setTitle("Photo", for: .normal)
         
     }
     

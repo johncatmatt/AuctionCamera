@@ -262,6 +262,13 @@
                                             <action selector="cancelButton_TouchUpInside:" destination="Qnn-gn-u1B" eventType="touchUpInside" id="qin-k3-Jcz"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRT-Gx-VaP">
+                                        <rect key="frame" x="119" y="39" width="83" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -302,6 +309,7 @@
                         <outlet property="cancelButton" destination="EJv-Xf-Bq3" id="Oyu-sA-Rgw"/>
                         <outlet property="imageViewProgressOutlet" destination="TKk-Hq-UAy" id="8XO-Gj-AJO"/>
                         <outlet property="labelVIN" destination="S4N-6G-FvG" id="1Zj-Hn-4Q2"/>
+                        <outlet property="labelVIN6" destination="uRT-Gx-VaP" id="WrJ-sT-ijx"/>
                         <outlet property="photo" destination="Bmb-M5-A5p" id="6ZH-kt-KVG"/>
                         <outlet property="saveButton" destination="bkp-yS-mpZ" id="wJT-ns-HrT"/>
                     </connections>
