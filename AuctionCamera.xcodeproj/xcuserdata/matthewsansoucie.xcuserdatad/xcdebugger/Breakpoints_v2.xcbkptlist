@@ -42,7 +42,7 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "576788624.823555"
+                  timestampString = "577308310.003493"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -57,12 +57,12 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "576788624.82653"
+                  timestampString = "577308310.006802"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
                   endingLineNumber = "17"
-                  offsetFromSymbolStart = "64">
+                  offsetFromSymbolStart = "164">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -72,7 +72,7 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "576788624.829455"
+                  timestampString = "577308310.009762"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -87,12 +87,12 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "576788624.832341"
+                  timestampString = "577308310.0126179"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
                   endingLineNumber = "17"
-                  offsetFromSymbolStart = "52">
+                  offsetFromSymbolStart = "112">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -102,12 +102,12 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Desktop/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "576788624.835016"
+                  timestampString = "577308310.01552"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "40">
                </Location>
             </Locations>
          </BreakpointContent>
