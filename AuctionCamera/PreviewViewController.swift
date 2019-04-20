@@ -213,11 +213,17 @@ class PreviewViewController: UIViewController
             self.child.view.frame = view.frame
             view.addSubview(self.child.view)
             self.child.didMove(toParent: self);
+  
+            let myFileName = "\(labelVIN.text!)"
+            
+ //self.SaveImagetoDevice(paramName: self.labelVIN.text!, fileName: myFileName, image: self.image1!)
+   
+            self.saveImageDocumentDirectory(image: self.image1!,imageName: myFileName)
             
             //     self.createSpinnerView()
             self.uploadImage(paramName: self.labelVIN.text!, fileName: "image.jpeg", image: self.image1!)
             //DispatchQueue.main.async {
-   DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                 
                 // update UI
            
@@ -454,7 +460,8 @@ class PreviewViewController: UIViewController
   */
     }
             
-    func CloseSpinnerView() {
+    func CloseSpinnerView(
+        ) {
       //  let child = SpinnerViewController()
         /*
          // add the spinner view controller
@@ -477,9 +484,55 @@ class PreviewViewController: UIViewController
         }
 
     
-  
+    func SaveImagetoDevice(paramName: String, fileName: String,
+                           image: UIImage){
+        
+
+        
+        
+          let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+ 
+        if let filePath = paths.first?.appendingPathComponent(fileName            ) {
+            // Save image.
+            do {
+                print(filePath)
+                print(fileName)
+                try image.jpegData(compressionQuality: 0.1)?.write(to: filePath, options: .atomic)
+            } catch {
+                // Handle the error
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
     
+    func saveImageDocumentDirectory(image: UIImage, imageName: String) {
+        
+        let randomInt = Int.random(in: 100000000...999999999)
+        let randomImageName = "\(imageName)\(randomInt).jpg"
+        print(randomInt)
+        print(randomImageName)
+        let fileManager = FileManager.default
+        let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("AANEImages")
+        if !fileManager.fileExists(atPath: path) {
+            try! fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        }
+        let url = NSURL(string: path)
+        let imagePath = url!.appendingPathComponent(randomImageName)
+        let urlString: String = imagePath!.absoluteString
+        let imageData = image.jpegData(compressionQuality: 0.1) //UIImageJPEGRepresentation(image, 0.5)
+        
+        print(path)
+        print(urlString)
+        
+          fileManager.createFile(atPath: urlString as String, contents: imageData, attributes: nil)
+        
+     
+        
+       
+    }
     
+
     
     
 }
