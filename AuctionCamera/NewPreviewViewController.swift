@@ -48,7 +48,10 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
 
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
+        let vc=ImagePreviewVC()
+        vc.imgArray = self.imageArray
+        vc.passedContentOffset = indexPath
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
