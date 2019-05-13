@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Photos
 
 class PreviewViewController: UIViewController
     , URLSessionDelegate, URLSessionDataDelegate   // ,URLSessionDownloadDelegate
@@ -43,7 +43,9 @@ class PreviewViewController: UIViewController
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var labelVIN: UILabel!
+    
     @IBOutlet weak var labelVIN6: UILabel!
+    
     
        let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
     
@@ -65,8 +67,11 @@ class PreviewViewController: UIViewController
         labelVIN6.text = String(mySubstring)
          labelVIN6.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
-        let boolAsString = String(switchMasterPhoto!.isOn)
-        labelVIN.text = (labelVIN.text ?? "") + boolAsString
+    //    let boolAsString = String(switchMasterPhoto!.isOn)
+    //    let myDevice = UIDevice.current.name
+        
+     //   labelVIN.text = (labelVIN.text ?? "") + boolAsString
+      //  + localImageID + myDevice
       
         
         
@@ -206,7 +211,7 @@ class PreviewViewController: UIViewController
       //  view.addSubview(self.child.view)
       //  self.child.didMove(toParent: self)
         
-        DispatchQueue.global().sync {
+          DispatchQueue.global().sync {
             // yada yada something
      
             addChild(self.child)
@@ -217,22 +222,33 @@ class PreviewViewController: UIViewController
             let myFileName = "\(labelVIN.text!)"
             
  //self.SaveImagetoDevice(paramName: self.labelVIN.text!, fileName: myFileName, image: self.image1!)
-   
-            self.saveImageDocumentDirectory(image: self.image1!,imageName: myFileName)
+          //  DispatchQueue.main.async {
+            let boolAsString = String(self.switchMasterPhoto!.isOn)
+            let vin = String(self.labelVIN.text!) + boolAsString
+            self.labelVIN.text = vin
+            let myImage = self.image1!
             
-            //     self.createSpinnerView()
-            self.uploadImage(paramName: self.labelVIN.text!, fileName: "image.jpeg", image: self.image1!)
+            let localImageName =  self.saveImageDocumentDirectory(image: myImage, imageName: myFileName)
+                
+            
+            
+                
+                //     self.createSpinnerView()
+                self.uploadImage(paramName: vin, fileName: localImageName, image: myImage)
+                
+           //    }
+            
+         
+            
+ 
+            
+            
+            
+            
+            
             //DispatchQueue.main.async {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                
-                // update UI
-           
-            
-    
-            // this will happen only after 'update UI' has finished executing
-               
-                
-                    self.child.willMove(toParent: nil)
+                         self.child.willMove(toParent: nil)
                     self.child.view.removeFromSuperview()
                     self.child.removeFromParent()
             
@@ -506,8 +522,16 @@ class PreviewViewController: UIViewController
         
     }
     
-    func saveImageDocumentDirectory(image: UIImage, imageName: String) {
+    func saveImageDocumentDirectory(image: UIImage, imageName: String)-> String {
+      
+       
+      
+       
         
+        var myDevice = UIDevice.current.name
+        
+
+        /*
         let randomInt = Int.random(in: 100000000...999999999)
         let randomImageName = "\(imageName)\(randomInt).jpg"
         print(randomInt)
@@ -526,19 +550,112 @@ class PreviewViewController: UIViewController
         print(urlString)
         
           fileManager.createFile(atPath: urlString as String, contents: imageData, attributes: nil)
+        */
         
-     
         
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveImageComplete(image:err:context:)), nil)
+        
+      
+        let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+        if fetchResult.count > 0 {
+            if let asset = fetchResult.lastObject {
+               // let date = asset.creationDate ?? Date()
+                
+                let date =  asset.creationDate!
+           //     let localDate = date.subtract(hours: 4)
+            
+                
+            
+           
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
+                let myString = formatter.string(from: date)
+               
+                print("Fetch date: \(date)")
+                print("Creation date: \(myString)")
+                myDevice = "\(UIDevice.current.name) \(myString)"
+                print("current date: \(Date())")
+                
+                PHImageManager.default().requestImageData(for: asset, options: PHImageRequestOptions(),
+                    resultHandler: { (imagedata, dataUTI, orientation, info) in
+                    if let info = info {
+                    if info.keys.contains(NSString(string: "PHImageFileURLKey")) {
+                   if let path = info[NSString(string: "PHImageFileURLKey")] as? NSURL {
+                     print(UIDevice.current.name)
+                     print(path)
+                    
+                      myDevice = UIDevice.current.name + "\(myString)" + "\(path)"
+                    
+                    
+                            }
+                           }
+                         }
+                })
+            }
+        }
+            
+            
+
        
+       
+   return myDevice
+            
+        
     }
     
-
+    
+    @objc private func saveImageComplete(image:UIImage, err:NSError, context:UnsafeMutableRawPointer?) {
+      //  print(context!)
+        
+    }
+    
+    class MyThread: Thread {
+        public var runloop: RunLoop?
+        public var done = false
+        
+        override func main() {
+            runloop = RunLoop.current
+            done = false
+            repeat {
+                let result = CFRunLoopRunInMode(.defaultMode, 10, true)
+                if result == .stopped  {
+                    done = true
+                }
+            }
+                while !done
+        }
+        
+        func stop() {
+            if let rl = runloop?.getCFRunLoop() {
+                CFRunLoopStop(rl)
+                runloop = nil
+                done = true
+            }
+        }
+    }
+    
+   
+    
     
     
 }
 
 
-
+extension Date {
+    
+    /// Returns a Date with the specified amount of components added to the one it is called with
+    func add(years: Int = 0, months: Int = 0, days: Int = 0, hours: Int = 0, minutes: Int = 0, seconds: Int = 0) -> Date? {
+        let components = DateComponents(year: years, month: months, day: days, hour: hours, minute: minutes, second: seconds)
+        return Calendar.current.date(byAdding: components, to: self)
+    }
+    
+    /// Returns a Date with the specified amount of components subtracted from the one it is called with
+    func subtract(years: Int = 0, months: Int = 0, days: Int = 0, hours: Int = 0, minutes: Int = 0, seconds: Int = 0) -> Date? {
+        return add(years: -years, months: -months, days: -days, hours: -hours, minutes: -minutes, seconds: -seconds)
+    }
+    
+}
+    
 
 
 

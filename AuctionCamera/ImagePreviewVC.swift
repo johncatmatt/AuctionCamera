@@ -34,7 +34,9 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         myCollectionView.isPagingEnabled = true
         myCollectionView.scrollToItem(at: passedContentOffset, at: .left, animated: true)
         
-        self.view.addSubview(myCollectionView)
+        myCollectionView.cellForItem(at: passedContentOffset)
+        
+    self.view.addSubview(myCollectionView)
         
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
     }
@@ -44,10 +46,19 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        print(indexPath)
+        
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ImagePreviewFullViewCell
         cell.imgView.image=imgArray[indexPath.row]
         return cell
     }
+    
+
+        
+        
+    
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -67,6 +78,9 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         let width  = myCollectionView.bounds.size.width
         
         let index = round(offset.x / width)
+        
+        print(index)
+        
         let newOffset = CGPoint(x: index * size.width, y: offset.y)
         
         myCollectionView.setContentOffset(newOffset, animated: false)
