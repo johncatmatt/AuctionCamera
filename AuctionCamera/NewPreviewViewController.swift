@@ -13,12 +13,16 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
     , URLSessionDelegate, URLSessionDataDelegate
 {
     
+    @IBOutlet weak var btnDelete: UIButton!
+    
     var myCollectionView: UICollectionView!
     var imageArray=[UIImage]()
     let MAXTIME : Float = 5.0
     var currentTime : Float = 0.0
     
-        let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
+    @IBOutlet weak var toolBar: UIToolbar!
+    
+    let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,18 +33,29 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
         let layout = UICollectionViewFlowLayout()
         
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
         myCollectionView.register(PhotoItemCell.self, forCellWithReuseIdentifier: "Cell")
         myCollectionView.backgroundColor=UIColor.white
         self.view.addSubview(myCollectionView)
         
-        myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
+       myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue )))
         
+     
+        
+        
+      //  myCollectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleTopMargin, .flexibleRightMargin, .flexibleLeftMargin, .flexibleHeight  - toolBar.frame.height ]
+
+    //    btnDelete.isHidden = true
+
         grabPhotos()
+        
         
         // Do any additional setup after loading the view.
     }
+    
+   
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imageArray.count
@@ -49,6 +64,9 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoItemCell
         cell.img.image=imageArray[indexPath.item]
+        
+     
+        
         return cell
     }
 
@@ -58,9 +76,16 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
         vc.imgArray = self.imageArray
         
         print(indexPath)
+        
         vc.passedContentOffset = indexPath
         self.navigationController?.pushViewController(vc, animated: true)
+        
+        
     }
+    
+  
+
+
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -8,11 +8,19 @@
 
 import Foundation
 import UIKit
+import Photos
+
 class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
+    
+
+    
+    
     
     var myCollectionView: UICollectionView!
     var imgArray = [UIImage]()
     var passedContentOffset = IndexPath()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,27 +40,171 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         myCollectionView.dataSource=self
         myCollectionView.register(ImagePreviewFullViewCell.self, forCellWithReuseIdentifier: "Cell")
         myCollectionView.isPagingEnabled = true
-        myCollectionView.scrollToItem(at: passedContentOffset, at: .left, animated: true)
+        
+       myCollectionView.scrollToItem(at: passedContentOffset, at: .left, animated: true)
         
         myCollectionView.cellForItem(at: passedContentOffset)
         
     self.view.addSubview(myCollectionView)
         
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
+        
+       // self.collectionView.scrollToItem(at:IndexPath(item: indexNumber, section: sectionNumber), at: .right, animated: false)
+      //  myCollectionView.scrollToItem(at:IndexPath(item: 5, section: 0), at: .right, animated: false)
+        
+        let logoutBarButtonItem = UIBarButtonItem(title: "Delete", style: .done, target: self, action: #selector(logoutUser))
+        self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
+    }
+    
+    @objc func logoutUser(){
+        print("clicked")
+        let alert = UIAlertController(title: "Delete Photo?", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: {
+            _ in
+
+         let imgManager=PHImageManager.default()
+            
+            let requestOptions=PHImageRequestOptions()
+            requestOptions.isSynchronous=true
+            requestOptions.deliveryMode = .highQualityFormat
+            
+            let fetchOptions=PHFetchOptions()
+            fetchOptions.sortDescriptors=[NSSortDescriptor(key:"creationDate", ascending: false)]
+            
+            let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+            print(fetchResult)
+            print(fetchResult.count)
+            if fetchResult.count > 0 {
+                for i in 0..<fetchResult.count{
+                    imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
+                        self.imgArray.append(image!)
+                        
+                        //    let filename = imgManager.value(forKey: "PHImageFileURLKey") as! String
+                        //        print(filename)
+                        let asset = fetchResult.object(at: i)
+                        
+                        if asset == fetchResult.object(at: i) {
+                            
+                            //  let creationDate = asset.creationDate
+                            //   print(creationDate!)
+                            
+                            PHImageManager.default().requestImageData(for: asset, options: PHImageRequestOptions(),
+                                                                      resultHandler: { (imagedata, dataUTI, orientation, info) in
+                                                                        if let info = info {
+                                                                            if info.keys.contains(NSString(string: "PHImageFileURLKey")) {
+                                                                                if let path = info[NSString(string: "PHImageFileURLKey")] as? NSURL {
+                                                                                    print(path)
+                                                                                    print(UIDevice.current.name)
+                                                                                    
+                                                                                    let creationDate = asset.creationDate
+                                                                                    print("Asset Date: \(creationDate!)")
+                                                                                    //  if path == NSURL(string: "file:///var/mobile/Media/DCIM/100APPLE/IMG_0015.JPG") {
+                                                                                    
+                                                                                    let date = creationDate
+                                                                                    let formatter = DateFormatter()
+                                                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
+                                                                                    let myString = formatter.string(from: date!)
+                                                                                    print("Formatted: \(myString)")
+                                                                                    if (i == self.passedContentOffset.item                                                                           )                                                                                    {
+                                                                                        
+                                                                                        let arrayToDelete = NSArray(object: asset)
+                                                                                        print(arrayToDelete)
+                                                                                        
+                                                                                        PHPhotoLibrary.shared().performChanges({
+                                                                                            //Delete Photo
+                                                                                            PHAssetChangeRequest.deleteAssets(arrayToDelete)
+                                                                                        },                                                                                           completionHandler: {(success, error)in
+                                                                                            NSLog("\nDeleted Image -> %@", (success ? "Success":"Error!"))
+                                                                                            if(success){
+                                                                                                // Move to the main thread to execute
+                                                                                            }
+                                                                                        })
+                                                                                        
+                                                                                    }
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                }
+                                                                            }
+                                                                        }
+                            })
+                        }
+                        
+                    })
+                }
+            } else {
+                print("You got no photos.")
+            }
+            
+         /*
+            let arrayToDelete = self.passedContentOffset.item;                print(arrayToDelete)
+            //need to fetch the asset name to delete
+                PHPhotoLibrary.shared().performChanges({
+                    //Delete Photo
+                    PHAssetChangeRequest.deleteAssets(arrayToDelete as! NSFastEnumeration)
+                },                                                                                           completionHandler: {(success, error)in
+                    NSLog("\nDeleted Image -> %@", (success ? "Success":"Error!"))
+                    if(success){
+                        // Move to the main thread to execute
+                    }
+                })
+                
+           */
+            
+            
+            
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
+        myCollectionView.scrollToItem(at:IndexPath(item: passedContentOffset.item, section: 0), at: .right, animated: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+      
+    //    myimgArray = imgArray
+        
+//print(imgArray)
+        //  myIndex = index
+        
+        
         return imgArray.count
     }
     
+    
+ 
+    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0 {
+            // TODO: scroll to correct position here
+            return false
+        }
+        
+        collectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.left, animated: true)
+        
+        
+        return true
+    }
+ 
+    
+   
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        print(indexPath)
+        print("IndexPath\(indexPath)")
         
+      
+
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ImagePreviewFullViewCell
         cell.imgView.image=imgArray[indexPath.row]
         return cell
     }
+
     
 
         
@@ -79,7 +231,9 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         let index = round(offset.x / width)
         
-        print(index)
+        print("Index\(index)")
+        
+        
         
         let newOffset = CGPoint(x: index * size.width, y: offset.y)
         
@@ -119,6 +273,10 @@ class ImagePreviewFullViewCell: UICollectionViewCell, UIScrollViewDelegate {
         
         imgView = UIImageView()
         imgView.image = UIImage(named: "user3")
+        
+     //   print(myimgArray[5])
+     //   imgView.image = myimgArray[5]
+        
         scrollImg.addSubview(imgView!)
         imgView.contentMode = .scaleAspectFit
     }

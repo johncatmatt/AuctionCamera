@@ -91,7 +91,6 @@ class PreviewViewController: UIViewController
      //   dataTask = session?.dataTaskWithRequest(NSURLRequest(URL: erfl))
      //   dataTask?.resume()
         
-        
 
         
         // Do any additional setup after loading the view.
@@ -102,8 +101,7 @@ class PreviewViewController: UIViewController
         
         
     }
-    
-    
+
     @IBAction func cancelButton_TouchUpInside(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -425,7 +423,7 @@ class PreviewViewController: UIViewController
   
     class func showAlertMessage(message:String, viewController: UIViewController) {
         DispatchQueue.main.async {
-        /*
+         /*
             let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
             
             let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
@@ -433,23 +431,26 @@ class PreviewViewController: UIViewController
             alertMessage.addAction(cancelAction)
             
             viewController.present(alertMessage, animated: true, completion: nil)
-        */
- let alert = UIAlertController(title: "Upload Status", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->() in })
-            
-            viewController.present(alert, animated: true, completion: {() -> Void in
-                alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+            */
           
+            
+            
+ 
+ let alert = UIAlertController(title: "Upload Status", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->(
+                ) in
                 
             })
             
+            viewController.present(alert, animated: true, completion: {() -> Void in
+                alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                      })
             
-          }
-        
-            
-        
+        }
     }
   
+    
+    
     func createSpinnerView() {
       //  let child = SpinnerViewController()
           /*
