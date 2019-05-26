@@ -117,9 +117,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZZK-8I-kzn"/>
                     <connections>
+                        <outlet property="btnAuctionXPhotos" destination="WeG-Jc-CDS" id="ZDN-LI-1kg"/>
                         <outlet property="butClear" destination="gBQ-8c-QgZ" id="OMb-pg-XNU"/>
                         <outlet property="butPhoto" destination="fxl-af-Mq4" id="dHA-p6-sNC"/>
-                        <outlet property="bvtnAuctionXPhotos" destination="WeG-Jc-CDS" id="wwO-sy-AVn"/>
                         <outlet property="txtVIN" destination="6go-j7-sKp" id="laB-0g-e0o"/>
                         <segue destination="fby-Vc-J9Z" kind="push" identifier="AuctionPhotos" id="xEO-3y-W65"/>
                     </connections>
@@ -162,7 +162,7 @@
             <objects>
                 <navigationController id="ssv-3u-Yq9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4pf-nb-zaa">
-                        <rect key="frame" x="0.0" y="20" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -171,7 +171,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5NQ-zM-0Rc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1022" y="-1119"/>
+            <point key="canvasLocation" x="-1183" y="-1136"/>
         </scene>
         <!--Auction Photos-->
         <scene sceneID="ufg-P7-2x0">

@@ -15,7 +15,7 @@ protocol  SendDataFromDelegateVIN {
 class ViewControllerVehicle: UIViewController
 ,SendDataFromDelegate, UITextFieldDelegate{
 
-    @IBOutlet weak var bvtnAuctionXPhotos: UIButton!
+    //@IBOutlet weak var btnAuctionXPhotos: UIButton!
     @IBOutlet var butClear: UIButton!
     @IBOutlet var butPhoto: UIButton!
     @IBOutlet var txtVIN: UITextField!
@@ -28,6 +28,7 @@ class ViewControllerVehicle: UIViewController
        
         
     }
+    @IBOutlet weak var btnAuctionXPhotos: UIButton!
     override func viewWillAppear(_ animated: Bool) {
         
         if txtVIN.text?.isEmpty ?? true {

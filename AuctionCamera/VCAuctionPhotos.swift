@@ -23,10 +23,10 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         let vl: [t]
     }
     struct t: Decodable {
-        var imageid: Int
-        var photo: String
+        var ImgID: String
+        var imgData: String
     }
-    
+    //base64
     
     
     override func viewDidLoad() {
@@ -56,88 +56,85 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         
     }
     
+    /*func convertBase64ToImage(imageString: String) -> UIImage {
+        let imageData = Data(base64Encoded: imageString, options: Data.Base64DecodingOptions.ignoreUnknownCharacters)!
+        return UIImage(data: imageData)!
+    }*/
     
     func grabPhotos(){
+        
+        //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
+        //vin = 2CKDL43F086045757
+        let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=\(vin)"
         imageArray = []
         
-        DispatchQueue.global(qos: .background).async {
-            print("This is run on the background queue")
-            let imgManager = PHImageManager.default()
-            
-            let requestOptions = PHImageRequestOptions()
-            requestOptions.isSynchronous=true
-            requestOptions.deliveryMode = .highQualityFormat
-            
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.sortDescriptors=[NSSortDescriptor(key:"creationDate", ascending: false)]
-            
-            let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-            print(fetchResult)
-            print(fetchResult.count)
-            if fetchResult.count > 0 {
-                for i in 0..<fetchResult.count{
-                    imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
-                        
-                        if image != nil {
-                            self.imageArray.append(image!)
-                            
-                            //    let filename = imgManager.value(forKey: "PHImageFileURLKey") as! String
-                            //        print(filename)
-                            let asset = fetchResult.object(at: i)
-                            if asset == fetchResult.object(at: i) {
-                                //  let creationDate = asset.creationDate
-                                //   print(creationDate!)
-                                PHImageManager.default().requestImageData(for: asset, options: PHImageRequestOptions(),resultHandler: { (imagedata, dataUTI, orientation, info) in
-                                   if let info = info {
-                                        if info.keys.contains(NSString(string: "PHImageFileURLKey")) {
-                                            if let path = info[NSString(string: "PHImageFileURLKey")] as? NSURL {
-                                                print(path)
-                                                print(UIDevice.current.name)
-                                                                                            
-                                                let creationDate = asset.creationDate
-                                                print("Asset Date: \(creationDate!)")
-                                               //  if path == NSURL(string: "file:///var/mobile/Media/DCIM/100APPLE/IMG_0015.JPG") {
-                                                                                            
-                                                let date = creationDate
-                                                let formatter = DateFormatter()
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss +0000"
-                                                let myString = formatter.string(from: date!)
-                                                print("Formatted: \(myString)")
-                                                if (myString ==  ("2019-04-21 09:44:20 +0000")) {
-                                                                                                
-                                                    let arrayToDelete = NSArray(object: asset)
-                                                    print(arrayToDelete)
-                                                                                                
-                                                    PHPhotoLibrary.shared().performChanges({
-                                                    //Delete Photo
-                                                    PHAssetChangeRequest.deleteAssets(arrayToDelete)
-                                                    },  completionHandler: {(success, error)in
-                                                    NSLog("\nDeleted Image -> %@", (success ? "Success":"Error!"))
-                                                       if(success){
-                                                          // Move to the main thread to execute
-                                                        }
-                                                    })
-                                                                                                
-                                                }
-                                                                                            
-                                            }
-                                        }
-                                     }
-                                 })
-                             }}
-                         })
-                    }
-                    
-            } else {
-                print("You got no photos.")
+        showSpinner(onView: self.view)
+        
+        guard let url = URL(string: todoEndpoint) else {
+            print("ERROR: cannot create URL")
+            self.removeSpinner()
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: urlRequest){ data, response, error in
+            guard error == nil else{
+                print("ERROR: calling GET: \(error!)")
+                self.removeSpinner()
+                return
             }
-            print("imageArray count: \(self.imageArray.count)")
             
-            DispatchQueue.main.async {
-                print("This is run on the main queue, after the previous code in outer block")
-                self.myCollectionView.reloadData()
+            guard let data = data else { print("DATA ERROR!!!"); return }
+            
+            do {
+                
+                print(data)
+                
+                print("trying to decode JSON")
+                let t = try JSONDecoder().decode(photoArray.self, from: data)
+                
+                print("Trying to do stuff with JSON now")
+                
+                DispatchQueue.main.async {
+                    if t.vl.isEmpty{
+                        print("There is not data")
+                    }else{
+                        for p in t.vl{
+                            if let decodeData = Data(base64Encoded: p.imgData, options: .ignoreUnknownCharacters){
+                                self.imageArray.append(UIImage(data: decodeData)!)
+                                self.myCollectionView.reloadData()
+                            }
+                        }
+                }
+                self.removeSpinner()
+                }
+            }catch let jsonErr{
+                print("-------------\(jsonErr) --------------")
+                self.removeSpinner()
+                
+                
+                let alert = UIAlertController(title: "Error", message: "\(jsonErr)", preferredStyle: .alert)
+                //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                
+                let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                    UIAlertAction in
+                    
+                    self.dismiss(animated: true, completion: nil)
+                    // self.cancelButton_TouchUpInside
+                    //cancelButton.
+                    
+                }
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                
             }
         }
+        task.resume()
     }
     
     

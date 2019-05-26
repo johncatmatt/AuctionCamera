@@ -42,7 +42,7 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "580586328.388149"
+                  timestampString = "580602971.474813"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -57,7 +57,7 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "580586328.392123"
+                  timestampString = "580602971.476488"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -72,7 +72,7 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "580586328.395386"
+                  timestampString = "580602971.478108"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -87,7 +87,7 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "580586328.3980629"
+                  timestampString = "580602971.479636"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -102,7 +102,7 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "580586328.400349"
+                  timestampString = "580602971.4811209"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -135,12 +135,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AuctionCamera/NewPreviewViewController.swift"
-            timestampString = "580586328.058388"
+            timestampString = "580600922.946538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
             endingLineNumber = "200"
             landmarkName = "GetImageStatus(paramName:fileName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AuctionCamera/PreviewViewController.swift"
+            timestampString = "580602971.230311"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "uploadImage(paramName:fileName:image:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AuctionCamera/ViewControllerScanner.swift"
+            timestampString = "580602971.230383"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "showAlertMessage(message:viewController:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -397,7 +397,26 @@ class PreviewViewController: UIViewController
                             
                             self.removeSpinner()
                             print(type(of: json))
-                                 PreviewViewController.showAlertMessage(message:"\(json)", viewController: self)
+                                 //PreviewViewController.showAlertMessage(message:"\(json)", viewController: self)
+                            
+                            let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
+                            //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                            
+                            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                                UIAlertAction in
+                                
+                                self.dismiss(animated: true, completion: nil)
+                                
+                               // self.cancelButton_TouchUpInside
+                                //cancelButton.
+                                
+                            }
+                            alert.addAction(okAction)
+                            
+                            self.present(alert, animated: true, completion: {() -> Void in
+                                alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
+                                
+                            })
                          
                             
                          //    self.CloseSpinnerView()
