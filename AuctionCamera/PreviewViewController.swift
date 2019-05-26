@@ -18,7 +18,14 @@ class PreviewViewController: UIViewController
 
  //   }
   
-     let child = SpinnerViewController()
+    
+    struct j: Decodable {
+        let error: String
+        let imageid: Int
+    }
+    
+    //UNCOMMENT CHILD IF TESTING FAILS!!!!!!!!!!!!!!!!
+     //let child = SpinnerViewController()
 
   //  @IBOutlet weak var spinner: UIActivityIndicatorView!
     //   @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -212,10 +219,10 @@ class PreviewViewController: UIViewController
           DispatchQueue.global().sync {
             // yada yada something
      
-            addChild(self.child)
-            self.child.view.frame = view.frame
-            view.addSubview(self.child.view)
-            self.child.didMove(toParent: self);
+            //addChild(self.child)
+            //self.child.view.frame = view.frame
+            //view.addSubview(self.child.view)
+            //self.child.didMove(toParent: self);
   
             let myFileName = "\(labelVIN.text!)"
             
@@ -232,6 +239,9 @@ class PreviewViewController: UIViewController
             
                 
                 //     self.createSpinnerView()
+            
+            //self.addChild(<#T##childController: UIViewController##UIViewController#>)
+            
                 self.uploadImage(paramName: vin, fileName: localImageName, image: myImage)
                 
            //    }
@@ -246,9 +256,11 @@ class PreviewViewController: UIViewController
             
             //DispatchQueue.main.async {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                         self.child.willMove(toParent: nil)
-                    self.child.view.removeFromSuperview()
-                    self.child.removeFromParent()
+                    
+                    //managging spinner
+                    //self.child.willMove(toParent: nil)
+                    //self.child.view.removeFromSuperview()
+                    //self.child.removeFromParent()
             
             }
         }
@@ -267,9 +279,16 @@ class PreviewViewController: UIViewController
     
 
     
+    
+    
+    
     func uploadImage(paramName: String, fileName: String,
            image: UIImage) {
 
+        
+        var worked = false
+       //show the spinner
+        showSpinner(onView: self.view)
         
         saveButton.isEnabled = false
        
@@ -339,6 +358,10 @@ class PreviewViewController: UIViewController
                     else
                        // if index == 30
                         {
+                            
+                            
+    
+                      
                       print(index)
                          //self.dismiss(animated: true, completion: nil)
                /*         let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
@@ -351,10 +374,31 @@ class PreviewViewController: UIViewController
 
                         self.present(alert, animated: true, completion: {() -> Void in
                             alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
-                            
                         })
                     */
+                            
+                           
+                            
+                            
+                            /*guard let test = json else {
+                                print("failed")
+                            }*/
+                            
+                           /* print(jsonData!)
+                            print(type(of: jsonData))
+                            do {
+                                let decoder = JSONDecoder()
+                                let r = try decoder.decode(j.self, from: responseData as! Data)
+                                print(" TRYING TO DECODE JSON \(r.error)")
+                                
+                                
+                                print(r.imageid)
+                            }catch { print(error)}*/
+                            
+                            self.removeSpinner()
+                            print(type(of: json))
                                  PreviewViewController.showAlertMessage(message:"\(json)", viewController: self)
+                         
                             
                          //    self.CloseSpinnerView()
                             
@@ -362,11 +406,11 @@ class PreviewViewController: UIViewController
                     }
         
              
-                    
+                    self.removeSpinner()
                 }
           
                 
-                
+                self.removeSpinner()
             }
         }).resume()
      
@@ -374,6 +418,9 @@ class PreviewViewController: UIViewController
         
         
         self.saveButton.isEnabled = true
+        
+        
+    
         
     }
     
@@ -667,4 +714,32 @@ extension UIImage {
         return self.jpegData(compressionQuality: 0.20)!.base64EncodedString()
     }
 }
-    
+
+
+var vSpinner : UIView?
+
+var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+
+extension UIViewController{
+    func showSpinner(onView : UIView) {
+        let SpinnerView = UIView.init(frame: onView.bounds)
+        SpinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = SpinnerView.center
+        DispatchQueue.main.async {
+            SpinnerView.addSubview(ai)
+            onView.addSubview(SpinnerView)
+        }
+        vSpinner = SpinnerView
+        vSpinner?.bringSubviewToFront(onView)
+        vSpinner?.isHidden = false
+    }
+    func removeSpinner(){
+        DispatchQueue.main.async {
+            vSpinner?.removeFromSuperview()
+            vSpinner = nil
+            vSpinner?.isHidden = true
+        }
+    }
+}

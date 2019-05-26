@@ -41,7 +41,7 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         myCollectionView.register(ImagePreviewFullViewCell.self, forCellWithReuseIdentifier: "Cell")
         myCollectionView.isPagingEnabled = true
         
-       myCollectionView.scrollToItem(at: passedContentOffset, at: .left, animated: true)
+        myCollectionView.scrollToItem(at: passedContentOffset, at: .left, animated: true)
         
         myCollectionView.cellForItem(at: passedContentOffset)
         
@@ -79,7 +79,11 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
             if fetchResult.count > 0 {
                 for i in 0..<fetchResult.count{
                     imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
-                        self.imgArray.append(image!)
+                        
+                        if image != nil {
+                            self.imgArray.append(image!)
+                            
+                        
                         
                         //    let filename = imgManager.value(forKey: "PHImageFileURLKey") as! String
                         //        print(filename)
@@ -90,8 +94,7 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                             //  let creationDate = asset.creationDate
                             //   print(creationDate!)
                             
-                            PHImageManager.default().requestImageData(for: asset, options: PHImageRequestOptions(),
-                                                                      resultHandler: { (imagedata, dataUTI, orientation, info) in
+                            PHImageManager.default().requestImageData(for: asset, options: PHImageRequestOptions(), resultHandler: { (imagedata, dataUTI, orientation, info) in
                                                                         if let info = info {
                                                                             if info.keys.contains(NSString(string: "PHImageFileURLKey")) {
                                                                                 if let path = info[NSString(string: "PHImageFileURLKey")] as? NSURL {
@@ -117,8 +120,19 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                                                                                             PHAssetChangeRequest.deleteAssets(arrayToDelete)
                                                                                         },                                                                                           completionHandler: {(success, error)in
                                                                                             NSLog("\nDeleted Image -> %@", (success ? "Success":"Error!"))
+                                                                                            
+                                                                                            if success == true {
+                                                                                                let alert = UIAlertController(title: "Success", message: "The image has been deleted", preferredStyle: .alert)
+                                                                                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                                                                                                self.present(alert, animated: true)
+                                                                                            }else{
+                                                                                                /*let alert = UIAlertController(title: "Error", message: "The image was not deleted", preferredStyle: .alert)
+                                                                                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                                                                                                self.present(alert, animated: true)*/
+                                                                                            }
+                                                                                            
                                                                                             if(success){
-                                                                                                // Move to the main thread to execute
+                                                                                                
                                                                                             }
                                                                                         })
                                                                                         
@@ -131,7 +145,7 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                                                                             }
                                                                         }
                             })
-                        }
+                        }}
                         
                     })
                 }

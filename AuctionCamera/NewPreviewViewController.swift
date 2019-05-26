@@ -79,15 +79,8 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
         
         vc.passedContentOffset = indexPath
         self.navigationController?.pushViewController(vc, animated: true)
-        
-        
     }
-    
-  
 
-
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
       
@@ -122,7 +115,7 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
         
         DispatchQueue.global(qos: .background).async {
             print("This is run on the background queue")
-            let imgManager=PHImageManager.default()
+            let imgManager = PHImageManager.default()
             
             let requestOptions=PHImageRequestOptions()
             requestOptions.isSynchronous=true
@@ -137,17 +130,16 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
             if fetchResult.count > 0 {
                 for i in 0..<fetchResult.count{
                     imgManager.requestImage(for: fetchResult.object(at: i) as PHAsset, targetSize: CGSize(width:500, height: 500),contentMode: .aspectFill, options: requestOptions, resultHandler: { (image, error) in
-                        self.imageArray.append(image!)
                         
+                        if image != nil {
+                        self.imageArray.append(image!)
+    
                 //    let filename = imgManager.value(forKey: "PHImageFileURLKey") as! String
                 //        print(filename)
                         let asset = fetchResult.object(at: i)
-                        
                         if asset == fetchResult.object(at: i) {
-                            
                           //  let creationDate = asset.creationDate
                          //   print(creationDate!)
-                            
                         PHImageManager.default().requestImageData(for: asset, options: PHImageRequestOptions(),
                                  resultHandler: { (imagedata, dataUTI, orientation, info) in
                                   if let info = info {
@@ -182,17 +174,15 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
                                         
                                         }
 
-                                        
-                                     
-                                    
                                                        }
                                                      }
                                                }
                                        })
-                                }
+                        }}
                         
                     })
                 }
+                
             } else {
                 print("You got no photos.")
             }

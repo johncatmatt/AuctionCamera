@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ssv-3u-Yq9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ssv-3u-Yq9">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,6 +89,14 @@
                                     <segue destination="qrM-E3-ah7" kind="show" id="7pz-ja-YvC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WeG-Jc-CDS">
+                                <rect key="frame" x="77" y="392" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Photos"/>
+                                <connections>
+                                    <action selector="butGetAuctionPhotos:" destination="NrW-S1-dZn" eventType="touchUpInside" id="rdc-Zl-TBn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -111,7 +119,9 @@
                     <connections>
                         <outlet property="butClear" destination="gBQ-8c-QgZ" id="OMb-pg-XNU"/>
                         <outlet property="butPhoto" destination="fxl-af-Mq4" id="dHA-p6-sNC"/>
+                        <outlet property="bvtnAuctionXPhotos" destination="WeG-Jc-CDS" id="wwO-sy-AVn"/>
                         <outlet property="txtVIN" destination="6go-j7-sKp" id="laB-0g-e0o"/>
+                        <segue destination="fby-Vc-J9Z" kind="push" identifier="AuctionPhotos" id="xEO-3y-W65"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zfu-UM-QL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -145,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GR8-iQ-Tng" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468.75" y="-695"/>
+            <point key="canvasLocation" x="643" y="-789"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GnI-Qe-Oau">
@@ -162,6 +172,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5NQ-zM-0Rc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1022" y="-1119"/>
+        </scene>
+        <!--Auction Photos-->
+        <scene sceneID="ufg-P7-2x0">
+            <objects>
+                <viewController id="fby-Vc-J9Z" customClass="VCAuctionPhotos" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HLF-ub-ug8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="klT-3O-iWE"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4eY-8k-8Ee"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9kw-eN-DqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-885" y="-290"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -229,7 +255,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pgP-1h-vbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1126.875" y="-1090"/>
+            <point key="canvasLocation" x="1346" y="-1439"/>
         </scene>
         <!--Preview View Controller-->
         <scene sceneID="Dog-Wf-CpP">

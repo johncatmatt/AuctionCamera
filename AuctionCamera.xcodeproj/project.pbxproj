@@ -14,6 +14,7 @@
 		2D5139C2222AE5DD00AB5647 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */; };
 		2D5139CA222AF27C00AB5647 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */; };
 		2D875988226B7FFF00EDDAEB /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */; };
+		2DC56F39229AE5B5000F47BC /* VCAuctionPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */; };
 		6067E0CD22311BA2003FB4EF /* ViewControllerScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6067E0CC22311BA2003FB4EF /* ViewControllerScanner.swift */; };
 		6067E0CF22312188003FB4EF /* ViewControllerVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6067E0CE22312188003FB4EF /* ViewControllerVehicle.swift */; };
 		606CBF9022609E5E0094529F /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606CBF8F22609E5E0094529F /* SpinnerViewController.swift */; };
@@ -34,6 +35,7 @@
 		2D5139C3222AE5DD00AB5647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
+		2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAuctionPhotos.swift; sourceTree = "<group>"; };
 		6067E0CC22311BA2003FB4EF /* ViewControllerScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerScanner.swift; sourceTree = "<group>"; };
 		6067E0CE22312188003FB4EF /* ViewControllerVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerVehicle.swift; sourceTree = "<group>"; };
 		606CBF8F22609E5E0094529F /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				60AFD29A223283D200568A31 /* ViewControllerTableView.swift */,
 				2D5139C9222AF27C00AB5647 /* PreviewViewController.swift */,
 				2D5139BB222AE5DB00AB5647 /* Main.storyboard */,
+				2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */,
 				609158FD226B142200BE52E1 /* NewPreviewViewController.swift */,
 				2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */,
 				2D5139BE222AE5DD00AB5647 /* Assets.xcassets */,
@@ -178,6 +181,7 @@
 				2D875988226B7FFF00EDDAEB /* ImagePreviewVC.swift in Sources */,
 				606CBF9022609E5E0094529F /* SpinnerViewController.swift in Sources */,
 				60AFD29B223283D200568A31 /* ViewControllerTableView.swift in Sources */,
+				2DC56F39229AE5B5000F47BC /* VCAuctionPhotos.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +328,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A57P7D522J;
+				DEVELOPMENT_TEAM = 79QR2B78MA;
 				INFOPLIST_FILE = AuctionCamera/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -343,7 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A57P7D522J;
+				DEVELOPMENT_TEAM = 79QR2B78MA;
 				INFOPLIST_FILE = AuctionCamera/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

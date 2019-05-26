@@ -15,6 +15,7 @@ protocol  SendDataFromDelegateVIN {
 class ViewControllerVehicle: UIViewController
 ,SendDataFromDelegate, UITextFieldDelegate{
 
+    @IBOutlet weak var bvtnAuctionXPhotos: UIButton!
     @IBOutlet var butClear: UIButton!
     @IBOutlet var butPhoto: UIButton!
     @IBOutlet var txtVIN: UITextField!
@@ -38,6 +39,24 @@ class ViewControllerVehicle: UIViewController
         }
     }
   
+    @IBAction func butGetAuctionPhotos(_ sender: Any) {
+        
+        //AuctionPhotos
+        
+        if txtVIN.text?.isEmpty == true{
+            
+            let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+        }
+        else{
+            
+            
+            performSegue(withIdentifier: "AuctionPhotos", sender: nil)
+        }
+        
+    }
     
     @IBAction func butPhotoPress(_ sender: UIButton) {
         
@@ -74,6 +93,10 @@ class ViewControllerVehicle: UIViewController
         if segue.identifier == "ScanSegue" {
             let vc : ViewControllerScanner = segue.destination as! ViewControllerScanner
             vc.delegate = self
+        }else if segue.identifier == "AuctionPhotos"{
+            let vc = segue.destination as! VCAuctionPhotos
+            vc.vin = txtVIN.text!
+            
         }
     }
     
