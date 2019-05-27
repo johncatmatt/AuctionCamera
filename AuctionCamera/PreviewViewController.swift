@@ -347,12 +347,16 @@ class PreviewViewController: UIViewController
             if error == nil {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
-                    print(json)
+                    print("THE JSON IS: \(json)")
                       self.currentTime = self.MAXTIME
                 let jsonStr = "\(json)"
-                    let range: Range<String.Index> = jsonStr.range(of: "Success")!
-                    let index: Int = jsonStr.distance(from: jsonStr.startIndex, to: range.lowerBound)
-                    if index == 0 {
+                    self.removeSpinner()
+                    
+                    
+                    /*let range: Range<String.Index> = jsonStr.range(of: "Success")!
+                    let index: Int = jsonStr.distance(from: jsonStr.startIndex, to: range.lowerBound)*/
+                    
+                    if !jsonStr.contains("Success") {
                         let alert = UIAlertController(title: "Upload Status ERROR", message: "\(json)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
@@ -365,7 +369,7 @@ class PreviewViewController: UIViewController
                             
     
                       
-                      print(index)
+                     // print(index)
                          //self.dismiss(animated: true, completion: nil)
                /*         let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))

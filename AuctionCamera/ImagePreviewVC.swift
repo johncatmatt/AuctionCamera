@@ -12,10 +12,6 @@ import Photos
 
 class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout  {
     
-
-    
-    
-    
     var myCollectionView: UICollectionView!
     var imgArray = [UIImage]()
     var passedContentOffset = IndexPath()
@@ -211,8 +207,6 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         print("IndexPath\(indexPath)")
-        
-      
 
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ImagePreviewFullViewCell
         cell.imgView.image=imgArray[indexPath.row]

@@ -15,6 +15,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     
     var myCollectionView: UICollectionView!
     var imageArray=[UIImage]()
+    var indexArray=[String]()
     let MAXTIME : Float = 5.0
     var currentTime : Float = 0.0
     
@@ -107,6 +108,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
                         for p in t.vl{
                             if let decodeData = Data(base64Encoded: p.imgData, options: .ignoreUnknownCharacters){
                                 self.imageArray.append(UIImage(data: decodeData)!)
+                                self.indexArray.append(p.ImgID)
                                 self.myCollectionView.reloadData()
                             }
                         }
@@ -151,10 +153,20 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc=ImagePreviewVC()
+        let vc = VCAuctionPhotoPreview()
         vc.imgArray = self.imageArray
         print(indexPath)
+        
         vc.passedContentOffset = indexPath
+        
+        let i = indexPath.row
+        //print(i)
+        print(indexArray)
+        vc.imageID = indexArray[i]
+        vc.indexArray = self.indexArray
+        
+       // print(imageArray[])
+        //vc.imageID = imageArray[]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
