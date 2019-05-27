@@ -43,7 +43,10 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
     }
     do {
     let input = try AVCaptureDeviceInput(device: defaultVideoDevice!)
-    session.addInput(input)        }
+        
+    session.addInput(input)
+        
+    }
     catch {
     print("ERROR")
     }
@@ -58,14 +61,73 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
             , AVMetadataObject.ObjectType.code39, AVMetadataObject.ObjectType.code39Mod43
             , AVMetadataObject.ObjectType.ean13, AVMetadataObject.ObjectType.ean8              ]
         video = AVCaptureVideoPreviewLayer(session: session)
-        video.frame = view.layer.bounds
-        view.layer.addSublayer(video)
         
-        self.view.bringSubviewToFront(square)
-     //   self.view.bringSubviewToFront(butClose)
+        
+    //    let orient = UIDevice.current.orientation
+     //   print("orient: \(orient)")
+  
+    
+        
+       video.frame = view.layer.bounds
+   
+      //     self.video.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        
+        view.layer.addSublayer(video)
+     self.view.bringSubviewToFront(square)
+ 
+        //   self.view.bringSubviewToFront(butClose)
         session.startRunning()
         
     }
+  
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+       setCameraOrientation()
+    }
+    @objc func setCameraOrientation() {
+        if let connection =  self.video.connection  {
+            let currentDevice: UIDevice = UIDevice.current
+            let orientation: UIDeviceOrientation = currentDevice.orientation
+            let previewLayerConnection : AVCaptureConnection = connection
+            if previewLayerConnection.isVideoOrientationSupported {
+                let o: AVCaptureVideoOrientation
+                switch (orientation) {
+                case .portrait: o = .portrait
+                case .landscapeRight: o = .landscapeLeft
+                case .landscapeLeft: o = .landscapeRight
+                case .portraitUpsideDown: o = .portraitUpsideDown
+                default: o = .portrait
+                }
+                
+                previewLayerConnection.videoOrientation = o
+                video.frame = self.view.bounds
+            }
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize,
+                                     with coordinator: UIViewControllerTransitionCoordinator)
+    {
+        
+        super.viewWillTransition(to: size, with: coordinator)
+        setCameraOrientation()
+        /*
+         guard
+            let conn = self.video.connection,
+            conn.isVideoOrientationSupported
+            else { return }
+        let deviceOrientation = UIDevice.current.orientation
+        switch deviceOrientation {
+        case .portrait: conn.videoOrientation = .portrait
+        case .landscapeRight: conn.videoOrientation = .landscapeLeft
+        case .landscapeLeft: conn.videoOrientation = .landscapeRight
+        case .portraitUpsideDown: conn.videoOrientation = .portraitUpsideDown
+        default: conn.videoOrientation = .portrait
+        }
+         */
+    }
+    
+   
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if metadataObjects.count > 0 {
             //if metadataObjects[0] is AVMetadataMachineReadableCodeObject {
@@ -193,6 +255,12 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
         
         
     }
+    
+  
+
+    
+    
+    
     
     class func showAlertMessage(message:String, viewController: UIViewController) {
         DispatchQueue.main.async {
