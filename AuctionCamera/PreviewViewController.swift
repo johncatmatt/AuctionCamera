@@ -325,7 +325,10 @@ class PreviewViewController: UIViewController
         
         
       //  let img = image.pngData()
-        let img = image.jpegData(compressionQuality: 0.04)
+        let imgResized =  image.resizeWithPercent(percentage: 0.4)
+        
+        let img = imgResized?.jpegData(compressionQuality: 0.9)
+        
         
         let base64String = img?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
         // let myDataEncoded = base64String?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -727,11 +730,25 @@ extension Date {
 
 
 extension UIImage {
-    
+ /*
     /// EZSE: Returns base64 string
     public var base64: String {
         return self.jpegData(compressionQuality: 0.20)!.base64EncodedString()
     }
+   */
+    func resizeWithPercent(percentage: CGFloat) -> UIImage? {
+        let imageView = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: size.width * percentage, height: size.height * percentage)))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = self
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        UIGraphicsEndImageContext()
+        return result
+        
+    }
+    
 }
 
 
