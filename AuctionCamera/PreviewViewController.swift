@@ -57,6 +57,8 @@ class PreviewViewController: UIViewController
        let url = URL(string: "https://mobile.aane.com/Auction.asmx/SendPicture")
     
     typealias BatchPhotoDownloadingCompletionClosure = (_ error: NSError?) -> Void
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         photo.image = self.image1
@@ -103,9 +105,13 @@ class PreviewViewController: UIViewController
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+       // setCameraOrientation()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         
     }
 
@@ -286,7 +292,7 @@ class PreviewViewController: UIViewController
            image: UIImage) {
 
         
-        var worked = false
+     //   var worked = false
        //show the spinner
         showSpinner(onView: self.view)
         
@@ -752,6 +758,9 @@ extension UIImage {
         return result
         
     }
+ 
+    
+    
     
 }
 

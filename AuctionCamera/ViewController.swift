@@ -33,7 +33,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         cemeraButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        
+        
         setupCaptureSession()
         setupDevice()
        setupInputOutput() //dw
@@ -58,6 +62,12 @@ class ViewController: UIViewController {
        // uploadImageOne()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setCameraOrientation()
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -179,8 +189,11 @@ class ViewController: UIViewController {
     func setupPreviewLayer(){
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-     //   cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+        
+        //cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+   
+        
+        //   cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
         
         cameraPreviewLayer?.frame = self.view.frame
         
@@ -234,8 +247,27 @@ class ViewController: UIViewController {
         }
         
     }
-    
-    
+    @objc func setCameraOrientation() {
+        if let connection =  self.cameraPreviewLayer?.connection  {
+            let currentDevice: UIDevice = UIDevice.current
+            let orientation: UIDeviceOrientation = currentDevice.orientation
+            let previewLayerConnection : AVCaptureConnection = connection
+            if previewLayerConnection.isVideoOrientationSupported {
+                let o: AVCaptureVideoOrientation
+                switch (orientation) {
+                case .portrait: o = .portrait
+                case .landscapeRight: o = .landscapeLeft
+                case .landscapeLeft: o = .landscapeRight
+                case .portraitUpsideDown: o = .portraitUpsideDown
+                default: o = .portrait
+                }
+                
+                previewLayerConnection.videoOrientation = o
+                cameraPreviewLayer!.frame = self.view.bounds
+            }
+        }
+    }
+
 }
 
 extension ViewController: AVCapturePhotoCaptureDelegate {
@@ -256,6 +288,9 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
                                      with coordinator: UIViewControllerTransitionCoordinator)
     {
         super.viewWillTransition(to: size, with: coordinator)
+        setCameraOrientation()
+        /*
+        super.viewWillTransition(to: size, with: coordinator)
         guard
             let conn = self.cameraPreviewLayer?.connection,
             conn.isVideoOrientationSupported
@@ -267,10 +302,9 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         case .landscapeLeft: conn.videoOrientation = .landscapeRight
         case .portraitUpsideDown: conn.videoOrientation = .portraitUpsideDown
         default: conn.videoOrientation = .portrait
-        }
+        */
     }
-
-    
+ 
     
 }
 extension Data{
