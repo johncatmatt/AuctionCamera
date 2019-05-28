@@ -236,16 +236,15 @@ class ViewController: UIViewController {
             print(image!.imageOrientation.rawValue)
        print(cameraPreviewLayer!.connection!.videoOrientation.rawValue)
       
-            image = rotateImage(image: image!)
-            print(image!.imageOrientation.rawValue)
+        //          image = rotateImage(image: image!)
             
-            
-            /*
+       
             if (image!.imageOrientation.rawValue == cameraPreviewLayer!.connection!.videoOrientation.rawValue)
             {
-                image = image?.rotate(radians: 270)
+                image = rotateImage(image: image!)
+                
             }
-             */
+         
             previewVC.image1 = self.image
             
             previewVC.switchMasterPhoto = self.switchMasterPhoto
@@ -262,7 +261,7 @@ class ViewController: UIViewController {
             rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up )//.down)
             
         case .down:
-            rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .left)
+            rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up )//.left)
             
         case .left:
             rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up)
