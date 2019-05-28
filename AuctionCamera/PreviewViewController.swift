@@ -66,7 +66,6 @@ class PreviewViewController: UIViewController
      //   progressView.transform = progressView.transform.scaledBy(x: 1, y: 4)
         
         
-        
         labelVIN.text = UserDefaults.standard.string(forKey: "vin")
         labelVIN.isHidden = true
         let str = UserDefaults.standard.string(forKey: "vin")!
@@ -74,7 +73,7 @@ class PreviewViewController: UIViewController
         let mySubstring = str.suffix(from: index)
         
         labelVIN6.text = String(mySubstring)
-         labelVIN6.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+     //    labelVIN6.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
     //    let boolAsString = String(switchMasterPhoto!.isOn)
     //    let myDevice = UIDevice.current.name
@@ -87,9 +86,9 @@ class PreviewViewController: UIViewController
         print(labelVIN.text!)
         
   //      progressView.progress = 0.0
-        cancelButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+  //      cancelButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
-        saveButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+    //    saveButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
         
         print(switchMasterPhoto.isOn)
         
@@ -238,9 +237,10 @@ class PreviewViewController: UIViewController
             let vin = String(self.labelVIN.text!) + boolAsString
             self.labelVIN.text = vin
             let myImage = self.image1!
+      
             
-            let localImageName =  self.saveImageDocumentDirectory(image: myImage, imageName: myFileName)
-                
+   //         let localImageName =  self.saveImageDocumentDirectory(image: myImage, imageName: myFileName)
+let localImageName = "NotStoredLocally\(myFileName)"
             
             
                 
@@ -331,9 +331,9 @@ class PreviewViewController: UIViewController
         
         
       //  let img = image.pngData()
-        let imgResized =  image.resizeWithPercent(percentage: 0.4)
+        let imgResized =  image.resizeWithPercent(percentage: 0.3)
         
-        let img = imgResized?.jpegData(compressionQuality: 0.9)
+        let img = imgResized?.jpegData(compressionQuality: 0.4)
         
         
         let base64String = img?.base64EncodedString(options: NSData.Base64EncodingOptions.lineLength64Characters)
@@ -427,7 +427,7 @@ class PreviewViewController: UIViewController
                             alert.addAction(okAction)
                             
                             self.present(alert, animated: true, completion: {() -> Void in
-                                alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
+                               // alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
                                 
                             })
                          

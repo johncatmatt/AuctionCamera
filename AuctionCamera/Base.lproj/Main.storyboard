@@ -18,100 +18,100 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIN:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="roY-Wp-U5m">
-                                <rect key="frame" x="16" y="71" width="34" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <rect key="frame" x="143.5" y="70" width="33" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="33" id="LEW-zP-L5u"/>
+                                    <constraint firstAttribute="height" constant="21" id="Rrz-fq-5sO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter VIN or press Scan button" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6go-j7-sKp">
-                                <rect key="frame" x="16" y="98" width="288" height="30"/>
+                                <rect key="frame" x="16.5" y="97" width="287" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="287" id="4MI-gy-Hzs"/>
+                                    <constraint firstAttribute="width" constant="287" id="kCo-e3-gB8"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YKt-mv-G6y">
-                                <rect key="frame" x="52" y="134" width="216" height="108"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncc-UE-biP">
-                                        <rect key="frame" x="8" y="8" width="81" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Bar Code Scanner" image="icons8-refresh-barcode-81"/>
-                                        <connections>
-                                            <segue destination="Q9b-sw-Q6g" kind="show" identifier="ScanSegue" id="IFS-eG-HPR"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxl-af-Mq4">
-                                        <rect key="frame" x="127" y="8" width="80" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Take Photos" image="icons8-screenshot-96">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="30"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="butPhotoPress:" destination="NrW-S1-dZn" eventType="touchUpInside" id="zDN-V3-Rbw"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="kvw-X3-gSK"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="216" id="rL7-x8-ecI"/>
-                                    <constraint firstAttribute="height" constant="108" id="xVD-sN-bW4"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos must be taken in Landscape " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87x-B2-dZM">
-                                <rect key="frame" x="16" y="263" width="288" height="94"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="94" id="qme-AW-5ks"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBQ-8c-QgZ">
-                                <rect key="frame" x="258" y="64" width="47" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="264" y="64" width="41" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Clear"/>
                                 <connections>
                                     <action selector="burClear_touchupInside:" destination="NrW-S1-dZn" eventType="touchUpInside" id="Z13-MU-gpe"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4t-P0-kxu">
-                                <rect key="frame" x="205" y="240" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncc-UE-biP">
+                                <rect key="frame" x="23" y="152" width="81" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="81" id="O6o-Og-k3o"/>
+                                    <constraint firstAttribute="height" constant="80" id="soQ-SJ-2Ac"/>
+                                </constraints>
+                                <state key="normal" title="Bar Code Scanner" image="icons8-refresh-barcode-81"/>
+                                <connections>
+                                    <segue destination="Q9b-sw-Q6g" kind="show" identifier="ScanSegue" id="IFS-eG-HPR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxl-af-Mq4">
+                                <rect key="frame" x="119.5" y="152" width="81" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="8Mh-16-UA9"/>
+                                    <constraint firstAttribute="width" constant="81" id="eiX-1D-9iw"/>
+                                </constraints>
+                                <state key="normal" title="Take Photos" image="icons8-screenshot-96">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="butPhotoPress:" destination="NrW-S1-dZn" eventType="touchUpInside" id="zDN-V3-Rbw"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="kvw-X3-gSK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WeG-Jc-CDS">
+                                <rect key="frame" x="214.5" y="152" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="D9i-Nd-0Dv"/>
+                                    <constraint firstAttribute="height" constant="80" id="hPW-j9-hOP"/>
+                                </constraints>
+                                <state key="normal" title="Photos" image="icons8-photo-gallery-100"/>
+                                <connections>
+                                    <action selector="butGetAuctionPhotos:" destination="NrW-S1-dZn" eventType="touchUpInside" id="rdc-Zl-TBn"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4t-P0-kxu">
+                                <rect key="frame" x="231" y="247" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <segue destination="qrM-E3-ah7" kind="show" id="7pz-ja-YvC"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WeG-Jc-CDS">
-                                <rect key="frame" x="66" y="240" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Photos"/>
-                                <connections>
-                                    <action selector="butGetAuctionPhotos:" destination="NrW-S1-dZn" eventType="touchUpInside" id="rdc-Zl-TBn"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6go-j7-sKp" firstAttribute="leading" secondItem="roY-Wp-U5m" secondAttribute="leading" id="6yE-SI-4kx"/>
-                            <constraint firstItem="87x-B2-dZM" firstAttribute="top" secondItem="YKt-mv-G6y" secondAttribute="bottom" constant="21" id="7eg-Ou-s1J"/>
-                            <constraint firstItem="roY-Wp-U5m" firstAttribute="leading" secondItem="Nha-0n-tJy" secondAttribute="leadingMargin" id="8P6-hE-bKd"/>
-                            <constraint firstItem="87x-B2-dZM" firstAttribute="trailing" secondItem="6go-j7-sKp" secondAttribute="trailing" id="BaD-q2-fXN"/>
-                            <constraint firstItem="6go-j7-sKp" firstAttribute="centerX" secondItem="YKt-mv-G6y" secondAttribute="centerX" id="Lty-i6-hgm"/>
+                            <constraint firstItem="fxl-af-Mq4" firstAttribute="top" secondItem="6go-j7-sKp" secondAttribute="bottom" constant="25" id="2Nc-BY-X2A"/>
+                            <constraint firstItem="6go-j7-sKp" firstAttribute="top" secondItem="gBQ-8c-QgZ" secondAttribute="bottom" id="FRU-fU-D0r"/>
+                            <constraint firstItem="fxl-af-Mq4" firstAttribute="centerX" secondItem="Nha-0n-tJy" secondAttribute="centerX" id="H89-uW-ytQ"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="top" secondItem="WeG-Jc-CDS" secondAttribute="top" id="J46-i1-yGR"/>
+                            <constraint firstItem="6go-j7-sKp" firstAttribute="centerX" secondItem="Nha-0n-tJy" secondAttribute="centerX" id="JIm-VZ-huR"/>
                             <constraint firstItem="rIr-BU-TLW" firstAttribute="trailing" secondItem="gBQ-8c-QgZ" secondAttribute="trailing" constant="15" id="Ry2-Rp-jnq"/>
-                            <constraint firstItem="YKt-mv-G6y" firstAttribute="top" secondItem="6go-j7-sKp" secondAttribute="bottom" constant="6" id="S7n-fk-Hcg"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="top" secondItem="fxl-af-Mq4" secondAttribute="top" id="TsE-r1-B55"/>
                             <constraint firstItem="gBQ-8c-QgZ" firstAttribute="top" secondItem="rIr-BU-TLW" secondAttribute="top" id="Y6v-Op-HDq"/>
-                            <constraint firstItem="YKt-mv-G6y" firstAttribute="centerX" secondItem="Nha-0n-tJy" secondAttribute="centerX" id="cPI-v8-een"/>
-                            <constraint firstItem="roY-Wp-U5m" firstAttribute="top" secondItem="rIr-BU-TLW" secondAttribute="top" constant="7" id="esy-Ra-Czj"/>
-                            <constraint firstItem="6go-j7-sKp" firstAttribute="top" secondItem="roY-Wp-U5m" secondAttribute="bottom" constant="5" id="pVE-u2-KDL"/>
-                            <constraint firstItem="87x-B2-dZM" firstAttribute="leading" secondItem="6go-j7-sKp" secondAttribute="leading" id="yiS-G8-5h4"/>
+                            <constraint firstItem="Ncc-UE-biP" firstAttribute="top" secondItem="6go-j7-sKp" secondAttribute="bottom" constant="25" id="gQ4-hM-eSi"/>
+                            <constraint firstItem="roY-Wp-U5m" firstAttribute="top" secondItem="rIr-BU-TLW" secondAttribute="top" constant="6" id="hkU-zH-iOi"/>
+                            <constraint firstItem="roY-Wp-U5m" firstAttribute="centerX" secondItem="Nha-0n-tJy" secondAttribute="centerX" id="lGj-jc-Nn9"/>
+                            <constraint firstItem="WeG-Jc-CDS" firstAttribute="leading" secondItem="fxl-af-Mq4" secondAttribute="trailing" constant="14" id="lws-4v-j0f"/>
+                            <constraint firstItem="WeG-Jc-CDS" firstAttribute="top" secondItem="6go-j7-sKp" secondAttribute="bottom" constant="25" id="nJV-im-lIx"/>
+                            <constraint firstItem="fxl-af-Mq4" firstAttribute="leading" secondItem="Ncc-UE-biP" secondAttribute="trailing" constant="15.5" id="qIE-Mt-3f4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rIr-BU-TLW"/>
                     </view>
@@ -370,6 +370,7 @@
     </scenes>
     <resources>
         <image name="icons8-ios-application-placeholder-501" width="500" height="500"/>
+        <image name="icons8-photo-gallery-100" width="100" height="100"/>
         <image name="icons8-refresh-barcode-81" width="80" height="80"/>
         <image name="icons8-screenshot-96" width="96" height="96"/>
     </resources>
