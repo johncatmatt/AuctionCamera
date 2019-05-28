@@ -60,11 +60,9 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         
     }
     
-    /*func convertBase64ToImage(imageString: String) -> UIImage {
-        let imageData = Data(base64Encoded: imageString, options: Data.Base64DecodingOptions.ignoreUnknownCharacters)!
-        return UIImage(data: imageData)!
-    }*/
+ 
     
+    //Gets the photos of the car with the 
     func grabPhotos(){
         
         //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
@@ -143,8 +141,11 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     }
     
     
+    //refreshes the page by grabbing the photos from AuctionX again
     @objc func refreshPage(){
-        self.refreshPage()
+        
+        grabPhotos()
+        
     }
     
     

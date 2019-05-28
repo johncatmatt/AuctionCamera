@@ -157,7 +157,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
             if let json = jsonData as? [String: Any] {
                 print(json)
             }else{
-                print("the hell went wrong?")
+                print("Unknow error")
             }
             
         }

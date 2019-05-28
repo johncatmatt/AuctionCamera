@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         
         setupCaptureSession()
         setupDevice()
-       setupInputOutput() //dw
+        setupInputOutput() //dw
         setupPreviewLayer()
         
         startRunningCapturSession()
