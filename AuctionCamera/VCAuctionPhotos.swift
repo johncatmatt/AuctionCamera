@@ -35,6 +35,9 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
 
         print(vin)
         
+        let btnRefresh = UIBarButtonItem(title: "Refresh", style: .done, target: self, action: #selector(refreshPage))
+        self.navigationItem.rightBarButtonItem = btnRefresh
+        
         //Add the VIN to the navigation bar title
         let upperTitle = NSMutableAttributedString(string: "\(vin)", attributes: [NSAttributedString.Key.font: UIFont(name: "Arial", size: 17)!])
         let label1 = UILabel(frame: CGRect(x: 0, y: 0, width: 400, height:66))
@@ -139,6 +142,10 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         task.resume()
     }
     
+    
+    @objc func refreshPage(){
+        self.refreshPage()
+    }
     
     
     //---------------------------------------COLLECTIONVIEW FUCTIONALITY-----------------------------------------------

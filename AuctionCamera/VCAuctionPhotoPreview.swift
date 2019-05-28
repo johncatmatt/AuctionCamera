@@ -61,19 +61,33 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
 
         print("The imageid is: \(imageID)")
         
+        let alert1 = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
+        let Y = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default){
+            UIAlertAction in
+            self.EditPhoto(EditMode: 1)
+        }
+        let N = UIAlertAction(title: "No", style: UIAlertAction.Style.default){
+            UIAlertAction in
+            self.dismiss(animated: false, completion: nil)
+        }
+        alert1.addAction(Y)
+        alert1.addAction(N)
         
-        
-        let alert = UIAlertController(title: "Options", message: "What wwould you like to do with this image?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Options", message: "What would you like to do with this image?", preferredStyle: .alert)
         //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
         
         let del = UIAlertAction(title: "Delete", style: UIAlertAction.Style.default) {
             UIAlertAction in
-            self.EditPhoto(EditMode: 1)
+            
+            self.present(alert1, animated: true, completion: nil)
+
             
         }
         let mas = UIAlertAction(title: "Make Default", style: UIAlertAction.Style.default) {
             UIAlertAction in
-            self.EditPhoto(EditMode: 2)
+            
+                self.EditPhoto(EditMode: 2)
+
 
         }
         let can = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default) {
@@ -89,20 +103,14 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         present(alert, animated: true, completion: nil)
         print("You hit eaiter make or delete")
         //https://mobile.aane.com/Auction.asmx/ImageEdit
-        
-        
-        
-        
 
-       
-
-        
     }
     
     
     func EditPhoto(EditMode: Int) {
-        
-        let url = URL(string: "https://mobile.aane.com/Auction.asmx/procImageEdit_Mobile?EditMode=\(EditMode)?ImageID=\(imageID)")
+        print("editmode =\(EditMode)")
+        print("imageID =\(imageID)")
+
 
         if EditMode == 1{
             print("Delete photo")
@@ -110,82 +118,53 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         }else{
             print("Make photo master")
         }
-        /*
-         
-         //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
-         //vin = 2CKDL43F086045757
-         let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=\(vin)"
-         imageArray = []
-         
-         showSpinner(onView: self.view)
-         
-         guard let url = URL(string: todoEndpoint) else {
-         print("ERROR: cannot create URL")
-         self.removeSpinner()
-         return
-         }
-         
-         var urlRequest = URLRequest(url: url)
-         
-         urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
-         urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
-         
-         let session = URLSession.shared
-         let task = session.dataTask(with: urlRequest){ data, response, error in
-         guard error == nil else{
-         print("ERROR: calling GET: \(error!)")
-         self.removeSpinner()
-         return
-         }
-         
-         guard let data = data else { print("DATA ERROR!!!"); return }
-         
-         do {
-         
-         print(data)
-         
-         print("trying to decode JSON")
-         let t = try JSONDecoder().decode(photoArray.self, from: data)
-         
-         print("Trying to do stuff with JSON now")
-         
-         DispatchQueue.main.async {
-         if t.vl.isEmpty{
-         print("There is not data")
-         }else{
-         for p in t.vl{
-         if let decodeData = Data(base64Encoded: p.imgData, options: .ignoreUnknownCharacters){
-         self.imageArray.append(UIImage(data: decodeData)!)
-         self.indexArray.append(p.ImgID)
-         self.myCollectionView.reloadData()
-         }
-         }
-         }
-         self.removeSpinner()
-         }
-         }catch let jsonErr{
-         print("-------------\(jsonErr) --------------")
-         self.removeSpinner()
-         
-         
-         let alert = UIAlertController(title: "Error", message: "\(jsonErr)", preferredStyle: .alert)
-         //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
-         
-         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-         UIAlertAction in
-         
-         self.dismiss(animated: true, completion: nil)
-         // self.cancelButton_TouchUpInside
-         //cancelButton.
-         
-         }
-         alert.addAction(okAction)
-         self.present(alert, animated: true, completion: nil)
-         
-         }
-         }
-         task.resume()
-         
+        
+        let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/ImageEdit?EditMode=\(EditMode)&imgID=\(imageID)"
+        //https://mobile.aane.com/auction.asmx/ImageEdit?EditMode=1&imgID=1785310
+        //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
+        //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
+
+
+        
+        
+        guard let url = URL(string: todoEndpoint) else {
+            print("ERROR: cannot create URL")
+            return
+        }
+        print(url)
+        
+        var urlRequest = URLRequest(url: url)
+        
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
+        
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: urlRequest){ data, response, error in
+            guard error == nil else{
+                print("ERROR: calling GET: \(error!)")
+                return
+            }
+            
+            
+            
+            print(data!)
+            print("------------------------------------------------------------")
+            print(response!)
+            
+            let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+            //print(jsonData!)
+            if let json = jsonData as? [String: Any] {
+                print(json)
+            }else{
+                print("the hell went wrong?")
+            }
+            
+        }
+        task.resume()
+        
+        
+       /*
          procImageEdit_Mobile
          @EditMode int -- 1= delete, 2 = Master
          , @imgID int    */
