@@ -76,6 +76,13 @@ class ViewController: UIViewController {
         
     }
     
+    
+    
+   
+    
+    
+    
+    
     func setupCaptureSession(){
         
         
@@ -228,7 +235,11 @@ class ViewController: UIViewController {
             
             print(image!.imageOrientation.rawValue)
        print(cameraPreviewLayer!.connection!.videoOrientation.rawValue)
-          
+      
+            image = rotateImage(image: image!)
+            print(image!.imageOrientation.rawValue)
+            
+            
             /*
             if (image!.imageOrientation.rawValue == cameraPreviewLayer!.connection!.videoOrientation.rawValue)
             {
@@ -242,6 +253,28 @@ class ViewController: UIViewController {
         }
     }
 
+    func rotateImage(image:UIImage) -> UIImage
+    {
+        var rotatedImage = UIImage()
+        switch image.imageOrientation
+        {
+        case .right:
+            rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up )//.down)
+            
+        case .down:
+            rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .left)
+            
+        case .left:
+            rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .up)
+            
+        default:
+            rotatedImage = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .right)
+        }
+        
+        return rotatedImage
+    }
+    
+    
     
     
     @IBAction func switchMasterPhoto_touchupInside(_ sender: Any) {
@@ -299,6 +332,9 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
     {
         super.viewWillTransition(to: size, with: coordinator)
         setCameraOrientation()
+        
+      
+        
         /*
         super.viewWillTransition(to: size, with: coordinator)
         guard
