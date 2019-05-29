@@ -10,10 +10,21 @@ import UIKit
 
 
 
+
+
+protocol ChildDelegate {
+    func dataChanged(b: Bool)
+}
+
+//childVC
 class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
 
-   // var VIN: String = ""
-
+    var delegate: ChildDelegate?
+    
+    func whereTheChangesAreMAde(data: Bool){
+        delegate?.dataChanged(b: data)
+    }
+    
     var myCollectionView: UICollectionView!
     var imgArray = [UIImage]()
     var passedContentOffset = IndexPath()
@@ -260,7 +271,12 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
                             
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                //self.navigationController?.popViewController(animated: true)
+                                
+                                
+                               // let parentVC = (self.navigationController?.parent) as! VCAuctionPhotos
+                                //parentVC.DelMasImage = true
+                                
+                                self.navigationController?.popViewController(animated: true)
                             }
             
                             
@@ -379,6 +395,18 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     
+   /* override func didMove(toParent parent: UIViewController?) {
+        if parent == VCAuctionPhotos(){
+            
+            
+            
+        }else{ print("!!!!!!SOMTHING WRONG!!!!!!!");  return}
+        
+        
+        let vc: VCAuctionPhotos = parent as! VCAuctionPhotos
+        vc.DelMasImage = true
+    }*/
+    
     override func viewDidLayoutSubviews() {
         
         myCollectionView.scrollToItem(at:IndexPath(item: passedContentOffset.item, section: 0), at: .right, animated: false)
@@ -402,14 +430,4 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
     }*/
     
     }
-    
-
-
-
-    
-
-    
-    
-
-    
 

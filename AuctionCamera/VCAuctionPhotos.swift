@@ -9,11 +9,18 @@
 import UIKit
 import Photos
 
-class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, URLSessionDelegate, URLSessionDataDelegate {
+
+//parent VC
+class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, URLSessionDelegate, URLSessionDataDelegate, ChildDelegate {
+    func dataChanged(b: Bool) {
+        
+    }
+    
 
     
-    var myIndexPath: IndexPath? = nil
+    var DelMasImage: Bool = false
     
+    var myIndexPath: IndexPath? = nil
     var vin: String = ""
     
     var myCollectionView: UICollectionView!
@@ -33,10 +40,13 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     }
     //base64
     
+    func test(){
+        print("!!!!!!!!!!!!!!!!!!!!!!CAME FROM IMAGE!!!!!!!!!!!!!!!!!!!!!!!!!")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         print(vin)
         
         let btnRefresh = UIBarButtonItem(title: "Refresh", style: .done, target: self, action: #selector(refreshPage))
@@ -60,13 +70,33 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         self.view.addSubview(myCollectionView)
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue )))
         
-        //grabPhotos()
+        grabPhotos()
         
     }
     
  
+    func childViewControllerResponse() {
+        DelMasImage = true
+    }
+    
+    
+   
+    
+    
     override func viewDidAppear(_ animated: Bool) {
-        grabPhotos()
+        
+        /*if self.isViewLoaded{
+           // print("!!!!!!!!!!!Loading!!!!!!!!!!!!")
+        }*/
+        
+        if DelMasImage == true {
+            print("DID delete a photo or make it a default")
+            grabPhotos()
+            DelMasImage = false
+            
+        }else{
+            print("DID NOT delete a photo or make it a default")
+        }
 
     }
     
@@ -157,12 +187,8 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     
     //refreshes the page by grabbing the photos from AuctionX again
     @objc func refreshPage(){
-        
-        //put if statement to return after coming from the photo preview
-        
-        grabPhotos()
+         grabPhotos()
 
-        
     }
     
     
