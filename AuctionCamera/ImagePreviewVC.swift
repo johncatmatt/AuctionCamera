@@ -149,24 +149,6 @@ class ImagePreviewVC: UIViewController, UICollectionViewDelegate, UICollectionVi
                 print("You got no photos.")
             }
             
-         /*
-            let arrayToDelete = self.passedContentOffset.item;                print(arrayToDelete)
-            //need to fetch the asset name to delete
-                PHPhotoLibrary.shared().performChanges({
-                    //Delete Photo
-                    PHAssetChangeRequest.deleteAssets(arrayToDelete as! NSFastEnumeration)
-                },                                                                                           completionHandler: {(success, error)in
-                    NSLog("\nDeleted Image -> %@", (success ? "Success":"Error!"))
-                    if(success){
-                        // Move to the main thread to execute
-                    }
-                })
-                
-           */
-            
-            
-            
-            
         }))
         
         present(alert, animated: true, completion: nil)

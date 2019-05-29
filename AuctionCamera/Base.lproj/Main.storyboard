@@ -121,7 +121,7 @@
                         <outlet property="butClear" destination="gBQ-8c-QgZ" id="OMb-pg-XNU"/>
                         <outlet property="butPhoto" destination="fxl-af-Mq4" id="dHA-p6-sNC"/>
                         <outlet property="txtVIN" destination="6go-j7-sKp" id="laB-0g-e0o"/>
-                        <segue destination="fby-Vc-J9Z" kind="push" identifier="AuctionPhotos" id="xEO-3y-W65"/>
+                        <segue destination="fby-Vc-J9Z" kind="show" identifier="AuctionPhotos" id="xEO-3y-W65"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zfu-UM-QL8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -173,6 +173,21 @@
             </objects>
             <point key="canvasLocation" x="-1183" y="-1136"/>
         </scene>
+        <!--Auction Photo Preview-->
+        <scene sceneID="doF-eW-IGX">
+            <objects>
+                <viewController id="rva-k0-dTJ" customClass="VCAuctionPhotoPreview" customModule="AuctionCamera" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9YF-43-zkw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="jJI-nx-ytd"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OOe-vM-8s8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-885" y="608"/>
+        </scene>
         <!--Auction Photos-->
         <scene sceneID="ufg-P7-2x0">
             <objects>
@@ -184,6 +199,9 @@
                         <viewLayoutGuide key="safeArea" id="klT-3O-iWE"/>
                     </view>
                     <navigationItem key="navigationItem" id="4eY-8k-8Ee"/>
+                    <connections>
+                        <segue destination="rva-k0-dTJ" kind="presentation" identifier="GoToPhoto" id="cU9-ec-ZNi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9kw-eN-DqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

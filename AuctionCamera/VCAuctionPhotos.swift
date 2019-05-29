@@ -10,6 +10,9 @@ import UIKit
 import Photos
 
 class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, URLSessionDelegate, URLSessionDataDelegate {
+
+    
+    var myIndexPath: IndexPath? = nil
     
     var vin: String = ""
     
@@ -18,6 +21,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     var indexArray=[String]()
     let MAXTIME : Float = 5.0
     var currentTime : Float = 0.0
+    
     
     
     struct photoArray: Decodable {
@@ -56,11 +60,15 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         self.view.addSubview(myCollectionView)
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue )))
         
-        grabPhotos()
+        //grabPhotos()
         
     }
     
  
+    override func viewDidAppear(_ animated: Bool) {
+        grabPhotos()
+
+    }
     
     //Gets the photos of the car with the 
     func grabPhotos(){
@@ -68,7 +76,10 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
         //vin = 2CKDL43F086045757
         let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=\(vin)"
-        imageArray = []
+       
+        //!!!MUST DELETE THE ARRAYS BEFORE EACH GRAB
+        imageArray.removeAll()
+        indexArray.removeAll()
         
         showSpinner(onView: self.view)
         
@@ -136,30 +147,40 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
                 self.present(alert, animated: true, completion: nil)
                 
             }
+           
         }
         task.resume()
+        
+        
     }
     
     
     //refreshes the page by grabbing the photos from AuctionX again
     @objc func refreshPage(){
         
+        //put if statement to return after coming from the photo preview
+        
         grabPhotos()
+
         
     }
     
     
+    
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToPhoto"{
+            let vc = segue.destination as! VCAuctionPhotoPreview
+            
+            vc.imgArray = self.imageArray
+            
+            let i = myIndexPath!.row
+            vc.passedContentOffset = myIndexPath!
+            vc.imageID = indexArray[i]
+            vc.indexArray = self.indexArray
+        }
+    }*/
+    
     //---------------------------------------COLLECTIONVIEW FUCTIONALITY-----------------------------------------------
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoItemCell
-        cell.img.image=imageArray[indexPath.item]
-        return cell
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = VCAuctionPhotoPreview()
         vc.imgArray = self.imageArray
@@ -169,13 +190,21 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         
         let i = indexPath.row
         //print(i)
-        print(indexArray)
+        print(indexArray) 
         vc.imageID = indexArray[i]
         vc.indexArray = self.indexArray
         
-       // print(imageArray[])
-        //vc.imageID = imageArray[]
+        
+        myIndexPath = indexPath
+
+       
+       
         self.navigationController?.pushViewController(vc, animated: true)
+        
+
+         //CHNAGING THE NAVIGATION TO A NEW VIEW CONTROLLER TO ALLOW FOR REFRESH
+      //  performSegue(withIdentifier: "GoToPhoto", sender: self)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -192,6 +221,16 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! PhotoItemCell
+        cell.img.image=imageArray[indexPath.item]
+        return cell
     }
     //---------------------------------------COLLECTIONVIEW FUCTIONALITY-----------------------------------------------
     

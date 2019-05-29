@@ -46,7 +46,7 @@ class PreviewViewController: UIViewController
     @IBOutlet var imageViewProgressOutlet: UIView!
     @IBOutlet weak var photo: UIImageView!
     var image1: UIImage!
-     @IBOutlet weak var switchMasterPhoto: UISwitch!
+    @IBOutlet weak var switchMasterPhoto: UISwitch!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet var saveButton: UIButton!
     @IBOutlet var labelVIN: UILabel!
@@ -84,6 +84,7 @@ class PreviewViewController: UIViewController
         
         
         print(labelVIN.text!)
+        
         
   //      progressView.progress = 0.0
   //      cancelButton.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
@@ -288,12 +289,7 @@ let localImageName = "NotStoredLocally\(myFileName)"
     
     
     
-    func uploadImage(paramName: String, fileName: String,
-           image: UIImage) {
-
-        
-     //   var worked = false
-       //show the spinner
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
         showSpinner(onView: self.view)
         
         saveButton.isEnabled = false
@@ -368,35 +364,7 @@ let localImageName = "NotStoredLocally\(myFileName)"
                         self.present(alert, animated: true, completion: nil)
                         
                     }
-                    else
-                       // if index == 30
-                        {
-                            
-                            
-    
-                      
-                     // print(index)
-                         //self.dismiss(animated: true, completion: nil)
-               /*         let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                 */
-                    /*
-                        let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->() in })
-
-                        self.present(alert, animated: true, completion: {() -> Void in
-                            alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
-                        })
-                    */
-                            
-                           
-                            
-                            
-                            /*guard let test = json else {
-                                print("failed")
-                            }*/
-                            
+                    else{
                            /* print(jsonData!)
                             print(type(of: jsonData))
                             do {
@@ -418,7 +386,10 @@ let localImageName = "NotStoredLocally\(myFileName)"
                             let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
                                 UIAlertAction in
                                 
+                                
+                                print("Upload")
                                 self.dismiss(animated: true, completion: nil)
+                                
                                 
                                // self.cancelButton_TouchUpInside
                                 //cancelButton.
@@ -582,9 +553,7 @@ let localImageName = "NotStoredLocally\(myFileName)"
     
     func SaveImagetoDevice(paramName: String, fileName: String,
                            image: UIImage){
-        
 
-        
         
           let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
  

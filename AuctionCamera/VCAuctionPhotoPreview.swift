@@ -8,7 +8,11 @@
 
 import UIKit
 
-class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+
+class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
+
+   // var VIN: String = ""
 
     var myCollectionView: UICollectionView!
     var imgArray = [UIImage]()
@@ -17,6 +21,8 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
     var imageID: String = ""
     var indexArray=[String]()
     let layout = UICollectionViewFlowLayout()
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +37,6 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         layout.minimumInteritemSpacing=0
         layout.minimumLineSpacing=0
         layout.scrollDirection = .horizontal
-        
        
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         myCollectionView.delegate=self
@@ -49,11 +54,45 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
         
+        
+       
+        
+       // let width = self.view.frame.width
+       // let navigationBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+
+        
+       // self.view.addSubview(navigationBar)
+        
+       // let logoutBarButtonItem = UIBarButtonItem(title: "Options", style: .done, target: self, action: #selector(userOptions))
+        
+
+
+        
+        
+        
         let logoutBarButtonItem = UIBarButtonItem(title: "Options", style: .done, target: self, action: #selector(userOptions))
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
         self.navigationItem.title = "ImgID: \(imageID)"
+        navigationItem.rightBarButtonItem?.isEnabled = true
+        
+        
+        self.navigationItem.hidesBackButton = true
+        let goBack = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(myBackBTN))
+        self.navigationItem.leftBarButtonItem = goBack
+ 
+        
     }
+
     
+    
+    @objc func myBackBTN(){
+         print("GO BACK")
+        
+        /*guard let vc = self.navigationController?.parent as? VCAuctionPhotos else { print("DID NOT WORK!"); return}
+        vc.refreshPage()*/
+        
+        self.navigationController?.popViewController(animated: true)
+    }
     
     //was the delet option
     @objc func userOptions(){
@@ -62,16 +101,27 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         print("The imageid is: \(imageID)")
         
         let alert1 = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
-        let Y = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default){
+        let Y1 = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default){
             UIAlertAction in
             self.EditPhoto(EditMode: 1)
         }
-        let N = UIAlertAction(title: "No", style: UIAlertAction.Style.default){
+        let N1 = UIAlertAction(title: "No", style: UIAlertAction.Style.default){
             UIAlertAction in
             self.dismiss(animated: false, completion: nil)
         }
-        alert1.addAction(Y)
-        alert1.addAction(N)
+        alert1.addAction(Y1)
+        alert1.addAction(N1)
+        let alert2 = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
+        let Y2 = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default){
+            UIAlertAction in
+            self.EditPhoto(EditMode: 2)
+        }
+        let N2 = UIAlertAction(title: "No", style: UIAlertAction.Style.default){
+            UIAlertAction in
+            self.dismiss(animated: false, completion: nil)
+        }
+        alert2.addAction(Y2)
+        alert2.addAction(N2)
         
         let alert = UIAlertController(title: "Options", message: "What would you like to do with this image?", preferredStyle: .alert)
         //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
@@ -85,8 +135,8 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         }
         let mas = UIAlertAction(title: "Make Default", style: UIAlertAction.Style.default) {
             UIAlertAction in
-            
-                self.EditPhoto(EditMode: 2)
+                //self.EditPhoto(EditMode: 2)
+              self.present(alert2, animated: true, completion: nil)
 
 
         }
@@ -101,7 +151,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         alert.addAction(mas)
         alert.addAction(can)
         present(alert, animated: true, completion: nil)
-        print("You hit eaiter make or delete")
+        print("You hit make or delete")
         //https://mobile.aane.com/Auction.asmx/ImageEdit
 
     }
@@ -111,20 +161,23 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         print("editmode =\(EditMode)")
         print("imageID =\(imageID)")
 
+      
 
+        //VERIF
         if EditMode == 1{
             print("Delete photo")
-
-        }else{
+              navigationItem.rightBarButtonItem?.isEnabled = false
+        }else if EditMode == 2 {
             print("Make photo master")
+        }else{
+            print("<UNKONWN EDITMODE>")
+            return
         }
         
         let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/ImageEdit?EditMode=\(EditMode)&imgID=\(imageID)"
         //https://mobile.aane.com/auction.asmx/ImageEdit?EditMode=1&imgID=1785310
         //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
         //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
-
-
         
         
         guard let url = URL(string: todoEndpoint) else {
@@ -138,6 +191,9 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
         urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
         
+        
+        DispatchQueue.main.async {
+          
         let session = URLSession.shared
         
         let task = session.dataTask(with: urlRequest){ data, response, error in
@@ -145,7 +201,6 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
                 print("ERROR: calling GET: \(error!)")
                 return
             }
-            
             
             
             print(data!)
@@ -156,13 +211,95 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
             //print(jsonData!)
             if let json = jsonData as? [String: Any] {
                 print(json)
+                
+                //decode the json response and prints the alert message
+                if let status = json["result"] as? String{
+                    print(status)
+                    
+                    
+                    //gets the imageID
+                    var myID: Int = 0
+                    if let id = json["imageid"] as? Int{
+                        print(id)
+                        myID = id
+                        
+                    }else{
+                        print("did not get imageID")
+                    }
+                    
+                    if status == "Success"{
+                        
+                        var myMsg: String = ""
+                        
+                        switch EditMode {
+                        case 1:
+                            //delete
+                            myMsg = "\(myID) was successfully deleted"
+                        case 2:
+                            //master
+                            myMsg = "\(myID) was made the default image for the car"
+                        default:
+                            myMsg = "<Uknown Editmode case>"
+                        }
+                    
+                        if myMsg == "" || myID == 0 { myMsg = "<ERROR in response message>"}
+                        
+                        let alert = UIAlertController(title: "Status", message: myMsg, preferredStyle: .alert)
+                        //alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                        //self.present(alert, animated: true, completion: nil)
+                        
+                        let closeAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                            UIAlertAction in
+
+                            //self.dismiss(animated: true, completion: nil)
+                            
+                        }
+                        
+                        alert.addAction(closeAction)
+                        self.present(alert, animated: true, completion: {() -> Void in
+                            
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                //self.navigationController?.popViewController(animated: true)
+                            }
+            
+                            
+                            
+                        })
+                        
+                        
+                        
+                    }else{
+                        let alert = UIAlertController(title: "ERROR", message: "\(json)", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    
+                   // self.myBackBTN()
+                    
+                }
+                
+                
+                
+                /*if json.contains(where: "Result : Success") {
+                    let alert = UIAlertController(title: "Upload Status ERROR", message: "\(json)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                        
+                }*/
+                
             }else{
                 print("Unknow error")
             }
             
+           
         }
         task.resume()
+        }
         
+        print("All done")
         
        /*
          procImageEdit_Mobile
@@ -190,7 +327,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
          print("ImageID was: \(imageID)")
         
          imageID = indexArray[indexPath.row]
-        self.navigationItem.title = "ImgID: \(imageID), index: \(indexPath.row)"
+        self.navigationItem.title = "ImgID: \(imageID)"
         
          print("Now the imageID is: \(imageID)")
         

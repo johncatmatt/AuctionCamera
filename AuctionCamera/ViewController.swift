@@ -71,24 +71,15 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-         switchMasterPhoto.isOn = false
+        switchMasterPhoto.isOn = false
         cemeraButton.setTitle("Photo", for: .normal)
         
     }
-    
-    
-    
-   
-    
-    
-    
-    
+
     func setupCaptureSession(){
-        
-        
-        
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
     }
+    
     func switchValueDidChange(sender:UISwitch!){
         
         print("Switch Value : \(sender.isOn))")
@@ -155,10 +146,6 @@ class ViewController: UIViewController {
     
    
     func setupDevice(){
-        
-      
-        
-        
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [AVCaptureDevice.DeviceType.builtInWideAngleCamera], mediaType: AVMediaType.video, position: AVCaptureDevice.Position.unspecified)
         let devices = deviceDiscoverySession.devices
         
@@ -168,13 +155,8 @@ class ViewController: UIViewController {
             }else if device.position == AVCaptureDevice.Position.front {
                 frontCamera = device
             }
-            
-          
         }
          currentCamera = backCamera
-        
-       
-        
     }
     
     func setupInputOutput(){
