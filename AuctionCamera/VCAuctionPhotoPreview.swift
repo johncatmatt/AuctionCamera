@@ -9,17 +9,15 @@
 import UIKit
 
 
-
-
-
 protocol ChildDelegate {
     func dataChanged(b: Bool)
 }
 
 //childVC
 class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate {
-
+    
     var delegate: ChildDelegate?
+
     
     func whereTheChangesAreMAde(data: Bool){
         delegate?.dataChanged(b: data)
@@ -66,21 +64,6 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue)))
         
         
-       
-        
-       // let width = self.view.frame.width
-       // let navigationBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
-
-        
-       // self.view.addSubview(navigationBar)
-        
-       // let logoutBarButtonItem = UIBarButtonItem(title: "Options", style: .done, target: self, action: #selector(userOptions))
-        
-
-
-        
-        
-        
         let logoutBarButtonItem = UIBarButtonItem(title: "Options", style: .done, target: self, action: #selector(userOptions))
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
         self.navigationItem.title = "ImgID: \(imageID)"
@@ -105,6 +88,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         self.navigationController?.popViewController(animated: true)
     }
     
+    
     //was the delet option
     @objc func userOptions(){
         print("clicked")
@@ -122,7 +106,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         }
         alert1.addAction(Y1)
         alert1.addAction(N1)
-        let alert2 = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this image?", preferredStyle: .alert)
+        let alert2 = UIAlertController(title: "Confirm", message: "Are you sure you want to make this image the master photo?", preferredStyle: .alert)
         let Y2 = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default){
             UIAlertAction in
             self.EditPhoto(EditMode: 2)
@@ -218,14 +202,30 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
             print("------------------------------------------------------------")
             print(response!)
             
+            
+            
             let jsonData = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)
             //print(jsonData!)
+            
+            
             if let json = jsonData as? [String: Any] {
                 print(json)
+                
+                if let s = json["Status"] as? String{ 
+                    if s == "No Dealer Found"{
+                        let alert = UIAlertController(title: "Could Not Find Photo", message: "This photo may have been deleted, try refreshing the page", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    
+                }else{
+                    print("<ERROR>")
+                }
                 
                 //decode the json response and prints the alert message
                 if let status = json["result"] as? String{
                     print(status)
+                    
                     
                     
                     //gets the imageID
@@ -276,6 +276,14 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
                                // let parentVC = (self.navigationController?.parent) as! VCAuctionPhotos
                                 //parentVC.DelMasImage = true
                                 
+                                let myB = true
+                                self.delegate?.dataChanged(b: myB)
+                                
+                               // var _: UIPopoverPresentationController?
+                                
+                                
+                                //print(p!)
+                                
                                 self.navigationController?.popViewController(animated: true)
                             }
             
@@ -323,6 +331,14 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
          , @imgID int    */
     }
     
+    override func willMove(toParent parent: UIViewController?) {
+        if parent == nil {
+            print("parent is nil")
+        }else{
+        }
+    }
+
+    
     
     //-----------------------------------------------COLLECTION VIEW--------------------------------------------------------------------
     func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
@@ -342,7 +358,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         
          print("ImageID was: \(imageID)")
         
-         imageID = indexArray[indexPath.row]
+        imageID = indexArray[indexPath.row]
         self.navigationItem.title = "ImgID: \(imageID)"
         
          print("Now the imageID is: \(imageID)")

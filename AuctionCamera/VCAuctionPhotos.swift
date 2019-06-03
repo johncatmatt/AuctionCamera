@@ -9,14 +9,12 @@
 import UIKit
 import Photos
 
-
 //parent VC
 class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, URLSessionDelegate, URLSessionDataDelegate, ChildDelegate {
-    func dataChanged(b: Bool) {
-        
-    }
     
-
+    func dataChanged(b: Bool) {
+        DelMasImage = b
+    }
     
     var DelMasImage: Bool = false
     
@@ -39,10 +37,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         var imgData: String
     }
     //base64
-    
-    func test(){
-        print("!!!!!!!!!!!!!!!!!!!!!!CAME FROM IMAGE!!!!!!!!!!!!!!!!!!!!!!!!!")
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +55,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         label1.attributedText = upperTitle  //assign it to attributedText instead of text
         self.navigationItem.titleView = label1
         
-        //
+        //collection view of the photos
         let layout = UICollectionViewFlowLayout()
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         myCollectionView.delegate=self
@@ -70,35 +65,29 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         self.view.addSubview(myCollectionView)
         myCollectionView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.RawValue(UInt8(UIView.AutoresizingMask.flexibleWidth.rawValue) | UInt8(UIView.AutoresizingMask.flexibleHeight.rawValue )))
         
+       // print("View did not appear")
+        showSpinner(onView: self.view)
         grabPhotos()
+        //DelMasImage = true
+        
+    }
+ 
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isBeingPresented || isMovingToParent {
+             //print("!!!!!!!!!!!!!First!!!!!!!!!!!!!!!!!")
+        }else{
+            grabPhotos()
+        }
+        
         
     }
     
  
-    func childViewControllerResponse() {
-        DelMasImage = true
-    }
-    
-    
-   
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        /*if self.isViewLoaded{
-           // print("!!!!!!!!!!!Loading!!!!!!!!!!!!")
-        }*/
-        
-        if DelMasImage == true {
-            print("DID delete a photo or make it a default")
-            grabPhotos()
-            DelMasImage = false
-            
-        }else{
-            print("DID NOT delete a photo or make it a default")
-        }
-
-    }
     
     //Gets the photos of the car with the 
     func grabPhotos(){
@@ -107,12 +96,11 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         //vin = 2CKDL43F086045757
         let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=\(vin)"
        
-        //!!!MUST DELETE THE ARRAYS BEFORE EACH GRAB
+        //!!!MUST EMPTY THE ARRAYS BEFORE EACH GRAB
         imageArray.removeAll()
         indexArray.removeAll()
         
-        showSpinner(onView: self.view)
-        
+
         guard let url = URL(string: todoEndpoint) else {
             print("ERROR: cannot create URL")
             self.removeSpinner()
@@ -155,6 +143,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
                             }
                         }
                 }
+                    
                 self.removeSpinner()
                 }
             }catch let jsonErr{
@@ -177,6 +166,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
                 self.present(alert, animated: true, completion: nil)
                 
             }
+             self.removeSpinner()
            
         }
         task.resume()
@@ -187,24 +177,10 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     
     //refreshes the page by grabbing the photos from AuctionX again
     @objc func refreshPage(){
+         showSpinner(onView: self.view)
          grabPhotos()
 
     }
-    
-    
-    
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "GoToPhoto"{
-            let vc = segue.destination as! VCAuctionPhotoPreview
-            
-            vc.imgArray = self.imageArray
-            
-            let i = myIndexPath!.row
-            vc.passedContentOffset = myIndexPath!
-            vc.imageID = indexArray[i]
-            vc.indexArray = self.indexArray
-        }
-    }*/
     
     //---------------------------------------COLLECTIONVIEW FUCTIONALITY-----------------------------------------------
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -220,18 +196,12 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         vc.imageID = indexArray[i]
         vc.indexArray = self.indexArray
         
-        
         myIndexPath = indexPath
-
-       
        
         self.navigationController?.pushViewController(vc, animated: true)
-        
-
-         //CHNAGING THE NAVIGATION TO A NEW VIEW CONTROLLER TO ALLOW FOR REFRESH
-      //  performSegue(withIdentifier: "GoToPhoto", sender: self)
-        
     }
+    
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width

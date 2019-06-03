@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  VCAuctionCamera.swift
 //  AuctionCamera
 //
 //  Created by Matthew Sansoucie on 3/2/19.
@@ -8,11 +8,7 @@
 
 import UIKit
 import AVFoundation
-//import Alamofire
-
-
-
-class ViewController: UIViewController {
+class VCAuctionCamera: UIViewController {
 
     
     @IBOutlet weak var switchMasterPhoto: UISwitch!
@@ -159,6 +155,7 @@ class ViewController: UIViewController {
          currentCamera = backCamera
     }
     
+    
     func setupInputOutput(){
         do {
         let captureDeviceInput = try AVCaptureDeviceInput(device: currentCamera!)
@@ -166,22 +163,17 @@ class ViewController: UIViewController {
             photoOutput = AVCapturePhotoOutput()
             photoOutput?.setPreparedPhotoSettingsArray([AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])], completionHandler: nil)
             captureSession.addOutput(photoOutput!)
-            
-   
-            
         } catch{
             print(error)
         }
     }
     
     
+    //adds the capture session of the camera to the view
     func setupPreviewLayer(){
         cameraPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         cameraPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        
         //cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-   
-        
         //   cameraPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
         
         cameraPreviewLayer?.frame = self.view.frame
@@ -201,11 +193,7 @@ class ViewController: UIViewController {
     
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
            let settings = AVCapturePhotoSettings()
-        
-
-      
-        
-        
+ 
             photoOutput?.capturePhoto(with: settings, delegate: self)
         
   // performSegue(withIdentifier: "showPhoto_Segue", sender: nil)
@@ -213,10 +201,10 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto_Segue" {
-            let previewVC = segue.destination as! PreviewViewController
+            let previewVC = segue.destination as! VCAuctionCameraPreview
             
             print(image!.imageOrientation.rawValue)
-       print(cameraPreviewLayer!.connection!.videoOrientation.rawValue)
+            print(cameraPreviewLayer!.connection!.videoOrientation.rawValue)
       
         //          image = rotateImage(image: image!)
             
@@ -279,11 +267,11 @@ class ViewController: UIViewController {
             if previewLayerConnection.isVideoOrientationSupported {
                 let o: AVCaptureVideoOrientation
                 switch (orientation) {
-                case .portrait: o = .portrait
-                case .landscapeRight: o = .landscapeLeft
-                case .landscapeLeft: o = .landscapeRight
-                case .portraitUpsideDown: o = .portraitUpsideDown
-                default: o = .portrait
+                case .portrait: o = .landscapeRight       //portrait
+                case .landscapeRight: o = .landscapeLeft // landscapeLeft
+                case .landscapeLeft: o = .landscapeRight  //landscapeRight
+                case .portraitUpsideDown: o = .landscapeRight //portraitUpsideDown
+                default: o = .landscapeRight  //portrait
                 }
                 
                 previewLayerConnection.videoOrientation = o
@@ -294,7 +282,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: AVCapturePhotoCaptureDelegate {
+extension VCAuctionCamera: AVCapturePhotoCaptureDelegate {
     
     
     

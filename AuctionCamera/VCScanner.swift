@@ -1,5 +1,5 @@
 //
-//  ViewControllerScanner.swift
+//  VCScanner.swift
 //  AuctionCamera
 //
 //  Created by John Sansoucie on 3/7/19.
@@ -13,7 +13,8 @@ protocol  SendDataFromDelegate {
     func sendData(data : String)
 }
 
-class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
+//child
+class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
 
     @IBOutlet var square: UIImageView!
     
@@ -84,6 +85,7 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
         super.viewDidLayoutSubviews()
        setCameraOrientation()
     }
+    
     @objc func setCameraOrientation() {
         if let connection =  self.video.connection  {
             let currentDevice: UIDevice = UIDevice.current
@@ -91,19 +93,27 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
             let previewLayerConnection : AVCaptureConnection = connection
             if previewLayerConnection.isVideoOrientationSupported {
                 let o: AVCaptureVideoOrientation
+                //changes made to allow for only landscape use
                 switch (orientation) {
-                case .portrait: o = .portrait
-                case .landscapeRight: o = .landscapeLeft
-                case .landscapeLeft: o = .landscapeRight
-                case .portraitUpsideDown: o = .portraitUpsideDown
-                default: o = .portrait
+                case .portrait: o = .landscapeRight       //portrait
+                case .landscapeRight: o = .landscapeLeft // landscapeLeft
+                case .landscapeLeft: o = .landscapeRight  //landscapeRight
+                case .portraitUpsideDown: o = .landscapeRight //portraitUpsideDown
+                default: o = .landscapeRight  //portrait
                 }
                 
                 previewLayerConnection.videoOrientation = o
+                
+                /*if o == .landscapeRight{
+                    print("right!!!")
+                }*/
+                
                 video.frame = self.view.bounds
             }
         }
     }
+    
+    
     
     override func viewWillTransition(to size: CGSize,
                                      with coordinator: UIViewControllerTransitionCoordinator)
@@ -180,7 +190,7 @@ class ViewControllerScanner: UIViewController,AVCaptureMetadataOutputObjectsDele
                     present(alert, animated: true, completion: nil)
                 */
              
-                //    ViewControllerScanner.showAlertMessage(message: object.stringValue!, viewController: self)
+                //    VCScanner.showAlertMessage(message: object.stringValue!, viewController: self)
                     self.delegate?.sendData(data:object.stringValue!)
                     self.navigationController?.popViewController(animated: true)
                     self.dismiss(animated: true, completion: nil)

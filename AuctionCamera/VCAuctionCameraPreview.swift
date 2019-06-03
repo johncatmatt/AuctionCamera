@@ -9,16 +9,8 @@
 import UIKit
 import Photos
 
-class PreviewViewController: UIViewController
-    , URLSessionDelegate, URLSessionDataDelegate   // ,URLSessionDownloadDelegate
-{
-  
- //   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
- //       var uploadProgress:Float = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
+class VCAuctionCameraPreview: UIViewController, URLSessionDelegate, URLSessionDataDelegate {
 
- //   }
-  
-    
     struct j: Decodable {
         let error: String
         let imageid: Int
@@ -99,8 +91,6 @@ class PreviewViewController: UIViewController
     //    session = URLSession(configuration: configuration, delegate:self, delegateQueue: manqueue)
      //   dataTask = session?.dataTaskWithRequest(NSURLRequest(URL: erfl))
      //   dataTask?.resume()
-        
-
         
         // Do any additional setup after loading the view.
     }
@@ -359,56 +349,77 @@ let localImageName = "NotStoredLocally\(myFileName)"
                     let index: Int = jsonStr.distance(from: jsonStr.startIndex, to: range.lowerBound)*/
                     
                     if !jsonStr.contains("Success") {
-                        let alert = UIAlertController(title: "Upload Status ERROR", message: "\(json)", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "ERROR", message: "\(json)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                         
                     }
                     else{
-                           /* print(jsonData!)
-                            print(type(of: jsonData))
-                            do {
-                                let decoder = JSONDecoder()
-                                let r = try decoder.decode(j.self, from: responseData as! Data)
-                                print(" TRYING TO DECODE JSON \(r.error)")
-                                
-                                
-                                print(r.imageid)
-                            }catch { print(error)}*/
-                            
                             self.removeSpinner()
-                            print(type(of: json))
-                                 //PreviewViewController.showAlertMessage(message:"\(json)", viewController: self)
+                        
+                        
+                            if let r = json["result"] as? String{
+                                if r == "Success"{
+                                    
+                                    let id = json["imageid"] as? Int
+                                    
+                                    let alert = UIAlertController(title: r, message: "Photo successfully uploaded\nImageID: \(id ?? 0000000000)", preferredStyle: .alert)
+                                    //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                                    
+                                    let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                                        UIAlertAction in
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
+                                    alert.addAction(okAction)
+                                    
+                                    self.present(alert, animated: true, completion: nil)
+                                }else {
+                                    
+                                    let alert = UIAlertController(title: "ERROR", message: "\(json)", preferredStyle: .alert)
+                                    //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                                    
+                                    let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                                        UIAlertAction in
+                                        self.dismiss(animated: true, completion: nil)
+                                    }
+                                    alert.addAction(okAction)
+                                    
+                                    self.present(alert, animated: true, completion: nil)
+                                    
+                                }
                             
-                            let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
+
+                            }else{
+                                
+                                let alert = UIAlertController(title: "ERROR", message: "\(json)", preferredStyle: .alert)
+                                //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
+                                
+                                let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                                    UIAlertAction in
+                                    self.dismiss(animated: true, completion: nil)
+                                }
+                                alert.addAction(okAction)
+                                
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        
+                        
+                           /*
+                             let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
                             //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
                             
                             let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
                                 UIAlertAction in
-                                
-                                
-                                print("Upload")
                                 self.dismiss(animated: true, completion: nil)
-                                
-                                
-                               // self.cancelButton_TouchUpInside
-                                //cancelButton.
-                                
                             }
                             alert.addAction(okAction)
                             
-                            self.present(alert, animated: true, completion: {() -> Void in
-                               // alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
-                                
-                            })
-                         
-                            
-                         //    self.CloseSpinnerView()
-                            
+                            self.present(alert, animated: true, completion: nil)
+                         */
+                        
+                        
                         
                     }
-        
-             
                     self.removeSpinner()
                 }
           
@@ -416,15 +427,8 @@ let localImageName = "NotStoredLocally\(myFileName)"
                 self.removeSpinner()
             }
         }).resume()
-     
-      //  CloseSpinnerView()
-        
         
         self.saveButton.isEnabled = true
-        
-        
-    
-        
     }
     
     
@@ -441,26 +445,7 @@ let localImageName = "NotStoredLocally\(myFileName)"
         //  var lineAmount : String
         
     }
-/*
-    @objc func updateProgress() {
-    currentTime = currentTime + 1.0
-        progressView.progress = currentTime/MAXTIME
-     //   labelVIN.text = "\(currentTime)"
-        
-        if currentTime < MAXTIME {
-              perform(#selector(updateProgress),with: nil, afterDelay: 1.0)
-            
-        } else {
-            print("stop")
-            currentTime = 0.0
-            
-        //  self.view.isUserInteractionEnabled = true
-            
-            
-        }
-        
-    }
-    */
+
     
   
     func replace(myString: String)  {
@@ -473,20 +458,9 @@ let localImageName = "NotStoredLocally\(myFileName)"
   
     class func showAlertMessage(message:String, viewController: UIViewController) {
         DispatchQueue.main.async {
-         /*
-            let alertMessage = UIAlertController(title: "", message: message, preferredStyle: .alert)
-            
-            let cancelAction = UIAlertAction(title: "Ok", style: .cancel)
-            
-            alertMessage.addAction(cancelAction)
-            
-            viewController.present(alertMessage, animated: true, completion: nil)
-            */
-          
-            
-            
+        
  
- let alert = UIAlertController(title: "Upload Status", message: message, preferredStyle: .alert)
+            let alert = UIAlertController(title: "Upload Status", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->(
                 ) in
                 
@@ -546,8 +520,6 @@ let localImageName = "NotStoredLocally\(myFileName)"
             self.child.removeFromParent()
          }
  */
-        
-
         }
 
     

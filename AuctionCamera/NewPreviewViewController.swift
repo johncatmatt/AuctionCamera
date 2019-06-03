@@ -256,7 +256,7 @@ class NewPreviewViewController: UIViewController, UICollectionViewDelegate, UICo
                         print(index)
   
    
-                        PreviewViewController.showAlertMessage(message:"\(json)", viewController: self)
+                        VCAuctionCameraPreview.showAlertMessage(message:"\(json)", viewController: self)
                     }
                 }
             }

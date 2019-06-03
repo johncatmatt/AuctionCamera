@@ -1,5 +1,5 @@
 //
-//  ViewControllerVehicle.swift
+//  VCHomePage.swift
 //  AuctionCamera
 //
 //  Created by John Sansoucie on 3/7/19.
@@ -12,9 +12,18 @@ protocol  SendDataFromDelegateVIN {
     func sendData(data : String)
 }
 
-class ViewControllerVehicle: UIViewController
-,SendDataFromDelegate, UITextFieldDelegate{
+//parent
+class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
+    
+    func sendData(data: String) {
+        self.txtVIN.text = data
+        UserDefaults.standard.set(data, forKey: "vin") //setObject
+    }
 
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.landscapeLeft
+    }
+    
     //@IBOutlet weak var btnAuctionXPhotos: UIButton!
     @IBOutlet var butClear: UIButton!
     @IBOutlet var butPhoto: UIButton!
@@ -23,11 +32,9 @@ class ViewControllerVehicle: UIViewController
         super.viewDidLoad()
         txtVIN.delegate = self
         // Do any additional setup after loading the view.
-       
-        
-       
-        
+
     }
+    
     @IBOutlet weak var btnAuctionXPhotos: UIButton!
     override func viewWillAppear(_ animated: Bool) {
         
@@ -45,15 +52,11 @@ class ViewControllerVehicle: UIViewController
         //AuctionPhotos
         
         if txtVIN.text?.isEmpty == true{
-            
             let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
-            
         }
         else{
-            
-            
             performSegue(withIdentifier: "AuctionPhotos", sender: nil)
         }
         
@@ -92,7 +95,7 @@ class ViewControllerVehicle: UIViewController
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "ScanSegue" {
-            let vc : ViewControllerScanner = segue.destination as! ViewControllerScanner
+            let vc : VCScanner = segue.destination as! VCScanner
             vc.delegate = self
         }else if segue.identifier == "AuctionPhotos"{
             let vc = segue.destination as! VCAuctionPhotos
@@ -108,9 +111,5 @@ class ViewControllerVehicle: UIViewController
         
     }
     
-    func sendData(data: String) {
-        self.txtVIN.text = data
-        UserDefaults.standard.set(data, forKey: "vin") //setObject
-        
-    }
+   
 }
