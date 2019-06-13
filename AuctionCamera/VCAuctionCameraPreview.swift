@@ -231,25 +231,11 @@ class VCAuctionCameraPreview: UIViewController, URLSessionDelegate, URLSessionDa
       
             
    //         let localImageName =  self.saveImageDocumentDirectory(image: myImage, imageName: myFileName)
-let localImageName = "NotStoredLocally\(myFileName)"
+            let localImageName = "NotStoredLocally\(myFileName)"
             
-            
-                
-                //     self.createSpinnerView()
-            
-            //self.addChild(<#T##childController: UIViewController##UIViewController#>)
-            
-                self.uploadImage(paramName: vin, fileName: localImageName, image: myImage)
+            self.uploadImage(paramName: vin, fileName: localImageName, image: myImage)
                 
            //    }
-            
-         
-            
- 
-            
-            
-            
-            
             
             //DispatchQueue.main.async {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
@@ -262,15 +248,6 @@ let localImageName = "NotStoredLocally\(myFileName)"
             }
         }
 
-
-        
-        
-        
-        
-        
-        
-        
-        
         //}
     }
     
@@ -335,26 +312,37 @@ let localImageName = "NotStoredLocally\(myFileName)"
    
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
     //         self.fetchFile(url: self.url! )
+            if error != nil {
+                   self.removeSpinner()
+
+                    let alert = UIAlertController(title: "ERROR", message: "Check your connection", preferredStyle: .alert)
+                    print("\(error!)")
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                        UIAlertAction in
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+            }
 
             if error == nil {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print("THE JSON IS: \(json)")
                       self.currentTime = self.MAXTIME
-                let jsonStr = "\(json)"
-                    self.removeSpinner()
+                //let jsonStr = "\(json)"
                     
                     
                     /*let range: Range<String.Index> = jsonStr.range(of: "Success")!
                     let index: Int = jsonStr.distance(from: jsonStr.startIndex, to: range.lowerBound)*/
                     
-                    if !jsonStr.contains("Success") {
+                   /* if !jsonStr.contains("Success") {
                         let alert = UIAlertController(title: "ERROR", message: "\(json)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                         
-                    }
-                    else{
+                    }*/
+                   // else{
                             self.removeSpinner()
                         
                         
@@ -375,7 +363,7 @@ let localImageName = "NotStoredLocally\(myFileName)"
                                     self.present(alert, animated: true, completion: nil)
                                 }else {
                                     
-                                    let alert = UIAlertController(title: "ERROR", message: "\(json)", preferredStyle: .alert)
+                                    let alert = UIAlertController(title: "ERROR", message: "Could not upload photo, make sure vehicle is registered on property", preferredStyle: .alert)
                                     //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
                                     
                                     let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
@@ -402,24 +390,8 @@ let localImageName = "NotStoredLocally\(myFileName)"
                                 
                                 self.present(alert, animated: true, completion: nil)
                             }
-                        
-                        
-                           /*
-                             let alert = UIAlertController(title: "Upload Status", message: "\(json)", preferredStyle: .alert)
-                            //alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
-                            
-                            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                                UIAlertAction in
-                                self.dismiss(animated: true, completion: nil)
-                            }
-                            alert.addAction(okAction)
-                            
-                            self.present(alert, animated: true, completion: nil)
-                         */
-                        
-                        
-                        
-                    }
+
+                    //}
                     self.removeSpinner()
                 }
           
@@ -427,6 +399,8 @@ let localImageName = "NotStoredLocally\(myFileName)"
                 self.removeSpinner()
             }
         }).resume()
+        
+        //self.removeSpinner()
         
         self.saveButton.isEnabled = true
     }
@@ -449,17 +423,14 @@ let localImageName = "NotStoredLocally\(myFileName)"
     
   
     func replace(myString: String)  {
-    
         let oldString = "Hello, playground"
         let newString: String = myString.prefix(4) + "0" + oldString.dropFirst(5)
         labelVIN.text = newString
-        
     }
   
     class func showAlertMessage(message:String, viewController: UIViewController) {
         DispatchQueue.main.async {
         
- 
             let alert = UIAlertController(title: "Upload Status", message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .default){(action)->(
                 ) in
@@ -469,59 +440,8 @@ let localImageName = "NotStoredLocally\(myFileName)"
             viewController.present(alert, animated: true, completion: {() -> Void in
                 alert.view.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi/2) )
                       })
-            
         }
     }
-  
-    
-    
-    func createSpinnerView() {
-      //  let child = SpinnerViewController()
-          /*
-        // add the spinner view controller
-        addChild(child)
-        child.view.frame = view.frame
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
-        // wait two seconds to simulate some work happening
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            // then remove the spinner view controller
-            child.willMove(toParent: nil)
-            child.view.removeFromSuperview()
-            child.removeFromParent()
-        }
-       */
-      
-/*                // add the spinner view controller
-                addChild(child)
-                child.view.frame = view.frame
-                view.addSubview(child.view)
-                child.didMove(toParent: self)
-        
-  */
-    }
-            
-    func CloseSpinnerView(
-        ) {
-      //  let child = SpinnerViewController()
-        /*
-         // add the spinner view controller
-         addChild(child)
-         child.view.frame = view.frame
-         view.addSubview(child.view)
-         child.didMove(toParent: self)
-         */
-    /*
-        // wait two seconds to simulate some work happening
-         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-         // then remove the spinner view controller
-            self.child.willMove(toParent: nil)
-            self.child.view.removeFromSuperview()
-            self.child.removeFromParent()
-         }
- */
-        }
-
     
     func SaveImagetoDevice(paramName: String, fileName: String,
                            image: UIImage){
@@ -544,14 +464,8 @@ let localImageName = "NotStoredLocally\(myFileName)"
     }
     
     func saveImageDocumentDirectory(image: UIImage, imageName: String)-> String {
-      
-       
-      
-       
         
         var myDevice = UIDevice.current.name
-        
-
         /*
         let randomInt = Int.random(in: 100000000...999999999)
         let randomImageName = "\(imageName)\(randomInt).jpg"
@@ -574,7 +488,7 @@ let localImageName = "NotStoredLocally\(myFileName)"
         */
         
         
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveImageComplete(image:err:context:)), nil)
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveImageComplete(image:err:context:)), nil)
         
       
         let fetchResult = PHAsset.fetchAssets(with: .image, options: nil)
@@ -601,7 +515,7 @@ let localImageName = "NotStoredLocally\(myFileName)"
                     resultHandler: { (imagedata, dataUTI, orientation, info) in
                     if let info = info {
                     if info.keys.contains(NSString(string: "PHImageFileURLKey")) {
-                   if let path = info[NSString(string: "PHImageFileURLKey")] as? NSURL {
+                    if let path = info[NSString(string: "PHImageFileURLKey")] as? NSURL {
                      print(UIDevice.current.name)
                      print(path)
                     
@@ -614,14 +528,8 @@ let localImageName = "NotStoredLocally\(myFileName)"
                 })
             }
         }
-            
-            
-
-       
-       
-   return myDevice
-            
-        
+  
+        return myDevice
     }
     
     
@@ -697,33 +605,38 @@ extension UIImage {
         guard let result = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
         UIGraphicsEndImageContext()
         return result
-        
     }
- 
-    
-    
-    
 }
 
-
+//Handels the spinner animation
 var vSpinner : UIView?
 
 var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
 extension UIViewController{
     func showSpinner(onView : UIView) {
-        let SpinnerView = UIView.init(frame: onView.bounds)
+        var SpinnerView = UIView.init(frame: onView.bounds)
         SpinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
-        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
-        ai.startAnimating()
-        ai.center = SpinnerView.center
+        
         DispatchQueue.main.async {
+            let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+            ai.startAnimating()
+            ai.center = SpinnerView.center
             SpinnerView.addSubview(ai)
             onView.addSubview(SpinnerView)
         }
         vSpinner = SpinnerView
         vSpinner?.bringSubviewToFront(onView)
         vSpinner?.isHidden = false
+        /*DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5) ){
+            if vSpinner != nil{
+                vSpinner?.removeFromSuperview()
+                vSpinner = nil
+                vSpinner?.isHidden = true
+            }else{
+                //do nothing, spinner already removed
+            }
+        }*/
     }
     func removeSpinner(){
         DispatchQueue.main.async {

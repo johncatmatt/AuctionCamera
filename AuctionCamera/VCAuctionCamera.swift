@@ -120,6 +120,9 @@ class VCAuctionCamera: UIViewController {
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print(json)
+                    self.removeSpinner()
+                    
+                    
                 }
             }
         }).resume()
@@ -191,6 +194,7 @@ class VCAuctionCamera: UIViewController {
     }
     
     
+    //click thee photo button to take the picture
     @IBAction func cameraButton_TouchUpInside(_ sender: Any) {
            let settings = AVCapturePhotoSettings()
  
@@ -199,6 +203,8 @@ class VCAuctionCamera: UIViewController {
   // performSegue(withIdentifier: "showPhoto_Segue", sender: nil)
     }
     
+    
+    //Prepares for the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto_Segue" {
             let previewVC = segue.destination as! VCAuctionCameraPreview
@@ -216,8 +222,10 @@ class VCAuctionCamera: UIViewController {
             }
          
             previewVC.image1 = self.image
-            
             previewVC.switchMasterPhoto = self.switchMasterPhoto
+            
+            //TESTING MEMORY SAVER
+            image = nil
             
         }
     }
@@ -244,8 +252,6 @@ class VCAuctionCamera: UIViewController {
     }
     
     
-    
-    
     @IBAction func switchMasterPhoto_touchupInside(_ sender: Any) {
                UserDefaults.standard.set(switchMasterPhoto.isOn, forKey: "masterPic")
         print(UserDefaults.standard.string(forKey: "masterPic") as Any)
@@ -257,8 +263,8 @@ class VCAuctionCamera: UIViewController {
         } else {
                     cemeraButton.setTitle("Photo", for: .normal)
         }
-        
     }
+    
     @objc func setCameraOrientation() {
         if let connection =  self.cameraPreviewLayer?.connection  {
             let currentDevice: UIDevice = UIDevice.current
@@ -267,7 +273,7 @@ class VCAuctionCamera: UIViewController {
             if previewLayerConnection.isVideoOrientationSupported {
                 let o: AVCaptureVideoOrientation
                 switch (orientation) {
-                case .portrait: o = .landscapeRight       //portrait
+                case .portrait: o = .landscapeRight       //portrait             MODIFIED SO IT'S ONLY IN LANDSCAPE
                 case .landscapeRight: o = .landscapeLeft // landscapeLeft
                 case .landscapeLeft: o = .landscapeRight  //landscapeRight
                 case .portraitUpsideDown: o = .landscapeRight //portraitUpsideDown
@@ -283,10 +289,8 @@ class VCAuctionCamera: UIViewController {
 }
 
 extension VCAuctionCamera: AVCapturePhotoCaptureDelegate {
-    
-    
-    
-    
+
+    //photo is taken and set to UIimage, then preforms Segue to previewer
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
      //  print(imageData)
@@ -296,8 +300,7 @@ extension VCAuctionCamera: AVCapturePhotoCaptureDelegate {
         }
     }
     
-    override func viewWillTransition(to size: CGSize,
-                                     with coordinator: UIViewControllerTransitionCoordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)
     {
         super.viewWillTransition(to: size, with: coordinator)
         setCameraOrientation()

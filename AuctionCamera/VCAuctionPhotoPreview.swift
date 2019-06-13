@@ -146,7 +146,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         alert.addAction(mas)
         alert.addAction(can)
         present(alert, animated: true, completion: nil)
-        print("You hit make or delete")
+       // print("You hit make or delete")
         //https://mobile.aane.com/Auction.asmx/ImageEdit
 
     }
@@ -169,6 +169,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
             return
         }
         
+        //Editmode 1=delete, 2=make default,
         let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/ImageEdit?EditMode=\(EditMode)&imgID=\(imageID)"
         //https://mobile.aane.com/auction.asmx/ImageEdit?EditMode=1&imgID=1785310
         //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
@@ -179,7 +180,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
             print("ERROR: cannot create URL")
             return
         }
-        print(url)
+        //print(url)
         
         var urlRequest = URLRequest(url: url)
         
@@ -198,8 +199,8 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
             }
             
             
-            print(data!)
-            print("------------------------------------------------------------")
+           // print(data!)
+          //  print("------------------------------------------------------------")
             print(response!)
             
             
@@ -268,51 +269,21 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
                         
                         alert.addAction(closeAction)
                         self.present(alert, animated: true, completion: {() -> Void in
-                            
-                            
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                
-                                
-                               // let parentVC = (self.navigationController?.parent) as! VCAuctionPhotos
-                                //parentVC.DelMasImage = true
                                 
                                 let myB = true
                                 self.delegate?.dataChanged(b: myB)
-                                
-                               // var _: UIPopoverPresentationController?
-                                
-                                
-                                //print(p!)
-                                
+
                                 self.navigationController?.popViewController(animated: true)
                             }
-            
-                            
-                            
                         })
-                        
-                        
-                        
+                 
                     }else{
                         let alert = UIAlertController(title: "ERROR", message: "\(json)", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                         self.present(alert, animated: true, completion: nil)
                     }
-                    
-                   // self.myBackBTN()
-                    
                 }
-                
-                
-                
-                /*if json.contains(where: "Result : Success") {
-                    let alert = UIAlertController(title: "Upload Status ERROR", message: "\(json)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else{
-                        
-                }*/
                 
             }else{
                 print("Unknow error")
@@ -324,11 +295,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         }
         
         print("All done")
-        
-       /*
-         procImageEdit_Mobile
-         @EditMode int -- 1= delete, 2 = Master
-         , @imgID int    */
+     
     }
     
     override func willMove(toParent parent: UIViewController?) {
@@ -391,11 +358,7 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         
         let index = round(offset.x / width)
         
-        
-        
         print("Index\(index)")
-        
-         print("just scrolled")
 
         let newOffset = CGPoint(x: index * size.width, y: offset.y)
         
@@ -409,41 +372,12 @@ class VCAuctionPhotoPreview: UIViewController, UICollectionViewDelegate, UIColle
         
        
     }
-    
-    
-   /* override func didMove(toParent parent: UIViewController?) {
-        if parent == VCAuctionPhotos(){
-            
-            
-            
-        }else{ print("!!!!!!SOMTHING WRONG!!!!!!!");  return}
-        
-        
-        let vc: VCAuctionPhotos = parent as! VCAuctionPhotos
-        vc.DelMasImage = true
-    }*/
+ 
     
     override func viewDidLayoutSubviews() {
-        
         myCollectionView.scrollToItem(at:IndexPath(item: passedContentOffset.item, section: 0), at: .right, animated: false)
-        
     }
     
-        
-        //print("just scrolled, id it \(title)")
-        //imageID = indexArray[indexPath.row]
-        //self.navigationItem.title = "ImgID: \(imageID)"
-    
-   /* func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("Scroll")
-        print(layout.accessibilityScroll(.next))
-        
-        if scrollView.accessibilityScroll(.left) {
-            print("left")
-        }
-        
-        
-    }*/
     
     }
 

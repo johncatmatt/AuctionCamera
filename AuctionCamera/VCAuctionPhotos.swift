@@ -27,8 +27,6 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     let MAXTIME : Float = 5.0
     var currentTime : Float = 0.0
     
-    
-    
     struct photoArray: Decodable {
         let vl: [t]
     }
@@ -77,26 +75,23 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         if isBeingPresented || isMovingToParent {
-             //print("!!!!!!!!!!!!!First!!!!!!!!!!!!!!!!!")
+            //do nothing
         }else{
             grabPhotos()
         }
-        
-        
     }
     
  
     
-    //Gets the photos of the car with the 
+    //Gets the photos of the car with the vin
     func grabPhotos(){
         
         //https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=2CKDL43F086045757
         //vin = 2CKDL43F086045757
         let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/VehicleImageCollection?requestStr=\(vin)"
        
-        //!!!MUST EMPTY THE ARRAYS BEFORE EACH GRAB
+        //!!!MUST EMPTY THE ARRAYS BEFORE EACH FUNCTION CALL
         imageArray.removeAll()
         indexArray.removeAll()
         
@@ -126,14 +121,14 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
                 
                 print(data)
                 
-                print("trying to decode JSON")
+                //print("trying to decode JSON")
                 let t = try JSONDecoder().decode(photoArray.self, from: data)
                 
-                print("Trying to do stuff with JSON now")
+                //print("Trying to do stuff with JSON now")
                 
                 DispatchQueue.main.async {
                     if t.vl.isEmpty{
-                        print("There is not data")
+                        //print("There is not data")
                     }else{
                         for p in t.vl{
                             if let decodeData = Data(base64Encoded: p.imgData, options: .ignoreUnknownCharacters){
@@ -174,12 +169,10 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         
     }
     
-    
     //refreshes the page by grabbing the photos from AuctionX again
     @objc func refreshPage(){
          showSpinner(onView: self.view)
          grabPhotos()
-
     }
     
     //---------------------------------------COLLECTIONVIEW FUCTIONALITY-----------------------------------------------
@@ -191,8 +184,8 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         vc.passedContentOffset = indexPath
         
         let i = indexPath.row
-        //print(i)
-        print(indexArray) 
+   
+        print(indexArray)
         vc.imageID = indexArray[i]
         vc.indexArray = self.indexArray
         

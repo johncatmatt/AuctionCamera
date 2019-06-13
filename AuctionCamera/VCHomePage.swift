@@ -87,6 +87,10 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     }
     
     
+    @IBAction func findMissingPhotos(_ sender: Any) {
+        performSegue(withIdentifier: "toMissingPhotos", sender: nil)
+        
+    }
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
