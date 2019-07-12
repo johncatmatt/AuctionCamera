@@ -615,7 +615,7 @@ var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
 extension UIViewController{
     func showSpinner(onView : UIView) {
-        var SpinnerView = UIView.init(frame: onView.bounds)
+        let SpinnerView = UIView.init(frame: onView.bounds)
         SpinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         
         DispatchQueue.main.async {
@@ -625,6 +625,7 @@ extension UIViewController{
             SpinnerView.addSubview(ai)
             onView.addSubview(SpinnerView)
         }
+        
         vSpinner = SpinnerView
         vSpinner?.bringSubviewToFront(onView)
         vSpinner?.isHidden = false

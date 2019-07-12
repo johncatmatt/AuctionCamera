@@ -25,6 +25,8 @@ class VCMissingPhotos: UIViewController {
     
     var carArray=[MissingPhotos]()
     
+    var photoNumber = ""
+    
     @IBOutlet weak var lblColor: UILabel!
     
    // var CarList
@@ -36,9 +38,12 @@ class VCMissingPhotos: UIViewController {
 
         let btnRefresh = UIBarButtonItem(title: "Refresh", style: .done, target: self, action: #selector(refreshPage))
         self.navigationItem.rightBarButtonItem = btnRefresh
-        self.navigationItem.title = "Missing Online Pictures \(Date().string(format: "MM/dd/yyyy"))"
+       
+        
         
         getCars()
+        
+        
 
     }
 
@@ -49,8 +54,10 @@ class VCMissingPhotos: UIViewController {
     
     func getCars(){
         showSpinner(onView: self.view)
-        let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/MissingPhotoCollection?requestStr=0"
+        let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/MissingPhotoCollection?requestStr=\(photoNumber)"
+        print(todoEndpoint)
         
+        //empty the array
         carArray.removeAll()
         
         guard let url = URL(string: todoEndpoint) else {
@@ -83,13 +90,24 @@ class VCMissingPhotos: UIViewController {
                 DispatchQueue.main.async {
                     if t.vl.isEmpty{
                         print("No missing photos found")
+                        let empty = MissingPhotos(LaneLot: "", dlrname: "No Vehiles Missing Photos"
+                            , YrMakeModel: "", vin6: "")
+                        self.carArray.append(empty)
                     }else{
                         for p in t.vl{
                             let car = MissingPhotos(LaneLot: p.LaneLot, dlrname: p.dlrname, YrMakeModel: p.YrMakeModel, vin6: p.vin6)
                             self.carArray.append(car)
                         }
                     }
+                    
+                    if self.photoNumber == "14" {
+                        self.navigationItem.title = "More Photos Required: \(self.carArray.count)"
+                    }else{
+                        self.navigationItem.title = "Missing Online Pictures: \(self.carArray.count)"
+                    }
+                    
                     self.tvCarList.reloadData()
+                    
                 }
                 self.removeSpinner()
                 
@@ -116,15 +134,27 @@ extension VCMissingPhotos: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tvCarList.dequeueReusableCell(withIdentifier: "listCell", for: indexPath) as! MissingPhotosCell
         
-        let count = indexPath.row + 1
-        cell.lblCount.text = "\(count): "
+        if carArray[indexPath.row].dlrname == "No Vehiles Missing Photos" {
+            
+            print("No Vehicles Found")
+            let alert = UIAlertController(title: "Search List Empty", message: "No vehicles require photos", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+                action in
+                    self.dismiss(animated: true, completion: nil)
+            }))
+            present(alert, animated: true)
+            
+            cell.lblCount.text = ""
+        }else{
+            cell.lblCount.text = "\(indexPath.row + 1): "
+        }
+        
         cell.lblLotLane.text = "\(carArray[indexPath.row].LaneLot)"
         cell.lblConsignor.text = "\(carArray[indexPath.row].dlrname)"
         cell.lblYearMakeModel.text = "\(carArray[indexPath.row].YrMakeModel)"
         cell.lblVin.text = "\(carArray[indexPath.row].vin6)"
         
-        if (indexPath.row % 2 == 0)
-        {
+        if (indexPath.row % 2 == 0) {
             cell.backgroundColor = lblColor.backgroundColor
         } else {
             cell.backgroundColor = UIColor.white
@@ -132,26 +162,7 @@ extension VCMissingPhotos: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // tvCarList.cellForRow(at: indexPath)?.backgroundColor = UIColor.yellow
-        
-    }
-    
 
-    
-    /*override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-     var selectedCell:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
-     selectedCell.contentView.backgroundColor = UIColor.redColor()
-     }
-     
-     // if tableView is set in attribute inspector with selection to multiple Selection it should work.
-     
-     // Just set it back in deselect
-     
-     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-     var cellToDeSelect:UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
-     cellToDeSelect.contentView.backgroundColor = colorForCellUnselected
-     }*/
 }
 
 extension Date {

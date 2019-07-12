@@ -78,6 +78,7 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
         if isBeingPresented || isMovingToParent {
             //do nothing
         }else{
+            showSpinner(onView: self.view)
             grabPhotos()
         }
     }

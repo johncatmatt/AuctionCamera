@@ -16,8 +16,46 @@ protocol  SendDataFromDelegateVIN {
 class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     
     func sendData(data: String) {
-        self.txtVIN.text = data
-        UserDefaults.standard.set(data, forKey: "vin") //setObject
+        
+        
+        /*func checkVIN(testingVIN: String) -> String{
+            print(testingVIN)
+            if testingVIN.uppercased().contains("I") || testingVIN.uppercased().contains("O") || testingVIN.uppercased().contains("Q") || testingVIN.uppercased().contains("-"){
+                
+                print("VIN has bad letters!!!\n\(testingVIN)")
+                
+                //let newvin = vin.stringByTrimmingCharactersInSet(badLetters)
+                let newV = testingVIN.replacingOccurrences(of: "I\\Q\\O\\-", with: "")
+                let newVIN = newV
+                return newVIN
+            }else{
+                print("VIN IS GOOD!!")
+                return testingVIN
+            }
+        }*/
+        if data.uppercased().contains("I") || data.uppercased().contains("O") ||  data.uppercased().contains("Q") ||  data.uppercased().contains("-") ||  data.uppercased().contains("+") || data.uppercased().contains("$") || data.uppercased().contains("<") || data.uppercased().contains(".") || data.uppercased().contains(">") || data.uppercased().contains("!"){
+            
+            var newData = data.replacingOccurrences(of: "I", with: "")
+            newData = newData.replacingOccurrences(of: "0", with: "")
+            newData = newData.replacingOccurrences(of: "Q", with: "")
+            newData = newData.replacingOccurrences(of: "-", with: "")
+            newData = newData.replacingOccurrences(of: "+", with: "")
+            newData = newData.replacingOccurrences(of: ".", with: "")
+            newData = newData.replacingOccurrences(of: "<", with: "")
+            newData = newData.replacingOccurrences(of: ">", with: "")
+            newData = newData.replacingOccurrences(of: "!", with: "")
+            newData = newData.replacingOccurrences(of: "$", with: "")
+
+            
+            self.txtVIN.text = newData
+            UserDefaults.standard.set(newData, forKey: "vin") //setObject
+        }else{
+            self.txtVIN.text = data
+            UserDefaults.standard.set(data, forKey: "vin") //setObject
+        }
+        
+        
+      
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -28,13 +66,16 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     @IBOutlet var butClear: UIButton!
     @IBOutlet var butPhoto: UIButton!
     @IBOutlet var txtVIN: UITextField!
+    
+    var limit = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         txtVIN.delegate = self
         // Do any additional setup after loading the view.
 
     }
-    
+ 
     @IBOutlet weak var btnAuctionXPhotos: UIButton!
     override func viewWillAppear(_ animated: Bool) {
         
@@ -88,16 +129,19 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     
     
     @IBAction func findMissingPhotos(_ sender: Any) {
-        performSegue(withIdentifier: "toMissingPhotos", sender: nil)
-        
+            self.limit = "0"
+            self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
+    }
+    
+    
+    @IBAction func findMissingPhotos15(_ sender: Any) {
+        self.limit = "14"
+        self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
     }
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
         if segue.identifier == "ScanSegue" {
             let vc : VCScanner = segue.destination as! VCScanner
             vc.delegate = self
@@ -105,15 +149,19 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
             let vc = segue.destination as! VCAuctionPhotos
             vc.vin = txtVIN.text!
             
+        }else if segue.identifier == "toMissingPhotos" {
+            let vc = segue.destination as! VCMissingPhotos
+            
+            vc.photoNumber = limit
         }
     }
     
     @IBAction func burClear_touchupInside(_ sender: Any) {
         txtVIN.text = ""
-         butClear.isHidden = true
-        
-        
+        butClear.isHidden = true
     }
     
    
 }
+
+
