@@ -75,12 +75,12 @@ class VCAuctionPhotos: UIViewController, UICollectionViewDelegate, UICollectionV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isBeingPresented || isMovingToParent {
+       /* if isBeingPresented || isMovingToParent {
             //do nothing
         }else{
             showSpinner(onView: self.view)
             grabPhotos()
-        }
+        }*/
     }
     
  
