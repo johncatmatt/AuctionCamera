@@ -124,6 +124,8 @@ class VCAuctionCamera: UIViewController {
                     
                     
                 }
+            }else {
+                
             }
         }).resume()
     }

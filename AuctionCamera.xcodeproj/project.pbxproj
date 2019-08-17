@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D1537492305D9B5001BDE4E /* EquipmentObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1537482305D9B5001BDE4E /* EquipmentObjects.swift */; };
+		2D15374B2306F914001BDE4E /* VCEquipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D15374A2306F914001BDE4E /* VCEquipment.swift */; };
+		2D15374D23070491001BDE4E /* VCEquipmentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D15374C23070491001BDE4E /* VCEquipmentTypes.swift */; };
+		2D15374F23072205001BDE4E /* TVCEquipmentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D15374E23072205001BDE4E /* TVCEquipmentTypes.swift */; };
 		2D5139B8222AE5DB00AB5647 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5139B7222AE5DA00AB5647 /* AppDelegate.swift */; };
 		2D5139BA222AE5DB00AB5647 /* VCAuctionCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5139B9222AE5DB00AB5647 /* VCAuctionCamera.swift */; };
 		2D5139BD222AE5DB00AB5647 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139BB222AE5DB00AB5647 /* Main.storyboard */; };
@@ -30,6 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D1537482305D9B5001BDE4E /* EquipmentObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentObjects.swift; sourceTree = "<group>"; };
+		2D15374A2306F914001BDE4E /* VCEquipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCEquipment.swift; sourceTree = "<group>"; };
+		2D15374C23070491001BDE4E /* VCEquipmentTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCEquipmentTypes.swift; sourceTree = "<group>"; };
+		2D15374E23072205001BDE4E /* TVCEquipmentTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVCEquipmentTypes.swift; sourceTree = "<group>"; };
 		2D5139B4222AE5DA00AB5647 /* AuctionCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuctionCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5139B7222AE5DA00AB5647 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D5139B9222AE5DB00AB5647 /* VCAuctionCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAuctionCamera.swift; sourceTree = "<group>"; };
@@ -87,14 +95,17 @@
 				2D5139B7222AE5DA00AB5647 /* AppDelegate.swift */,
 				6067E0CE22312188003FB4EF /* VCHomePage.swift */,
 				6067E0CC22311BA2003FB4EF /* VCScanner.swift */,
-				2D5139B9222AE5DB00AB5647 /* VCAuctionCamera.swift */,
 				2D5139C9222AF27C00AB5647 /* VCAuctionCameraPreview.swift */,
 				2D5139BB222AE5DB00AB5647 /* Main.storyboard */,
+				2D5139B9222AE5DB00AB5647 /* VCAuctionCamera.swift */,
 				2DF2D64322B006E40021281D /* VCMissingPhotos.swift */,
 				2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */,
 				2DC56F3C229C22BC000F47BC /* VCAuctionPhotoPreview.swift */,
 				2DF2D64522B0343C0021281D /* MissingPhotosCell.swift */,
 				2D5139BE222AE5DD00AB5647 /* Assets.xcassets */,
+				2D15374A2306F914001BDE4E /* VCEquipment.swift */,
+				2D15374C23070491001BDE4E /* VCEquipmentTypes.swift */,
+				2D1537482305D9B5001BDE4E /* EquipmentObjects.swift */,
 				2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */,
 				2D5139C3222AE5DD00AB5647 /* Info.plist */,
 				60AFD2972232789B00568A31 /* Model.xcdatamodeld */,
@@ -105,6 +116,7 @@
 				609158FF226B391400BE52E1 /* imageCell.swift */,
 				609158FD226B142200BE52E1 /* NewPreviewViewController.swift */,
 				2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */,
+				2D15374E23072205001BDE4E /* TVCEquipmentTypes.swift */,
 			);
 			path = AuctionCamera;
 			sourceTree = "<group>";
@@ -183,6 +195,7 @@
 			files = (
 				2D5139BA222AE5DB00AB5647 /* VCAuctionCamera.swift in Sources */,
 				2D5139CA222AF27C00AB5647 /* VCAuctionCameraPreview.swift in Sources */,
+				2D15374F23072205001BDE4E /* TVCEquipmentTypes.swift in Sources */,
 				60AFD29F2232992200568A31 /* TableCell.swift in Sources */,
 				2D5139B8222AE5DB00AB5647 /* AppDelegate.swift in Sources */,
 				6067E0CD22311BA2003FB4EF /* VCScanner.swift in Sources */,
@@ -190,14 +203,17 @@
 				2DC56F3D229C22BC000F47BC /* VCAuctionPhotoPreview.swift in Sources */,
 				6067E0CF22312188003FB4EF /* VCHomePage.swift in Sources */,
 				609158FE226B142200BE52E1 /* NewPreviewViewController.swift in Sources */,
+				2D1537492305D9B5001BDE4E /* EquipmentObjects.swift in Sources */,
 				2DF2D64622B0343C0021281D /* MissingPhotosCell.swift in Sources */,
 				60AFD2992232789B00568A31 /* Model.xcdatamodeld in Sources */,
 				2DF2D64822B038DA0021281D /* MissingPhotosObject.swift in Sources */,
 				2D875988226B7FFF00EDDAEB /* ImagePreviewVC.swift in Sources */,
 				606CBF9022609E5E0094529F /* SpinnerViewController.swift in Sources */,
 				60AFD29B223283D200568A31 /* ViewControllerTableView.swift in Sources */,
+				2D15374B2306F914001BDE4E /* VCEquipment.swift in Sources */,
 				2DF2D64422B006E40021281D /* VCMissingPhotos.swift in Sources */,
 				2DC56F39229AE5B5000F47BC /* VCAuctionPhotos.swift in Sources */,
+				2D15374D23070491001BDE4E /* VCEquipmentTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

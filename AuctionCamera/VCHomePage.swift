@@ -14,60 +14,14 @@ protocol  SendDataFromDelegateVIN {
 
 //parent
 class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
-    
-    func sendData(data: String) {
-        
-        
-        /*func checkVIN(testingVIN: String) -> String{
-            print(testingVIN)
-            if testingVIN.uppercased().contains("I") || testingVIN.uppercased().contains("O") || testingVIN.uppercased().contains("Q") || testingVIN.uppercased().contains("-"){
-                
-                print("VIN has bad letters!!!\n\(testingVIN)")
-                
-                //let newvin = vin.stringByTrimmingCharactersInSet(badLetters)
-                let newV = testingVIN.replacingOccurrences(of: "I\\Q\\O\\-", with: "")
-                let newVIN = newV
-                return newVIN
-            }else{
-                print("VIN IS GOOD!!")
-                return testingVIN
-            }
-        }*/
-        if data.uppercased().contains("I") || data.uppercased().contains("O") ||  data.uppercased().contains("Q") ||  data.uppercased().contains("-") ||  data.uppercased().contains("+") || data.uppercased().contains("$") || data.uppercased().contains("<") || data.uppercased().contains(".") || data.uppercased().contains(">") || data.uppercased().contains("!"){
-            
-            var newData = data.replacingOccurrences(of: "I", with: "")
-            newData = newData.replacingOccurrences(of: "0", with: "")
-            newData = newData.replacingOccurrences(of: "Q", with: "")
-            newData = newData.replacingOccurrences(of: "-", with: "")
-            newData = newData.replacingOccurrences(of: "+", with: "")
-            newData = newData.replacingOccurrences(of: ".", with: "")
-            newData = newData.replacingOccurrences(of: "<", with: "")
-            newData = newData.replacingOccurrences(of: ">", with: "")
-            newData = newData.replacingOccurrences(of: "!", with: "")
-            newData = newData.replacingOccurrences(of: "$", with: "")
-
-            
-            self.txtVIN.text = newData
-            UserDefaults.standard.set(newData, forKey: "vin") //setObject
-        }else{
-            self.txtVIN.text = data
-            UserDefaults.standard.set(data, forKey: "vin") //setObject
-        }
-        
-        
-      
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.landscapeLeft
-    }
-    
+   
     //@IBOutlet weak var btnAuctionXPhotos: UIButton!
     @IBOutlet var butClear: UIButton!
     @IBOutlet var butPhoto: UIButton!
     @IBOutlet var txtVIN: UITextField!
     
     var limit = ""
+    var week = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,23 +29,34 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
         // Do any additional setup after loading the view.
 
     }
- 
-    @IBOutlet weak var btnAuctionXPhotos: UIButton!
-    override func viewWillAppear(_ animated: Bool) {
+    
+    @IBAction func toEquipmentSection(_ sender: Any) {
         
         if txtVIN.text?.isEmpty ?? true {
+            let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+         
+            present(alert, animated: true, completion: nil)
+        } else {
+            //UserDefaults.standard.set(txtVIN.text, forKey: "vin") //setObject
+            performSegue(withIdentifier: "toEquipment", sender: nil)
+        }
+        
+    }
+    
+    
+    @IBOutlet weak var btnAuctionXPhotos: UIButton!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if txtVIN.text?.isEmpty ?? true {
             butClear.isHidden = true
-            
         } else {
             butClear.isHidden = false
-            
         }
     }
   
     @IBAction func butGetAuctionPhotos(_ sender: Any) {
-        
         //AuctionPhotos
-        
         if txtVIN.text?.isEmpty == true{
             let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
@@ -100,21 +65,20 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
         else{
             performSegue(withIdentifier: "AuctionPhotos", sender: nil)
         }
-        
     }
     
     @IBAction func butPhotoPress(_ sender: UIButton) {
         
-         if txtVIN.text?.isEmpty ?? true {
+        if txtVIN.text?.isEmpty ?? true {
           
-        let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
-     //   alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
-       //     _ in  if self.delegate != nil {
-        //        self.delegate?.sendData(data:object.stringValue!)
-        //        self.navigationController?.popViewController(animated: true)
-        //        self.dismiss(animated: true, completion: nil)
-        present(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+            //alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
+            //_ in  if self.delegate != nil {
+            //self.delegate?.sendData(data:object.stringValue!)
+            //self.navigationController?.popViewController(animated: true)
+            //self.dismiss(animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
          } else {
          UserDefaults.standard.set(txtVIN.text, forKey: "vin") //setObject
         }
@@ -128,16 +92,30 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     }
     
     
-    @IBAction func findMissingPhotos(_ sender: Any) {
-            self.limit = "0"
-            self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
+    
+    @IBAction func lastWeekFindMissing(_ sender: Any) {
+        self.week = "last"
+        self.limit = "0test"
+        self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
+    }
+    @IBAction func lastWeekFindMissing15(_ sender: Any) {
+        self.week = "last"
+        self.limit = "14test"
+        self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
     }
     
-    
+    @IBAction func findMissingPhotos(_ sender: Any) {
+        self.week = "this"
+        self.limit = "0"
+        self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
+    }
     @IBAction func findMissingPhotos15(_ sender: Any) {
+        self.week = "this"
         self.limit = "14"
         self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
     }
+    
+    
     
     // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -148,10 +126,9 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
         }else if segue.identifier == "AuctionPhotos"{
             let vc = segue.destination as! VCAuctionPhotos
             vc.vin = txtVIN.text!
-            
         }else if segue.identifier == "toMissingPhotos" {
             let vc = segue.destination as! VCMissingPhotos
-            
+            vc.week = week
             vc.photoNumber = limit
         }
     }
@@ -160,8 +137,34 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
         txtVIN.text = ""
         butClear.isHidden = true
     }
+
     
-   
+    func sendData(data: String) {
+        if data.uppercased().contains("I") || data.uppercased().contains("O") ||  data.uppercased().contains("Q") ||  data.uppercased().contains("-") ||  data.uppercased().contains("+") || data.uppercased().contains("$") || data.uppercased().contains("<") || data.uppercased().contains(".") || data.uppercased().contains(">") || data.uppercased().contains("!") {
+            
+            var newData = data.replacingOccurrences(of: "I", with: "")
+            newData = newData.replacingOccurrences(of: "0", with: "")
+            newData = newData.replacingOccurrences(of: "Q", with: "")
+            newData = newData.replacingOccurrences(of: "-", with: "")
+            newData = newData.replacingOccurrences(of: "+", with: "")
+            newData = newData.replacingOccurrences(of: ".", with: "")
+            newData = newData.replacingOccurrences(of: "<", with: "")
+            newData = newData.replacingOccurrences(of: ">", with: "")
+            newData = newData.replacingOccurrences(of: "!", with: "")
+            newData = newData.replacingOccurrences(of: "$", with: "")
+            
+            self.txtVIN.text = newData
+            UserDefaults.standard.set(newData, forKey: "vin") //setObject
+        }else{
+            self.txtVIN.text = data
+            UserDefaults.standard.set(data, forKey: "vin") //setObject
+        }
+    }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.landscapeLeft
+    }
+    
 }
 
 

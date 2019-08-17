@@ -74,7 +74,7 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
       //     self.video.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
         view.layer.addSublayer(video)
-     self.view.bringSubviewToFront(square)
+        self.view.bringSubviewToFront(square)
  
         //   self.view.bringSubviewToFront(butClose)
         session.startRunning()
@@ -147,7 +147,7 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
             {
                 if object.type == AVMetadataObject.ObjectType.code128
                 {
-                    let alert = UIAlertController(title: "code128 Code", message: object.stringValue, preferredStyle: .alert)
+                    /*let alert = UIAlertController(title: "code128 Code", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
                     alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
@@ -156,12 +156,17 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                             self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         }}))
+                     
+                     present(alert, animated: true, completion: nil)*/
                     
-                    present(alert, animated: true, completion: nil)
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
+                    
+                    
                 }
                 else if object.type == AVMetadataObject.ObjectType.qr
                 {
-                    let alert = UIAlertController(title: "QR Code", message: object.stringValue, preferredStyle: .alert)
+                    /*let alert = UIAlertController(title: "QR Code", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
                     //   }))
@@ -172,7 +177,10 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                             self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         }}))
-                    present(alert, animated: true, completion: nil)
+                    present(alert, animated: true, completion: nil)*/
+                    
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
                     
                 }
                 else if object.type == AVMetadataObject.ObjectType.code39
@@ -197,7 +205,7 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                 }
                 else if object.type == AVMetadataObject.ObjectType.code93
                 {
-                    let alert = UIAlertController(title: "code93 Code", message: object.stringValue, preferredStyle: .alert)
+                   /* let alert = UIAlertController(title: "code93 Code", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
                     alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
@@ -206,12 +214,15 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                             self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         }}))
-                    present(alert, animated: true, completion: nil)
+                    present(alert, animated: true, completion: nil)*/
+                    
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
                     
                 }
                 else if object.type == AVMetadataObject.ObjectType.code39Mod43
                 {
-                    let alert = UIAlertController(title: "code39Mod43 Code", message: object.stringValue, preferredStyle: .alert)
+                    /*let alert = UIAlertController(title: "code39Mod43 Code", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
                     alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
@@ -220,12 +231,15 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                             self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         }}))
-                    present(alert, animated: true, completion: nil)
+                    present(alert, animated: true, completion: nil)*/
+                    
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
                     
                 }
                 else if object.type == AVMetadataObject.ObjectType.ean13
                 {
-                    let alert = UIAlertController(title: "ean13 Code", message: object.stringValue, preferredStyle: .alert)
+                    /*let alert = UIAlertController(title: "ean13 Code", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
                     alert.addAction(UIAlertAction(title: "Copy Close", style: .destructive, handler: {
@@ -234,12 +248,15 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                             self.navigationController?.popViewController(animated: true)
                             self.dismiss(animated: true, completion: nil)
                         }}))
-                    present(alert, animated: true, completion: nil)
+                    present(alert, animated: true, completion: nil)*/
+                    
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
                     
                 }
                 else if object.type == AVMetadataObject.ObjectType.ean8
                 {
-                    let alert = UIAlertController(title: "ean8 Code VIN", message: object.stringValue, preferredStyle: .alert)
+                   /* let alert = UIAlertController(title: "ean8 Code VIN", message: object.stringValue, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Retake", style: .default, handler: nil))
                     //   alert.addAction(UIAlertAction(title: "Copy", style: .default, handler: { (nil) in UIPasteboard.general.string = object.stringValue
                     alert.addAction(UIAlertAction(title: "Accept", style: .destructive, handler: {
@@ -250,7 +267,10 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                         }
                     }))
                     
-                    present(alert, animated: true, completion: nil)
+                    present(alert, animated: true, completion: nil)*/
+                    
+                    self.delegate?.sendData(data:object.stringValue!)
+                    self.navigationController?.popViewController(animated: true)
                     
                 }
                 
