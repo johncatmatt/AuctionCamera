@@ -23,10 +23,27 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     var limit = ""
     var week = ""
     
+    
+    
+    struct EquipmentList:Decodable {
+        let vl: [vcl]
+    }
+    struct vcl: Decodable{
+        var EQGroup: String
+        var EQCode: String
+        var EQDesc: String
+    }
+    
+    var screwedUpCode=[myScrewedUpCode]()
+    //Entire Equipment List
+    var equipmentList=[EquipmentCodes]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         txtVIN.delegate = self
         // Do any additional setup after loading the view.
+        getEquipment()
 
     }
     
@@ -130,6 +147,10 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
             let vc = segue.destination as! VCMissingPhotos
             vc.week = week
             vc.photoNumber = limit
+        }else if segue.identifier == "toEquipment" {
+            let vc = segue.destination as! VCEquipment
+            vc.vin = txtVIN.text!
+            vc.equipmentList = equipmentList
         }
     }
     
@@ -164,6 +185,72 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.landscapeLeft
     }
+    
+    
+    
+    //Equipment Section
+    func getEquipment(){
+        showSpinner(onView: self.view)
+        let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/getEquipment?requestStr=\(0)"
+        
+        guard let url = URL(string: todoEndpoint) else {
+            print("ERROR: cannot create URL")
+            self.removeSpinner()
+            return
+        }
+        
+        print(url)
+        var urlRequest = URLRequest(url: url)
+        
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue("text/xml", forHTTPHeaderField: "Accept")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: urlRequest){ data, response, error in
+            guard error == nil else{
+                print("ERROR: calling GET: \(error!)")
+                self.removeSpinner()
+                return
+            }
+            
+            guard let data = data else { print("DATA ERROR!!!"); return }
+            
+            do {
+                print(data)
+                
+                let t = try JSONDecoder().decode(EquipmentList.self, from: data)
+                DispatchQueue.main.async {
+                    //print(t.vl)
+                    for i in t.vl{
+                        self.screwedUpCode.append(myScrewedUpCode(EQGroup: i.EQGroup, EQDesc: i.EQDesc, EQCode: i.EQCode))
+                    }
+                    
+                    self.fixMyError()
+                    
+                    self.removeSpinner()
+                    
+                }
+                
+            }catch {
+                print("\(error)")
+                self.removeSpinner()
+            }
+           // self.removeSpinner()
+            
+            
+        }
+        task.resume()
+       // self.removeSpinner()
+        
+    }
+    
+    func fixMyError(){
+        for e in screwedUpCode{
+            let f = EquipmentCodes(EQGroup: e.EQGroup, EQDesc: e.EQDesc, id: e.EQCode)
+            equipmentList.append(f)
+        }
+    }
+    
     
 }
 

@@ -8,11 +8,17 @@
 
 import UIKit
 
+
+protocol getEquipmentTypeAndName {
+    func getData(name: String, buttonName: String, code: String)
+}
+
 class VCEquipmentTypes: UIViewController {
 
     var equipment:String = ""
     var selectedEquipmentList=[EquipmentCodes]()
-
+    
+    var delegate: getEquipmentTypeAndName?
     
     @IBOutlet weak var tvEquipmentTypes: UITableView!
     
@@ -23,8 +29,11 @@ class VCEquipmentTypes: UIViewController {
         }else{
             self.navigationItem.title = equipment
         }
+        
+        
+        selectedEquipmentList.insert(EquipmentCodes(EQGroup: "", EQDesc: "<N/A>", id: "0"), at: 0)
+        
     }
-    
     
 }
 
@@ -40,13 +49,9 @@ extension VCEquipmentTypes: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selecting type")
         let n:String = selectedEquipmentList[indexPath.row].EQDesc
-        
-        print(n)
-        
-        //delegate?.getTypes(name: n)//, buttonName: equipment)
-        
+        let c: String = selectedEquipmentList[indexPath.row].id
+        delegate?.getData(name: n, buttonName: equipment, code: c)
         navigationController?.popViewController(animated: true)
     }
 
