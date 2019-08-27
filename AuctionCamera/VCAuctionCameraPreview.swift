@@ -629,15 +629,6 @@ extension UIViewController{
         vSpinner = SpinnerView
         vSpinner?.bringSubviewToFront(onView)
         vSpinner?.isHidden = false
-        /*DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5) ){
-            if vSpinner != nil{
-                vSpinner?.removeFromSuperview()
-                vSpinner = nil
-                vSpinner?.isHidden = true
-            }else{
-                //do nothing, spinner already removed
-            }
-        }*/
     }
     func removeSpinner(){
         DispatchQueue.main.async {

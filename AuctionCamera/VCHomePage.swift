@@ -120,7 +120,6 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
         self.limit = "14test"
         self.performSegue(withIdentifier: "toMissingPhotos", sender: nil)
     }
-    
     @IBAction func findMissingPhotos(_ sender: Any) {
         self.week = "this"
         self.limit = "0"

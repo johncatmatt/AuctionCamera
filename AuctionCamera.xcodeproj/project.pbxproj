@@ -106,6 +106,7 @@
 				2D15374A2306F914001BDE4E /* VCEquipment.swift */,
 				2D15374C23070491001BDE4E /* VCEquipmentTypes.swift */,
 				2D1537482305D9B5001BDE4E /* EquipmentObjects.swift */,
+				2D15374E23072205001BDE4E /* TVCEquipmentTypes.swift */,
 				2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */,
 				2D5139C3222AE5DD00AB5647 /* Info.plist */,
 				60AFD2972232789B00568A31 /* Model.xcdatamodeld */,
@@ -116,7 +117,6 @@
 				609158FF226B391400BE52E1 /* imageCell.swift */,
 				609158FD226B142200BE52E1 /* NewPreviewViewController.swift */,
 				2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */,
-				2D15374E23072205001BDE4E /* TVCEquipmentTypes.swift */,
 			);
 			path = AuctionCamera;
 			sourceTree = "<group>";

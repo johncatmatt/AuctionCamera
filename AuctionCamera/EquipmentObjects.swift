@@ -30,7 +30,22 @@ class vehicleEquipment{
     var siWheels: String
     var si4x4: String
     
-    init(aucid: String, lTrans: String, lEngine: String, lRoof: String, lRadio: String, lAirbag: String, lBreaks: String, lInherior: String, lSeats: String, IntColor: String, sEngineSize: String, lExtColor: String, MileageTypeCode: String, seatCount: String, OdometerDigits: String, TireRating: String, siWheels: String, si4x4: String) {
+    //comments
+    /*var siINOP: String
+    var siCC: String
+    var siPS: String
+    var siPL: String
+    var siPW: String
+    var siTilt: String
+    var siRD: String
+    var siRAC: String
+    var siHS: String
+    var si3S: String
+    var siNAV: String
+    var siDVD: String*/
+    
+    
+     init(aucid: String, lTrans: String, lEngine: String, lRoof: String, lRadio: String, lAirbag: String, lBreaks: String, lInherior: String, lSeats: String, IntColor: String, sEngineSize: String, lExtColor: String, MileageTypeCode: String, seatCount: String, OdometerDigits: String, TireRating: String, siWheels: String, si4x4: String) {//, siINOP: String, siCC: String, siPS: String, siPL: String, siPW: String, siTilt: String, siRD: String, siRAC: String, siHS: String, si3S: String, siNAV: String, siDVD: String) {
         self.aucid = aucid
         self.lTrans = lTrans
         self.lEngine = lEngine
@@ -49,7 +64,21 @@ class vehicleEquipment{
         self.TireRating = TireRating
         self.siWheels = siWheels
         self.si4x4 = si4x4
+       
+        /*self.siINOP = siINOP
+        self.siCC = siCC
+        self.siPS = siPS
+        self.siPL = siPL
+        self.siPW = siPW
+        self.siTilt = siTilt
+        self.siRD = siRD
+        self.siRAC = siRAC
+        self.siHS = siHS
+        self.si3S = si3S
+        self.siNAV = siNAV
+        self.siDVD = siDVD*/
     }
+
  
 }
 

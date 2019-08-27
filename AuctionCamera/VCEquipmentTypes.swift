@@ -18,6 +18,7 @@ class VCEquipmentTypes: UIViewController {
     var equipment:String = ""
     var selectedEquipmentList=[EquipmentCodes]()
     
+    
     var delegate: getEquipmentTypeAndName?
     
     @IBOutlet weak var tvEquipmentTypes: UITableView!

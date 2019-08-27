@@ -44,6 +44,20 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
     @IBOutlet weak var txtSeatCount: UITextField!
     @IBOutlet weak var txtOdomDigitCount: UITextField!
     
+    @IBOutlet weak var sCC: UISwitch!
+    @IBOutlet weak var sAC: UISwitch!
+    @IBOutlet weak var sPS: UISwitch!
+    @IBOutlet weak var sPL: UISwitch!
+    @IBOutlet weak var sPW: UISwitch!
+    @IBOutlet weak var sTS: UISwitch!
+    @IBOutlet weak var sRD: UISwitch!
+    @IBOutlet weak var sRAC: UISwitch!
+    @IBOutlet weak var sHS: UISwitch!
+    @IBOutlet weak var s3rdRS: UISwitch!
+    @IBOutlet weak var sNAV: UISwitch!
+    @IBOutlet weak var sDVD: UISwitch!
+    @IBOutlet weak var sINOP: UISwitch!
+    
     var engineCode: String = "0"
     var transCode: String = "0"
     var interiorCode: String = "0"
@@ -59,6 +73,20 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
     var tireRatingCode: String = "0"
     var wheelsCode: String = "0"
     
+    var inopCode: String = "0"
+    var cruiseControlCode: String = "0"
+    var airConCode: String = "0"
+    var powSteerCode: String = "0"
+    var powLocksCode: String = "0"
+    var powWindowCode: String = "0"
+    var tiltSteerCode: String = "0"
+    var rearDefrostCode: String = "0"
+    var rearACCode: String = "0"
+    var heatedSeatCode: String = "0"
+    var RS3Code: String = "0"
+    var navCode: String = "0"
+    var dvdCode: String = "0"
+    
   /*struct EquipmentList:Decodable {
         let vl: [vcl]
     }
@@ -67,6 +95,10 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         var EQCode: String
         var EQDesc: String
     }*/
+    
+    struct response:Decodable{
+        var Status: String
+    }
     
     struct vehiclEquipList:Decodable{
         let vl: [vlE]
@@ -90,9 +122,26 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         var TireRating: String
         var siWheels: String
         var si4x4: String
+        
+        /*
+         var siINOP: String
+         var siCC: String
+         var siAC: String
+         var siPS: String
+         var siPL: String
+         var siPW: String
+         var siTilt: String
+         var siRD: String
+         var siRAC: String
+         var siHS: String
+         var si3S: String
+         var siNAV: String
+         var siDVD: String
+         */
+        
     }
     
-    struct response: Decodable {
+    struct myResponse: Decodable {
         var retValue: String
     }
     
@@ -126,8 +175,6 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
     }
     
     @objc func getEquimentAgain(){
-        
-        
          waitaSec()
     }
     
@@ -228,6 +275,17 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
                                     print(eq.EQGroup)
                                     self.btnSeats.setTitle(eq.EQDesc, for: .normal)
                                     self.seatsCode = eq.id
+                                    
+                                    //3rd Row Seat
+                                    //if self.seatsCode == "248"{
+                                    self.s3rdRS.tag = Int("248")!
+                                    
+                                    /*if self.seatsCode == String(self.s3rdRS.tag){
+                                        self.s3rdRS.c
+                                    
+                                    }*/
+                                    //}
+                                    
                                 }else if eq.id == i.lAirBag.trimmingCharacters(in: .whitespaces) {
                                     print(eq.EQGroup)
                                     self.btnAirbag.setTitle(eq.EQDesc, for: .normal)
@@ -255,6 +313,85 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
                                 }else if eq.id == i.si4x4.trimmingCharacters(in: .whitespaces){
                                     self.btnDriveType.setTitle(eq.EQDesc, for: .normal)
                                     self.driveTypeCode = eq.id
+                                }else if eq.EQGroup == "CRUISE"{ //i.
+                                    //Cruise Control
+                                   
+                                    /*if eq.id != "0"{
+                                        self.cruiseControlCode = eq.id
+                                    }*/
+                                    self.sCC.tag = Int(eq.id)!
+                
+                                }else if eq.EQGroup == "AIR"{ //i.
+                                    //AIR CONDITIONING
+                                    /*if eq.id != "0"{
+                                        self.airConCode = eq.id
+                                    }*/
+                                    self.sAC.tag = Int(eq.id)!
+                                    
+                                }else if eq.EQGroup == "STEERING" { //i.
+                                    //Power Steering
+                                    /*if eq.id != "0"{
+                                        self.powSteerCode = eq.id
+                                    }*/
+                                    self.sPS.tag = Int(eq.id)!
+                                    
+                                }else if eq.EQGroup == "LOCKS"{
+                                    //Power Locks
+                                    /*if eq.id != "0"{
+                                        self.powLocksCode = eq.id
+                                    }*/
+                                    self.sPL.tag = Int(eq.id)!
+                                    
+                                }else if eq.EQGroup == "WINDOWS"{
+                                    //POWER WINDOWS
+                                    /*if eq.id != "0"{
+                                        self.powWindowCode = eq.id
+                                    }*/
+                                    self.sPW.tag = Int(eq.id)!
+                                
+                                }else if eq.EQGroup == "TILT" {
+                                    //TILT STEERING
+                                    /*if eq.id != "0"{
+                                        self.tiltSteerCode = eq.id
+                                    }*/
+                                    self.sTS.tag = Int(eq.id)!
+                                    
+                                }else if eq.EQGroup == "REAR_DEFROST" {
+                                    //Rear Defroster
+                                   /* if eq.id != "0"{
+                                        self.rearDefrostCode = eq.id
+                                    }*/
+                                    self.sRD.tag = Int(eq.id)!
+                                    
+                                    
+                                }else if eq.EQGroup == "RSA_Area_Code" {
+                                    if eq.EQDesc == "Rear AC"{
+                                        print("RAC Code: <\(eq.id)>")
+                                        /*if eq.id != "0"{
+                                            self.rearACCode = eq.id
+                                        }*/
+                                        self.sRAC.tag = Int(eq.id)!
+                                    }else if eq.EQDesc == "Heated Seats"{
+                                       /* if eq.id != "0"{
+                                            self.heatedSeatCode = eq.id
+                                        }*/
+                                        self.sHS.tag = Int(eq.id)!
+                                    }else if eq.EQDesc == "NAV"{
+                                       /* if eq.id != "0"{
+                                            self.navCode = eq.id
+                                        }*/
+                                        self.sNAV.tag = Int(eq.id)!
+                                    }else if eq.EQDesc == "DVD"{
+                                        /*if eq.id != "0"{
+                                            self.dvdCode = eq.id
+                                        }*/
+                                        self.sDVD.tag = Int(eq.id)!
+                                    }else if eq.EQDesc == "INOP"{
+                                        /*if eq.id != "0"{
+                                            self.inopCode = eq.id
+                                        }*/
+                                        self.sINOP.tag = Int(eq.id)!
+                                    }
                                 }
                             }
                         }
@@ -348,15 +485,35 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
                 guard let data = data else { print("DATA ERROR!!!"); return }
                 print(data)
 
-                //let t = try JSONDecoder().decode(vehiclEquipList.self, from: data)
                 do {
                     
+                    //let t = try JSONDecoder().decode(myResponse.self, from: data)
+
                     DispatchQueue.main.async {
                         
-                       
+                        let alert = UIAlertController(title: "Success", message: "Vehicle equipment was successfully updated", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
+                           
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                        /*if t.retValue == "Success"{
+                            let alert = UIAlertController(title: t.retValue, message: "Vehicle equipment was successfully updated", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                        }else{
+                            let alert = UIAlertController(title: t.retValue, message: "Vehicle equipment was unsuccessful in update", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
+                            }))
+                            self.present(alert, animated: true, completion: nil)
+                        }*/
                     }
-                    
-                    
+                }catch{
+                    print("Error: \(error)")
+                    let alert = UIAlertController(title: "Error", message: "An unknown error ocured, please try again", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
+                    }))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
             task.resume()
@@ -532,6 +689,140 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         default:
             print("!!!!!!!!!!!!!!!!!!!!ERROR!!!!!!!!!!!!!!!!!!!!")
         }
+    }
+    
+    
+    @IBAction func CCchange(_ sender: Any) {
+        print("CC Code was: \(cruiseControlCode)")
+        print("tag is: \(sCC.tag)")
+        if sCC.isOn{
+            sCC.tag = Int("123")!
+            cruiseControlCode = String(sCC.tag)
+        }else{
+            cruiseControlCode = "0"
+        }
+        print("CC Code is now: \(cruiseControlCode)")
+    }
+    @IBAction func ACchange(_ sender: Any) {
+        print("AC Code was: \(airConCode)")
+        print("tag is: \(sAC.tag)")
+        if sAC.isOn{
+            airConCode = String(sAC.tag)
+        }else{
+            airConCode = "0"
+        }
+        print("AC Code is now: \(airConCode)")
+    }
+    
+    @IBAction func PSchange(_ sender: Any) {
+        print("PS Code was: \(powSteerCode)")
+        print("tag is: \(sPS.tag)")
+        if sPS.isOn{
+            powSteerCode = String(sPS.tag)
+        }else{
+            powSteerCode = "0"
+        }
+        print("PS Code is now: \(powSteerCode)")
+    }
+    
+    @IBAction func PWchange(_ sender: Any) {
+        print("PW Code was: \(powWindowCode)")
+        print("tag is: \(sPW.tag)")
+        if sPW.isOn{
+            powWindowCode = String(sPW.tag)
+        }else{
+            powWindowCode = "0"
+        }
+        print("PW Code is now: \(powWindowCode)")
+    }
+    
+    @IBAction func TSchange(_ sender: Any) {
+        print("TS Code was: \(tiltSteerCode)")
+        print("tag is: \(sTS.tag)")
+        if sTS.isOn{
+            tiltSteerCode = String(sTS.tag)
+        }else{
+            tiltSteerCode = "0"
+        }
+        print("TS Code is now: \(tiltSteerCode)")
+    }
+    
+    @IBAction func RDchange(_ sender: Any) {
+        print("RD Code was: \(rearDefrostCode)")
+        print("tag is: \(sRD.tag)")
+        if sRD.isOn{
+            rearDefrostCode = String(sRD.tag)
+        }else{
+            rearDefrostCode = "0"
+        }
+        print("RD Code is now: \(rearDefrostCode)")
+    }
+    
+    @IBAction func RAC(_ sender: Any) {
+        print("RAC Code was: \(rearACCode)")
+        print("tag is: \(sRAC.tag)")
+        if sRAC.isOn{
+            rearACCode = String(sRAC.tag)
+        }else{
+            rearACCode = "0"
+        }
+        print("RAC Code is now: \(rearACCode)")
+    }
+    
+    @IBAction func HSchange(_ sender: Any) {
+        print("HS Code was: \(heatedSeatCode)")
+        print("tag is: \(sHS.tag)")
+        if sHS.isOn{
+            heatedSeatCode = String(sHS.tag)
+        }else{
+            heatedSeatCode = "0"
+        }
+        print("HS Code is now: \(heatedSeatCode)")
+    }
+    
+    @IBAction func RS3change(_ sender: Any) {
+        print("RS3 Code was: \(RS3Code)")
+        print("tag is: \(s3rdRS.tag)")
+        if s3rdRS.isOn{
+            RS3Code = String(s3rdRS.tag)
+        }else{
+            RS3Code = "0"
+        }
+        print("RS3 Code is now: \(RS3Code)")
+    }
+    
+    @IBAction func NAVchange(_ sender: Any) {
+        print("NAV Code was: \(navCode)")
+        print("tag is: \(sNAV.tag)")
+        if sNAV.isOn{
+            navCode = String(sNAV.tag)
+        }else{
+            navCode = "0"
+        }
+        print("NAV Code is now: \(navCode)")
+    }
+    
+    @IBAction func DVDchange(_ sender: Any) {
+        print("DVD Code was: \(dvdCode)")
+        print("tag is: \(sDVD.tag)")
+        if sDVD.isOn{
+            dvdCode = String(sDVD.tag)
+        }else{
+            dvdCode = "0"
+        }
+        print("DVD Code is now: \(dvdCode)")
+    }
+    
+    
+    @IBAction func INOPchange(_ sender: Any) {
+        print("INOP Code was: \(inopCode)")
+        print("tag is: \(sINOP.tag)")
+        if sINOP.isOn{
+            inopCode = String(sINOP.tag)
+        }else{
+            inopCode = "0"
+        }
+        print("INOP Code is now: \(inopCode)")
     }
     
 }

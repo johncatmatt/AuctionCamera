@@ -122,7 +122,6 @@ class VCAuctionCamera: UIViewController {
                     print(json)
                     self.removeSpinner()
                     
-                    
                 }
             }else {
                 
@@ -263,7 +262,7 @@ class VCAuctionCamera: UIViewController {
             cemeraButton.setTitle("Master", for: .normal)
             
         } else {
-                    cemeraButton.setTitle("Photo", for: .normal)
+            cemeraButton.setTitle("Photo", for: .normal)
         }
     }
     
@@ -309,8 +308,7 @@ extension VCAuctionCamera: AVCapturePhotoCaptureDelegate {
         
       
         
-        /*
-        super.viewWillTransition(to: size, with: coordinator)
+      /*super.viewWillTransition(to: size, with: coordinator)
         guard
             let conn = self.cameraPreviewLayer?.connection,
             conn.isVideoOrientationSupported

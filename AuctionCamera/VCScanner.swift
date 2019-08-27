@@ -266,7 +266,6 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
                             self.dismiss(animated: true, completion: nil)
                         }
                     }))
-                    
                     present(alert, animated: true, completion: nil)*/
                     
                     self.delegate?.sendData(data:object.stringValue!)
@@ -285,11 +284,6 @@ class VCScanner: UIViewController,AVCaptureMetadataOutputObjectsDelegate{
         
         
     }
-    
-  
-
-    
-    
     
     
     class func showAlertMessage(message:String, viewController: UIViewController) {
