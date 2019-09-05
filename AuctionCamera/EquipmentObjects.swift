@@ -30,7 +30,7 @@ class vehicleEquipment{
     var siWheels: String
     var si4x4: String
     
-    //comments
+    //CheckBoxes
     /*var siINOP: String
     var siCC: String
     var siPS: String

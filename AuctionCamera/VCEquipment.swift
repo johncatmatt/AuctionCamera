@@ -10,6 +10,7 @@ import UIKit
 
 class VCEquipment: UIViewController, getEquipmentTypeAndName {
 
+    //MARK: Outlets
     @IBOutlet weak var lblEngine: UILabel!
     @IBOutlet weak var lblTransmission: UILabel!
     @IBOutlet weak var lblInterior: UILabel!
@@ -44,6 +45,8 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
     @IBOutlet weak var txtSeatCount: UITextField!
     @IBOutlet weak var txtOdomDigitCount: UITextField!
     
+    @IBOutlet weak var txtPlate: UITextField!
+    
     @IBOutlet weak var sCC: UISwitch!
     @IBOutlet weak var sAC: UISwitch!
     @IBOutlet weak var sPS: UISwitch!
@@ -58,6 +61,10 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
     @IBOutlet weak var sDVD: UISwitch!
     @IBOutlet weak var sINOP: UISwitch!
     
+    
+    
+    
+    //MARK: Variables
     var engineCode: String = "0"
     var transCode: String = "0"
     var interiorCode: String = "0"
@@ -123,22 +130,19 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         var siWheels: String
         var si4x4: String
         
-        /*
-         var siINOP: String
-         var siCC: String
-         var siAC: String
-         var siPS: String
-         var siPL: String
-         var siPW: String
-         var siTilt: String
-         var siRD: String
-         var siRAC: String
-         var siHS: String
-         var si3S: String
-         var siNAV: String
-         var siDVD: String
-         */
-        
+        var siINOP: String
+        var siCC: String
+        var siAC: String
+        var siPS: String
+        var siPL: String
+        var siPW: String
+        var siTilt: String
+        var siRD: String
+        var siRAC: String
+        var siHS: String
+        var si3S: String
+        var siNAV: String
+        var siDVD: String
     }
     
     struct myResponse: Decodable {
@@ -160,12 +164,14 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
    // var currentVehicleCodes: VehicleToUpdate?
     
     
+    var Platedata: String = ""
+    
+    //MARK: Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        //let btnRefresh = UIBarButtonItem(title: "Refresh", style: .done, target: self, action: #selector(getEquimentAgain))
-        //self.navigationItem.rightBarButtonItem = btnRefresh
+        let btnMechanicalRO = UIBarButtonItem(title: "Mech RO", style: .done, target: self, action: #selector(doRO))
+        self.navigationItem.rightBarButtonItem = btnMechanicalRO
         
        // getEquipment()
         getVehicleEquipment()
@@ -174,13 +180,14 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         
     }
     
-    @objc func getEquimentAgain(){
-         waitaSec()
+    @objc func doRO(){
+        //waitaSec()
+        performSegue(withIdentifier: "toRO", sender: nil)
     }
     
     func waitaSec(){
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
+            //self.navigationItem.rightBarButtonItem?.isEnabled = true
         })
     }
     
@@ -248,155 +255,200 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
                             
                             for eq in self.equipmentList {
                                 if eq.id == i.lEngine.trimmingCharacters(in: .whitespaces){
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnEngine.setTitle(eq.EQDesc, for: .normal)
                                     self.engineCode = eq.id
+                                }else if eq.id == "248"{
+                                    self.s3rdRS.tag = Int("248")!
+                                    //print("3rd Row Seating: code should be <\(eq.id)>, they have <\(i.siCC)>")
+                                    if i.si3S != "0" && i.si3S != "" {
+                                        print("3rd Row Seating: code should be <\(eq.id)>, they have <\(i.siCC)>")
+                                        self.RS3Code = "248"
+                                        self.s3rdRS.isOn = true
+                                    }else{
+                                        print("3rd Row Seating: code should be <\(eq.id)>, they have <\(i.siCC)>")
+                                    }
                                 }else if eq.id == i.lTrans.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnTrans.setTitle(eq.EQDesc, for: .normal)
                                     self.transCode = eq.id
                                 }else if eq.id == i.lInterior.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnInterior.setTitle(eq.EQDesc, for: .normal)
                                     self.interiorCode = eq.id
                                 }else if eq.id == i.lRoof.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnRoof.setTitle(eq.EQDesc, for: .normal)
                                     self.roofCode = eq.id
                                 }else if eq.id == i.lRadio.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnRadio.setTitle(eq.EQDesc, for: .normal)
                                     self.radioCode = eq.id
                                 }else if eq.id == i.lBrakes.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnBreaks.setTitle(eq.EQDesc, for: .normal)
                                     self.breaksCode = eq.id
                                 }else if eq.id == i.lSeats.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnSeats.setTitle(eq.EQDesc, for: .normal)
                                     self.seatsCode = eq.id
-                                    
-                                    //3rd Row Seat
-                                    //if self.seatsCode == "248"{
-                                    self.s3rdRS.tag = Int("248")!
-                                    
-                                    /*if self.seatsCode == String(self.s3rdRS.tag){
-                                        self.s3rdRS.c
-                                    
-                                    }*/
-                                    //}
-                                    
                                 }else if eq.id == i.lAirBag.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnAirbag.setTitle(eq.EQDesc, for: .normal)
                                     self.airBagCode = eq.id
                                 }else if eq.id == i.lExtColor.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnExteriorColor.setTitle(eq.EQDesc, for: .normal)
                                     self.extColorCode = eq.id
                                 }else if eq.id.trimmingCharacters(in: .whitespaces) == i.IntColor.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnInteriorColor.setTitle(eq.EQDesc, for: .normal)
                                     self.intColorCode = eq.id
                                 }else if eq.id == i.MileageTypeCode.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnMileageType.setTitle(eq.EQDesc, for: .normal)
                                     self.mileTypeCode = eq.id
                                 }else if eq.id == i.TireRating.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnTireRating.setTitle(eq.EQDesc, for: .normal)
                                     self.tireRatingCode = eq.id
                                 }else if eq.id == i.siWheels.trimmingCharacters(in: .whitespaces) {
-                                    print(eq.EQGroup)
+                                    //print(eq.EQGroup)
                                     self.btnWheels.setTitle(eq.EQDesc, for: .normal)
                                     self.wheelsCode = eq.id
                                 }else if eq.id == i.si4x4.trimmingCharacters(in: .whitespaces){
                                     self.btnDriveType.setTitle(eq.EQDesc, for: .normal)
                                     self.driveTypeCode = eq.id
-                                }else if eq.EQGroup == "CRUISE"{ //i.
+                                }else if eq.EQGroup == "CRUISE" {
                                     //Cruise Control
-                                   
-                                    /*if eq.id != "0"{
-                                        self.cruiseControlCode = eq.id
-                                    }*/
+                                    print("Cruise Control: code should be <\(eq.id)>, they have <\(i.siCC)>")
                                     self.sCC.tag = Int(eq.id)!
+                                    
+                                    if i.siCC != "0" && i.siCC != "" {
+                                        self.cruiseControlCode = i.siCC
+                                        self.sCC.isOn = true
+                                    }
                 
                                 }else if eq.EQGroup == "AIR"{ //i.
                                     //AIR CONDITIONING
-                                    /*if eq.id != "0"{
-                                        self.airConCode = eq.id
-                                    }*/
+                                    print("Air Conditioning: code should be <\(eq.id)>, they have <\(i.siAC)>")
                                     self.sAC.tag = Int(eq.id)!
                                     
-                                }else if eq.EQGroup == "STEERING" { //i.
+                                    if i.siAC != "0" && i.siAC != ""{
+                                        self.airConCode = i.siAC
+                                        self.sAC.isOn = true
+                                    }
+                                    
+                                }else if eq.EQGroup == "STEERING" {
                                     //Power Steering
-                                    /*if eq.id != "0"{
-                                        self.powSteerCode = eq.id
-                                    }*/
+                                    print("Power Steering: code should be <\(eq.id)>, they have <\(i.siPS)>")
                                     self.sPS.tag = Int(eq.id)!
+                                    
+                                    if i.siPS != "0" && i.siPS != ""{
+                                        self.powSteerCode = i.siPS
+                                        self.sPS.isOn = true
+                                    }
                                     
                                 }else if eq.EQGroup == "LOCKS"{
                                     //Power Locks
-                                    /*if eq.id != "0"{
-                                        self.powLocksCode = eq.id
-                                    }*/
+                                    print("Power Locks: code should be <\(eq.id)>, they have <\(i.siPL)>")
                                     self.sPL.tag = Int(eq.id)!
                                     
-                                }else if eq.EQGroup == "WINDOWS"{
+                                    if i.siPL != "0" && i.siPL != ""{
+                                        self.powLocksCode = i.siPL
+                                        self.sPL.isOn = true
+                                    }
+                                    
+                                }else if eq.EQGroup == "WINDOWS" {
                                     //POWER WINDOWS
-                                    /*if eq.id != "0"{
-                                        self.powWindowCode = eq.id
-                                    }*/
+                                    print("Power Windows: code should be <\(eq.id)>, they have <\(i.siPW)>")
                                     self.sPW.tag = Int(eq.id)!
+
+                                    if i.siPW != "0" && i.siPW != "" {
+                                        self.powWindowCode = i.siPW
+                                        self.sPW.isOn = true
+                                    }
                                 
                                 }else if eq.EQGroup == "TILT" {
                                     //TILT STEERING
-                                    /*if eq.id != "0"{
-                                        self.tiltSteerCode = eq.id
-                                    }*/
+                                    print("Tilt Steering: code should be <\(eq.id)>, they have <\(i.siTilt)>")
                                     self.sTS.tag = Int(eq.id)!
+
+                                    if i.siTilt != "0" && i.siTilt != "" {
+                                        self.tiltSteerCode = i.siTilt
+                                        self.sTS.isOn = true
+                                    }
                                     
                                 }else if eq.EQGroup == "REAR_DEFROST" {
                                     //Rear Defroster
-                                   /* if eq.id != "0"{
-                                        self.rearDefrostCode = eq.id
-                                    }*/
+                                    print("Rear Defroster: code should be <\(eq.id)>, they have <\(i.siCC)>")
                                     self.sRD.tag = Int(eq.id)!
+
+                                    if i.siRD != "0" && i.siRD != "" {
+                                        self.rearDefrostCode = i.siRD
+                                        self.sRD.isOn = true
+                                    }
                                     
                                     
                                 }else if eq.EQGroup == "RSA_Area_Code" {
                                     if eq.EQDesc == "Rear AC"{
-                                        print("RAC Code: <\(eq.id)>")
-                                        /*if eq.id != "0"{
-                                            self.rearACCode = eq.id
-                                        }*/
+                                        //Rear AC
+                                        print("Rear AC: code should be <\(eq.id)>, they have <\(i.siCC)>")
                                         self.sRAC.tag = Int(eq.id)!
+                                       
+                                        if i.siRAC != "0" && i.siRAC != "" {
+                                            self.rearACCode = i.siRAC
+                                            self.sRAC.isOn = true
+                                        }
+                                        
                                     }else if eq.EQDesc == "Heated Seats"{
-                                       /* if eq.id != "0"{
-                                            self.heatedSeatCode = eq.id
-                                        }*/
+                                        //Heated Seats
+                                        print("Heated Seats: code should be <\(eq.id)>, they have <\(i.siCC)>")
                                         self.sHS.tag = Int(eq.id)!
+
+                                        if i.siHS != "0" && i.siHS != "" {
+                                            self.heatedSeatCode = i.siHS
+                                            self.sHS.isOn = true
+                                        }
+                                        
                                     }else if eq.EQDesc == "NAV"{
-                                       /* if eq.id != "0"{
-                                            self.navCode = eq.id
-                                        }*/
+                                        //NAV
+                                        print("NAV: code should be <\(eq.id)>, they have <\(i.siCC)>")
                                         self.sNAV.tag = Int(eq.id)!
+                                        
+                                        if i.siNAV != "0" && i.siNAV != "" {
+                                            self.navCode = i.siNAV
+                                            self.sNAV.isOn = true
+                                        }
+                                       
+                                        
                                     }else if eq.EQDesc == "DVD"{
-                                        /*if eq.id != "0"{
-                                            self.dvdCode = eq.id
-                                        }*/
+                                        //DVD
+                                        print("DVD: code should be <\(eq.id)>, they have <\(i.siCC)>")
                                         self.sDVD.tag = Int(eq.id)!
+
+                                        if i.siDVD != "0" && i.siDVD != ""{
+                                            self.dvdCode = i.siDVD
+                                            self.sDVD.isOn = true
+                                        }
+                                        
                                     }else if eq.EQDesc == "INOP"{
-                                        /*if eq.id != "0"{
-                                            self.inopCode = eq.id
-                                        }*/
+                                        //INOP
+                                        print("INOP: code should be <\(eq.id)>, they have <\(i.siCC)>")
                                         self.sINOP.tag = Int(eq.id)!
+                                        
+                                        if i.siINOP != "0" && i.siINOP != ""{
+                                            self.inopCode = i.siINOP
+                                            self.sINOP.isOn = true
+                                        }
+                                        
                                     }
                                 }
                             }
                         }
                     }
-                    
+                    print("Its ok if the have a <0> but not <>")
+
                     self.removeSpinner()
                 }
                 
@@ -412,6 +464,16 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
     
  
     
+    func forURLs(s: String) -> String {
+        
+        let newStr = s.replacingOccurrences(of: " ", with: "%20")
+        
+        return newStr
+    }
+    
+    
+    
+    //
     @IBAction func SaveEquipment(_ sender: Any) {
         
         print("Engine: \(self.engineCode)")
@@ -437,6 +499,8 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         var seatCountCode: String = "0"
         var OdomDigitCode: String = "0"
         
+        var plateComment: String = ""
+        
         if txtEngineSize.text == ""{
             engineSizeCode = "0"
         }else{
@@ -453,16 +517,31 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
             OdomDigitCode = txtSeatCount.text!
         }
         
+        if txtPlate.text!.isEmpty {
+            plateComment = "0"
+        }else{
+            plateComment = txtPlate.text!
+        }
+        
+        
         let alert = UIAlertController(title: "Upload Equipment", message: "Are you sure you want to upload the equipment?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             
             
-            let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/EquipmentUpdate?aucid=\(self.aucid)&lTrans=\(self.transCode)&lEngine=\(self.engineCode)&lRoof=\(self.roofCode)&lRadio=\(self.radioCode)&lAirbag=\(self.airBagCode)&lBrakes=\(self.breaksCode)&lInterior=\(self.interiorCode)&lSeats=\(self.seatsCode)&IntColor=\(self.intColorCode)&sEngineSize=\(engineSizeCode)&lExtColor=\(self.extColorCode)&MileageTypeCode=\(self.mileTypeCode)&seatcount=\(seatCountCode)&OdometerDigits=\(OdomDigitCode)&TireRating=\(self.tireRatingCode)&siWheels=\(self.wheelsCode)&si4x4=\(self.driveTypeCode)"
+            let todoEndpoint: String = "https://mobile.aane.com/auction.asmx/EquipmentUpdate?aucid=\(self.aucid)&lTrans=\(self.transCode)&lEngine=\(self.engineCode)&lRoof=\(self.roofCode)&lRadio=\(self.radioCode)&lAirbag=\(self.airBagCode)&lBrakes=\(self.breaksCode)&lInterior=\(self.interiorCode)&lSeats=\(self.seatsCode)&IntColor=\(self.intColorCode)&sEngineSize=\(engineSizeCode)&lExtColor=\(self.extColorCode)&MileageTypeCode=\(self.mileTypeCode)&seatcount=\(seatCountCode)&OdometerDigits=\(OdomDigitCode)&TireRating=\(self.tireRatingCode)&siWheels=\(self.wheelsCode)&si4x4=\(self.driveTypeCode)&CC=\(self.cruiseControlCode)&AC=\(self.airConCode)&PS=\(self.powSteerCode)&PL=\(self.powLocksCode)&PW=\(self.powWindowCode)&TS=\(self.tiltSteerCode)&RD=\(self.rearDefrostCode)&RAC=\(self.rearACCode)&HS=\(self.heatedSeatCode)&RS3=\(self.RS3Code)&NAV=\(self.navCode)&DVD=\(self.dvdCode)&INOP=\(self.inopCode)&plate=\(self.forURLs(s: plateComment))"
+            //&PhotoComment=\(self.txtPlate.text)"
              print(todoEndpoint)
             
             guard let url = URL(string: todoEndpoint) else {
                 print("ERROR: cannot create URL")
+                
+                let alert = UIAlertController(title: "ERROR", message: "Cannot create URL Session, ensure no invalid characters are being submitted", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
+                    
+                }))
+                self.present(alert, animated: true, completion: nil)
+                
                 self.removeSpinner()
                 return
             }
@@ -496,19 +575,19 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
                            
                         }))
                         self.present(alert, animated: true, completion: nil)
-                        /*if t.retValue == "Success"{
+                      /*if t.retValue == "Success"{
                             let alert = UIAlertController(title: t.retValue, message: "Vehicle equipment was successfully updated", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
                             }))
                             self.present(alert, animated: true, completion: nil)
-                        }else{
+                        }else {
                             let alert = UIAlertController(title: t.retValue, message: "Vehicle equipment was unsuccessful in update", preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
                             }))
                             self.present(alert, animated: true, completion: nil)
-                        }*/
+                        } */
                     }
-                }catch{
+                }catch {
                     print("Error: \(error)")
                     let alert = UIAlertController(title: "Error", message: "An unknown error ocured, please try again", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { action in
@@ -568,7 +647,7 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
     }
     @IBAction func TransType(_ sender: Any) {
         equ = lblTransmission.text!
-         getList(group: "TRANSMISSION")
+        getList(group: "TRANSMISSION")
         performSegue(withIdentifier: "selectType", sender: nil)
     }
     @IBAction func InteriorType(_ sender: Any) {
@@ -703,6 +782,7 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         }
         print("CC Code is now: \(cruiseControlCode)")
     }
+    
     @IBAction func ACchange(_ sender: Any) {
         print("AC Code was: \(airConCode)")
         print("tag is: \(sAC.tag)")
@@ -735,6 +815,18 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         }
         print("PW Code is now: \(powWindowCode)")
     }
+    
+    @IBAction func PLchange(_ sender: Any) {
+        print("PL Code was: \(powLocksCode)")
+        print("tag is: \(sPW.tag)")
+        if sPL.isOn{
+            powLocksCode = String(sPL.tag)
+        }else{
+            powLocksCode = "0"
+        }
+        print("PW Code is now: \(powLocksCode)")
+    }
+    
     
     @IBAction func TSchange(_ sender: Any) {
         print("TS Code was: \(tiltSteerCode)")
@@ -813,7 +905,6 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         print("DVD Code is now: \(dvdCode)")
     }
     
-    
     @IBAction func INOPchange(_ sender: Any) {
         print("INOP Code was: \(inopCode)")
         print("tag is: \(sINOP.tag)")
@@ -825,6 +916,24 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
         print("INOP Code is now: \(inopCode)")
     }
     
+    
+    
+    
+    
 }
 
 
+/*extension VCEquipment: UITableViewDelegate, UITableViewDataSource {
+    /*func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }*/
+    
+    
+    
+    
+    
+}*/

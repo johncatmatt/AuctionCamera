@@ -255,7 +255,7 @@ class VCAuctionCameraPreview: UIViewController, URLSessionDelegate, URLSessionDa
     
     
     
-    
+    //
     func uploadImage(paramName: String, fileName: String, image: UIImage) {
         showSpinner(onView: self.view)
         

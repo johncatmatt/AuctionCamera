@@ -20,6 +20,7 @@
 		2D875988226B7FFF00EDDAEB /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */; };
 		2DC56F39229AE5B5000F47BC /* VCAuctionPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */; };
 		2DC56F3D229C22BC000F47BC /* VCAuctionPhotoPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC56F3C229C22BC000F47BC /* VCAuctionPhotoPreview.swift */; };
+		2DE2006B231960C500FAADF0 /* VCMechRO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE2006A231960C500FAADF0 /* VCMechRO.swift */; };
 		2DF2D64422B006E40021281D /* VCMissingPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF2D64322B006E40021281D /* VCMissingPhotos.swift */; };
 		2DF2D64622B0343C0021281D /* MissingPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF2D64522B0343C0021281D /* MissingPhotosCell.swift */; };
 		2DF2D64822B038DA0021281D /* MissingPhotosObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF2D64722B038DA0021281D /* MissingPhotosObject.swift */; };
@@ -49,6 +50,7 @@
 		2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
 		2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAuctionPhotos.swift; sourceTree = "<group>"; };
 		2DC56F3C229C22BC000F47BC /* VCAuctionPhotoPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAuctionPhotoPreview.swift; sourceTree = "<group>"; };
+		2DE2006A231960C500FAADF0 /* VCMechRO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCMechRO.swift; sourceTree = "<group>"; };
 		2DF2D64322B006E40021281D /* VCMissingPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCMissingPhotos.swift; sourceTree = "<group>"; };
 		2DF2D64522B0343C0021281D /* MissingPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingPhotosCell.swift; sourceTree = "<group>"; };
 		2DF2D64722B038DA0021281D /* MissingPhotosObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissingPhotosObject.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				2D15374E23072205001BDE4E /* TVCEquipmentTypes.swift */,
 				2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */,
 				2D5139C3222AE5DD00AB5647 /* Info.plist */,
+				2DE2006A231960C500FAADF0 /* VCMechRO.swift */,
 				60AFD2972232789B00568A31 /* Model.xcdatamodeld */,
 				2DF2D64722B038DA0021281D /* MissingPhotosObject.swift */,
 				60AFD29A223283D200568A31 /* ViewControllerTableView.swift */,
@@ -209,6 +212,7 @@
 				2DF2D64822B038DA0021281D /* MissingPhotosObject.swift in Sources */,
 				2D875988226B7FFF00EDDAEB /* ImagePreviewVC.swift in Sources */,
 				606CBF9022609E5E0094529F /* SpinnerViewController.swift in Sources */,
+				2DE2006B231960C500FAADF0 /* VCMechRO.swift in Sources */,
 				60AFD29B223283D200568A31 /* ViewControllerTableView.swift in Sources */,
 				2D15374B2306F914001BDE4E /* VCEquipment.swift in Sources */,
 				2DF2D64422B006E40021281D /* VCMissingPhotos.swift in Sources */,

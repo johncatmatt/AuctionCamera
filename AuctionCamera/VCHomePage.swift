@@ -48,7 +48,6 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     }
     
     @IBAction func toEquipmentSection(_ sender: Any) {
-        
         if txtVIN.text?.isEmpty ?? true {
             let alert = UIAlertController(title: "VIN Missing", message: "Must insert VIN to Continue", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
@@ -252,5 +251,3 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
     
     
 }
-
-
