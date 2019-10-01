@@ -637,7 +637,21 @@ class VCEquipment: UIViewController, getEquipmentTypeAndName {
             vc.equipment = self.equ
             vc.selectedEquipmentList = selectedList
             vc.delegate = self
+            
+        }else if segue.identifier == "toCondition"{
+            let vc = segue.destination as! VCWriteCondition
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
+            
+            vc.aucid = self.aucid
+            vc.vin = self.vin
+            
         }
+        
+        
+        
     }
     
     @IBAction func EngineTypes(_ sender: Any) {

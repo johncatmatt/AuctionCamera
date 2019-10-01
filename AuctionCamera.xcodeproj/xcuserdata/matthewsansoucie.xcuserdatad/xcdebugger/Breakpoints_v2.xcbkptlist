@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
+   uuid = "28F366DD-4230-49FE-B7E5-99F79AE76773"
    type = "1"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "43F05EA8-4090-4660-B1AE-35EC18E08097"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -22,6 +24,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "BE8E835E-DD87-47B9-BB28-4EC3973AC4B5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -35,6 +38,7 @@
             landmarkType = "3">
             <Locations>
                <Location
+                  uuid = "BE8E835E-DD87-47B9-BB28-4EC3973AC4B5 - f8b0dff4dc65e510"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -42,7 +46,6 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "589300444.343652"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -50,6 +53,7 @@
                   offsetFromSymbolStart = "16">
                </Location>
                <Location
+                  uuid = "BE8E835E-DD87-47B9-BB28-4EC3973AC4B5 - c565a4ac9a8909c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -57,14 +61,14 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "589300444.347715"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
                   endingLineNumber = "17"
-                  offsetFromSymbolStart = "164">
+                  offsetFromSymbolStart = "168">
                </Location>
                <Location
+                  uuid = "BE8E835E-DD87-47B9-BB28-4EC3973AC4B5 - ae55ef43281e38fb"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -72,14 +76,14 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "589300444.351436"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
+                  offsetFromSymbolStart = "20">
                </Location>
                <Location
+                  uuid = "BE8E835E-DD87-47B9-BB28-4EC3973AC4B5 - f854a92d7164aabc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -87,14 +91,14 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "589300444.3550971"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
                   endingLineNumber = "17"
-                  offsetFromSymbolStart = "112">
+                  offsetFromSymbolStart = "116">
                </Location>
                <Location
+                  uuid = "BE8E835E-DD87-47B9-BB28-4EC3973AC4B5 - 8c6209c8cadff48e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -102,12 +106,11 @@
                   moduleName = "AuctionCamera"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matthewsansoucie/Documents/AuctionCamera/AuctionCamera/TableCell.swift"
-                  timestampString = "589300444.3576601"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "40">
+                  offsetFromSymbolStart = "44">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -115,6 +118,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "DB044AFD-5ED6-4898-9172-A2ABCD67BC91"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -131,6 +135,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "A25C6816-0B49-4469-B8D4-58C4D7EB357E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -147,6 +152,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "D9B1AFC3-A1B7-408E-A37D-90DCE63BA38E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -163,6 +169,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "73254872-45A0-4053-8E32-D5F802ABD89E"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -170,8 +177,8 @@
             timestampString = "589300443.88287"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -179,6 +186,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
+            uuid = "90B0CE82-1427-4508-A1EA-9FC279B181D0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -186,8 +194,8 @@
             timestampString = "589300443.882997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "320"
-            endingLineNumber = "320"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "uploadImage(paramName:fileName:image:)"
             landmarkType = "7">
          </BreakpointContent>

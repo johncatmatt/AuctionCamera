@@ -310,7 +310,9 @@ class VCAuctionCameraPreview: UIViewController, URLSessionDelegate, URLSessionDa
         
         // Send a POST request to the URL, with the data we created earlier
    
+        
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+        DispatchQueue.main.async {
     //         self.fetchFile(url: self.url! )
             if error != nil {
                    self.removeSpinner()
@@ -326,6 +328,7 @@ class VCAuctionCameraPreview: UIViewController, URLSessionDelegate, URLSessionDa
             }
 
             if error == nil {
+                
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print("THE JSON IS: \(json)")
@@ -398,7 +401,9 @@ class VCAuctionCameraPreview: UIViewController, URLSessionDelegate, URLSessionDa
                 
                 self.removeSpinner()
             }
+        }
         }).resume()
+        //}
         
         //self.removeSpinner()
         

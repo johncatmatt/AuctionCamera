@@ -44,7 +44,6 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
         txtVIN.delegate = self
         // Do any additional setup after loading the view.
         getEquipment()
-
     }
     
     @IBAction func toEquipmentSection(_ sender: Any) {
@@ -57,7 +56,6 @@ class VCHomePage: UIViewController, SendDataFromDelegate, UITextFieldDelegate{
             //UserDefaults.standard.set(txtVIN.text, forKey: "vin") //setObject
             performSegue(withIdentifier: "toEquipment", sender: nil)
         }
-        
     }
     
     

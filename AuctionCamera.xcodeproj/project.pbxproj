@@ -17,6 +17,7 @@
 		2D5139BF222AE5DD00AB5647 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139BE222AE5DD00AB5647 /* Assets.xcassets */; };
 		2D5139C2222AE5DD00AB5647 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D5139C0222AE5DD00AB5647 /* LaunchScreen.storyboard */; };
 		2D5139CA222AF27C00AB5647 /* VCAuctionCameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5139C9222AF27C00AB5647 /* VCAuctionCameraPreview.swift */; };
+		2D59CE76232C143300BF9C6E /* VCWriteCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59CE75232C143300BF9C6E /* VCWriteCondition.swift */; };
 		2D875988226B7FFF00EDDAEB /* ImagePreviewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */; };
 		2DC56F39229AE5B5000F47BC /* VCAuctionPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */; };
 		2DC56F3D229C22BC000F47BC /* VCAuctionPhotoPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC56F3C229C22BC000F47BC /* VCAuctionPhotoPreview.swift */; };
@@ -47,6 +48,7 @@
 		2D5139C1222AE5DD00AB5647 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D5139C3222AE5DD00AB5647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D5139C9222AF27C00AB5647 /* VCAuctionCameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAuctionCameraPreview.swift; sourceTree = "<group>"; };
+		2D59CE75232C143300BF9C6E /* VCWriteCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCWriteCondition.swift; sourceTree = "<group>"; };
 		2D875987226B7FFF00EDDAEB /* ImagePreviewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreviewVC.swift; sourceTree = "<group>"; };
 		2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAuctionPhotos.swift; sourceTree = "<group>"; };
 		2DC56F3C229C22BC000F47BC /* VCAuctionPhotoPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCAuctionPhotoPreview.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				6067E0CC22311BA2003FB4EF /* VCScanner.swift */,
 				2D5139C9222AF27C00AB5647 /* VCAuctionCameraPreview.swift */,
 				2D5139BB222AE5DB00AB5647 /* Main.storyboard */,
+				2D59CE75232C143300BF9C6E /* VCWriteCondition.swift */,
 				2D5139B9222AE5DB00AB5647 /* VCAuctionCamera.swift */,
 				2DF2D64322B006E40021281D /* VCMissingPhotos.swift */,
 				2DC56F38229AE5B5000F47BC /* VCAuctionPhotos.swift */,
@@ -213,6 +216,7 @@
 				2D875988226B7FFF00EDDAEB /* ImagePreviewVC.swift in Sources */,
 				606CBF9022609E5E0094529F /* SpinnerViewController.swift in Sources */,
 				2DE2006B231960C500FAADF0 /* VCMechRO.swift in Sources */,
+				2D59CE76232C143300BF9C6E /* VCWriteCondition.swift in Sources */,
 				60AFD29B223283D200568A31 /* ViewControllerTableView.swift in Sources */,
 				2D15374B2306F914001BDE4E /* VCEquipment.swift in Sources */,
 				2DF2D64422B006E40021281D /* VCMissingPhotos.swift in Sources */,
